@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
-import PTextField from '../PTextField.vue'
+import PIcon from '../PIcon.vue'
 
 export default {
-  title: 'Components/Inputs/PTextField',
-  component: PTextField,
+  title: 'Components/Data Display/PIcon',
+  component: PIcon,
   parameters: {},
 } as Meta
 
-type Story = StoryObj<typeof PTextField>
+type Story = StoryObj<typeof PIcon>
 
 export const Default: Story = {
   args: {},

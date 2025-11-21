@@ -1,0 +1,35 @@
+{
+  "name": "Patchcord",
+  "short_name": "Patchcord",
+  "start_url": "/",
+  "display_override": ["window-controls-overlay"],
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "lang": "ru",
+  "scope": "/",
+  "description": "",
+  "categories": [""],
+  "orientation": "portrait",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "150x150"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-1280x720.jpg",
+      "type": "image/jpg",
+      "sizes": "1280x720",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/images/screenshot-800x1280.jpg",
+      "type": "image/png",
+      "sizes": "800x1280",
+      "form_factor": "narrow"
+    }
+  ]
+}
