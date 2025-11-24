@@ -35,14 +35,6 @@ export const Default: Story = {
         icon="logos.github"
         size="lg"
       />
-      <p-icon
-        icon="logos.github"
-        size="xl"
-      />
-      <p-icon
-        icon="logos.github"
-        size="xxl"
-      />
     `,
   }),
 }

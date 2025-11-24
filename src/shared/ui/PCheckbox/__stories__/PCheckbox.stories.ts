@@ -12,4 +12,9 @@ type Story = StoryObj<typeof PCheckbox>
 
 export const Default: Story = {
   args: {},
+  render: () => ({
+    components: { PCheckbox },
+    template:
+      '<p-checkbox label="(Необязательно) Я не против получать электронные письма с новостями Discord, советами и специальными предложениями. От рассылки можно отписаться в любое время." />',
+  }),
 }

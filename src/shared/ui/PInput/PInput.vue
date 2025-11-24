@@ -6,13 +6,13 @@
 
 <style scoped lang="scss">
 .p-input {
-  background-color: var(--transparent);
-  border: none;
+  flex: 1;
+  min-width: 30%;
+  height: 100%;
   box-sizing: border-box;
   color: inherit;
-  flex: 1;
   font-size: inherit;
-  height: 100%;
-  min-width: 30%;
+  border: none;
+  background-color: var(--transparent);
 }
 </style>

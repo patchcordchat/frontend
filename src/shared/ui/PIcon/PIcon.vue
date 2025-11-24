@@ -6,7 +6,7 @@
 import { shallowRef, watch, h, useAttrs, type Component } from 'vue'
 import icons from '@/shared/assets/icons'
 
-type IconSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+type IconSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 
 interface Props {
   size?: IconSize
@@ -116,31 +116,23 @@ watch(() => props.icon, loadIcon, { immediate: true })
 
   &--size {
     &-xxs {
-      --size: var(--size-xxs);
+      --size: var(--icon-size-xxs);
     }
 
     &-xs {
-      --size: var(--size-xs);
+      --size: var(--icon-size-xs);
     }
 
     &-sm {
-      --size: var(--size-sm);
+      --size: var(--icon-size-sm);
     }
 
     &-md {
-      --size: var(--size-md);
+      --size: var(--icon-size-md);
     }
 
     &-lg {
-      --size: var(--size-lg);
-    }
-
-    &-xl {
-      --size: var(--size-xl);
-    }
-
-    &-xxl {
-      --size: var(--size-xxl);
+      --size: var(--icon-size-lg);
     }
   }
 }

@@ -1,4 +1,5 @@
 :root {
+  /* Radius */
   --radius-none: 0rem;
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
@@ -7,6 +8,8 @@
   --radius-xl: 1.5rem;
   --radius-xxl: 2rem;
   --radius-round: 50%;
+  
+  /* Sizes */
   --size-xxs: 0.25rem;
   --size-xs: 0.5rem;
   --size-sm: 0.75rem;
@@ -14,6 +17,19 @@
   --size-lg: 1.25rem;
   --size-xl: 1.5rem;
   --size-xxl: 2rem;
+
+  /* Icon Sizes */
+  --icon-size-xxs: 0.75rem;
+  --icon-size-xs: 1rem;
+  --icon-size-sm: 1.125rem;
+  --icon-size-md: 1.5rem;
+  --icon-size-lg: 2rem;
+
+  /* Input Heights */
+  --input-height-sm: 2rem;
+  --input-height-md: 2.75rem;
+
+  /* Spaces */
   --space-xxs: 0.25rem;
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
