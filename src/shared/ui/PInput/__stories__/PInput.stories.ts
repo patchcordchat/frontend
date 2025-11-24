@@ -12,4 +12,9 @@ type Story = StoryObj<typeof PInput>
 
 export const Default: Story = {
   args: {},
+  render: () => ({
+    components: { PInput },
+    template: `
+      <p-input />`,
+  }),
 }
