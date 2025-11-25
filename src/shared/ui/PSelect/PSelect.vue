@@ -6,10 +6,13 @@
       <p-icon class="p-select__icon" :icon="isOpen ? 'misc.chevron-down' : 'misc.chevron-up'" />
     </div>
   </div>
+
+  <p-select-list v-if="isOpen" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import PSelectList from './PSelectList.vue'
 import PIcon from '../PIcon/PIcon.vue'
 
 interface Props {

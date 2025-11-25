@@ -101,7 +101,7 @@ watch(() => props.icon, loadIcon, { immediate: true })
 
 <style scoped lang="scss">
 .p-icon {
-  fill: currentColor;
+  fill: currentcolor;
   width: var(--size);
   height: var(--size);
 
@@ -110,8 +110,8 @@ watch(() => props.icon, loadIcon, { immediate: true })
   }
 
   &--disabled {
-    pointer-events: none;
     opacity: 0.38;
+    pointer-events: none;
   }
 
   &--size {

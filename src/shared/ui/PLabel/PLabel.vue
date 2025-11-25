@@ -28,8 +28,8 @@ const props = withDefaults(defineProps<Props>(), {
 .p-label {
   display: flex;
   flex-direction: column;
-  gap: 0;
   grid-area: labels;
+  gap: 0;
   min-width: 0;
 
   &--size {

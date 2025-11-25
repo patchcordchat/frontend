@@ -113,4 +113,11 @@
     --text-primary: var(--neutral-1);
     --text-muted: var(--neutral-22);
     --text-default: var(--neutral-9);
+
+    /* Border Colors */
+    --border-subtle: var(--opacity-12);
+
+    /* Scrollbar Colors */
+    --scrollbar-thin-thumb: var(--neutral-38);
+    --scrollbar-thin-track: var(--transparent);
 }

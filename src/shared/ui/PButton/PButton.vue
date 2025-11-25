@@ -100,28 +100,27 @@ const handleClick = (event: MouseEvent) => {
   width: var(--width);
   max-height: min-content;
   color: var(--text-color);
+  font-size: 14px;
   border-width: 1px;
   border-style: solid;
   border-color: var(--border-color);
   border-radius: var(--radius-sm);
   background: var(--background-color);
-  color: var(--text-color);
-  font-size: 14px;
   cursor: pointer;
   transition:
     background-color 0.2s ease-in-out,
     color 0.2s ease-in-out;
 
   &:hover {
-    background-color: var(--background-color-hover);
-    border-color: var(--border-color-hover);
     color: var(--text-color-hover);
+    border-color: var(--border-color-hover);
+    background-color: var(--background-color-hover);
   }
 
   &:active {
-    background-color: var(--background-color-active);
-    border-color: var(--border-color-active);
     color: var(--text-color-active);
+    border-color: var(--border-color-active);
+    background-color: var(--background-color-active);
   }
 
   &:disabled {
