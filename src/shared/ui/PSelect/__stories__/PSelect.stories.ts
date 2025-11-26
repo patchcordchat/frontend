@@ -5,6 +5,13 @@ import PSelect from '../PSelect.vue'
 export default {
   title: 'Components/Inputs/PSelect',
   component: PSelect,
+  args: {
+    items: [
+      { value: '1', title: 'Option 1' },
+      { value: '2', title: 'Option 2' },
+      { value: '3', title: 'Option 3' },
+    ],
+  },
   render: (args) => ({
     components: { PSelect },
     setup() {
@@ -16,12 +23,4 @@ export default {
 
 type Story = StoryObj<typeof PSelect>
 
-export const Default: Story = {
-  args: {
-    items: [
-      { value: '1', title: 'Option 1' },
-      { value: '2', title: 'Option 2' },
-      { value: '3', title: 'Option 3' },
-    ],
-  },
-}
+export const Default: Story = {}

@@ -59,6 +59,8 @@ const props = withDefaults(defineProps<Props<T>>(), {
   label: 'Select',
   disabled: false,
   items: () => [],
+  itemTitle: 'title' as unknown as undefined,
+  itemValue: 'value' as unknown as undefined,
 })
 
 const modelValue = defineModel<unknown>()
