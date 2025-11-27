@@ -1,6 +1,10 @@
+import PAnchor from './PAnchor'
 import PButton from './PButton'
-import PInput from './PInput'
-import PTextField from './PTextField'
 import PCheckbox from './PCheckbox'
+import PIcon from './PIcon'
+import PInput from './PInput'
+import PLabel from './PLabel'
+import PSelect from './PSelect'
+import PTextField from './PTextField'
 
-export { PButton, PInput, PTextField, PCheckbox }
+export { PAnchor, PButton, PCheckbox, PIcon, PLabel, PSelect, PInput, PTextField }

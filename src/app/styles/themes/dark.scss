@@ -79,8 +79,7 @@
     --button-outline-primary-text-active: var(--white);
     --button-outline-primary-text-hover: var(--white);
 
-    /* -------------------------- */
-
+    /* Input Colors */
     --input-background: var(--opacity-12);
     --input-background-critical: var(--red-430);
     --input-background-default: var(--opacity-12);
@@ -97,7 +96,10 @@
     --input-border-focused: var(--brand-500);
     --input-placeholder-text: var(--neutral-32);
 
-    /* Checkbox Colors */
+    /* Modal Colors */
+    --modal-background: var(--neutral-64)
+
+    /* Checkbox Colors */;
     --checkbox-border-checked: var(--brand-500);
     --checkbox-background-checked: var(--brand-500);
     --checkbox-border-default: var(--neutral-34);

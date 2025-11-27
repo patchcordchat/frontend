@@ -37,4 +37,8 @@
   --space-lg: 1.25rem;
   --space-xl: 1.5rem;
   --space-xxl: 2rem;
+
+  /* Box Shadows */
+  --box-shadow-low: 0 0.063rem 0.313rem 0 var(--opacity-black-28);
+  --box-shadow-high: 0 0.125rem 0.625rem 0 var(--opacity-black-20);
 }
