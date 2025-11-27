@@ -2,7 +2,11 @@
   <div
     ref="selectEl"
     class="p-select"
-    :class="{ 'p-select--focused': isFocused, 'p-select--disabled': disabled }"
+    :class="{
+      'p-select--focused': isFocused,
+      'p-select--disabled': disabled,
+      [`p-select--size-${size}`]: size,
+    }"
     tabindex="0"
     @click="toggle"
     @focus="handleFocus"
@@ -24,6 +28,7 @@
       v-if="isOpen"
       ref="listComponentRef"
       :items="items"
+      :size="size"
       :model-value="modelValue"
       :item-title="itemTitle"
       :item-value="itemValue"
@@ -40,13 +45,16 @@
 
 <script setup lang="ts" generic="T">
 import { ref, computed, useTemplateRef } from 'vue'
-import { useFloating, size, flip, autoUpdate, offset } from '@floating-ui/vue'
+import { useFloating, size as floatingSize, flip, autoUpdate, offset } from '@floating-ui/vue'
 import PSelectList from './PSelectList.vue'
 import PIcon from '../PIcon/PIcon.vue'
 
 type SelectItemKey<T> = keyof T | ((item: T) => unknown) | null | undefined
 
+type SelectSize = 'sm' | 'md'
+
 interface Props<T> {
+  size: SelectSize
   label?: string
   disabled?: boolean
   items: T[]
@@ -56,6 +64,7 @@ interface Props<T> {
 }
 
 const props = withDefaults(defineProps<Props<T>>(), {
+  size: 'md',
   label: 'Select',
   disabled: false,
   items: () => [],
@@ -87,7 +96,7 @@ const { floatingStyles } = useFloating(
     middleware: [
       flip({ fallbackPlacements: ['top-start'] }),
       offset(4),
-      size({
+      floatingSize({
         apply({ rects, elements }) {
           Object.assign(elements.floating.style, {
             width: `${rects.reference.width}px`,
@@ -148,20 +157,53 @@ const handleBlur = () => {
 </script>
 
 <style scoped lang="scss">
+@use '@/app/styles/utils/mixins.scss' as mixins;
+
 .p-select {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--space-xs);
   align-items: center;
+  min-height: var(--select-height);
   box-sizing: border-box;
   color: var(--text-default);
   font-weight: var(--font-weight-medium);
   border: 1px solid var(--input-border);
   border-radius: var(--radius-sm);
-  background-color: var(--input-background);
+  background-color: var(--background-base-lower);
   cursor: pointer;
   transition: border-color 0.1s ease;
   padding-block: var(--space-xs);
   padding-inline: var(--space-sm) var(--space-xs);
+  user-select: none;
+
+  &__placeholder {
+    color: var(--text-secondary);
+  }
+
+  &__value {
+    color: var(--text-default);
+  }
+
+  &__indicator {
+    display: flex;
+    align-items: center;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  &--size {
+    &-md {
+      @include mixins.text-md-normal;
+
+      --select-height: var(--input-height-md);
+    }
+
+    &-sm {
+      @include mixins.text-sm-normal;
+
+      --select-height: var(--input-height-sm);
+    }
+  }
 }
 </style>

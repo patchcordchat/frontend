@@ -43,6 +43,8 @@ const props = withDefaults(defineProps<Props>(), {
   }
 
   &__required-mark {
+    @include mixins.text-xs-normal;
+
     display: inline-block;
     margin-left: var(--space-xxs);
     color: var(--red-500);

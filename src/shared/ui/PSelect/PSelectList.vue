@@ -4,7 +4,10 @@
       v-for="(item, index) in items"
       :key="getKey(item, index)"
       class="p-select-list__item"
-      :class="{ 'p-select-list__item--selected': isSelected(item) }"
+      :class="{
+        'p-select-list__item--selected': isSelected(item),
+        [`p-select-list__item--size-${size}`]: size,
+      }"
       v-bind="resolveItemProps(item)"
       @click="select(item)"
     >
@@ -28,7 +31,10 @@ import PIcon from '../PIcon/PIcon.vue'
 
 type SelectItemKey<T> = keyof T | ((item: T) => unknown) | null | undefined
 
+type SelectListSize = 'sm' | 'md'
+
 interface Props<T> {
+  size?: SelectListSize
   items: T[]
   modelValue?: unknown
   itemTitle?: SelectItemKey<T>
@@ -37,6 +43,7 @@ interface Props<T> {
 }
 
 const props = withDefaults(defineProps<Props<T>>(), {
+  size: 'md',
   items: () => [],
   itemTitle: 'title' as unknown as undefined,
   itemValue: 'value' as unknown as undefined,
@@ -102,26 +109,41 @@ defineExpose({ listRef })
   border-style: solid;
   border-color: var(--border-subtle);
   border-radius: var(--radius-sm);
-  background: var(--background-base-lower);
+  background: var(--input-background);
 
   &__item {
-    @include mixins.text-md-normal;
-
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    padding: var(--space-sm);
+    min-height: var(--item-height);
+    padding: var(--padding);
     color: var(--text-secondary);
     cursor: pointer;
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: var(--background-base-pressed);
+      background-color: var(--background-modifier-hover);
     }
 
     &--selected {
       color: var(--text-primary);
-      background-color: var(--background-base-selected);
+      background-color: var(--background-modifier-selected);
+    }
+
+    &--size {
+      &-md {
+        @include mixins.text-md-normal;
+
+        --item-height: var(--input-height-md);
+        --padding: var(--space-sm);
+      }
+
+      &-sm {
+        @include mixins.text-sm-normal;
+
+        --item-height: var(--input-height-sm);
+        --padding: var(--space-xs);
+      }
     }
   }
 

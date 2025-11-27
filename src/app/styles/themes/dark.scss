@@ -107,12 +107,18 @@
     --background-base-low: #202024;
     --background-base-lower: #1a1a1e;
     --background-base-lowest: #121214;
+    --background-modifier-hover: var(--opacity-8);
+    --background-modifier-selected: var(--opacity-20);
 
     /* Text Colors */
+    --text-link: var(--blue-300);
     --text-brand: var(--brand-500);
-    --text-primary: var(--neutral-1);
     --text-muted: var(--neutral-22);
+    --text-primary: var(--neutral-1);
     --text-default: var(--neutral-9);
+    --text-secondary: var(--neutral-16);
+    --header-primary: var(--neutral-1);
+    --header-secondary: var(--neutral-9);
 
     /* Border Colors */
     --border-subtle: var(--opacity-12);

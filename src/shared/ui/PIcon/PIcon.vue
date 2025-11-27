@@ -16,7 +16,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  size: 'md',
   clickable: false,
   disabled: false,
 })
@@ -29,7 +28,7 @@ const hasClick = !!(attrs.onClick || attrs.onClickOnce)
 
 const classes = {
   'p-icon': true,
-  [`p-icon--size-${props.size}`]: true,
+  [`p-icon--size-${props.size}`]: props.size,
   'p-icon--clickable': hasClick,
   'p-icon--disabled': props.disabled,
 }
@@ -101,6 +100,8 @@ watch(() => props.icon, loadIcon, { immediate: true })
 
 <style scoped lang="scss">
 .p-icon {
+  --size: 100%;
+
   fill: currentcolor;
   width: var(--size);
   height: var(--size);
