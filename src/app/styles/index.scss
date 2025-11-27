@@ -1,0 +1,18 @@
+// Base
+@use 'base/animations';
+@use 'base/colors';
+@use 'base/effects';
+@use 'base/reset';
+@use 'base/typography';
+
+// Themes
+@use 'themes/dark';
+@use 'themes/light';
+
+body {
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--background-base-lowest);
+}

@@ -1,0 +1,129 @@
+:root.theme-dark {
+    /* Button Colors */
+
+    /* Button Danger */
+    --button-danger-background: var(--red-430);
+    --button-danger-background-active: var(--red-500);
+    --button-danger-background-disabled: var(--red-430);
+    --button-danger-background-hover: var(--red-460);
+    --button-danger-border: var(--transparent);
+
+    /* Button Positive */
+    --button-positive-background: var(--green-400);
+    --button-positive-background-active: var(--green-400);
+    --button-positive-background-disabled: var(--green-430);
+    --button-positive-background-hover: var(--green-430);
+    --button-positive-border: var(--opacity-8);
+
+    /* Button Secondary */
+    --button-secondary-background: var(--opacity-12);
+    --button-secondary-background-active: var(--primary-500);
+    --button-secondary-background-disabled: var(--opacity-12);
+    --button-secondary-background-hover: var(--opacity-20);
+    --button-secondary-text: var(--neutral-6);
+
+    /* Button Filled Brand */
+    --button-filled-brand-background: var(--brand-500);
+    --button-filled-brand-background-active: var(--brand-600);
+    --button-filled-brand-background-hover: var(--brand-560);
+    --button-filled-brand-border: var(--transparent);
+    --button-filled-brand-text: var(--white);
+
+    /* Button Filled White */
+    --button-filled-white-background: var(--white);
+    --button-filled-white-background-active: var(--neutral-17);
+    --button-filled-white-background-hover: var(--neutral-9);
+    --button-filled-white-text: var(--black);
+
+    /* Button Outline Brand */
+    --button-outline-brand-background: var(--white-hsl);
+    --button-outline-brand-background-active: var(--brand-560);
+    --button-outline-brand-background-hover: var(--brand-500);
+    --button-outline-brand-border: var(--brand-500);
+    --button-outline-brand-border-active: var(--brand-560);
+    --button-outline-brand-border-hover: var(--brand-500);
+    --button-outline-brand-text: var(--white);
+    --button-outline-brand-text-active: var(--white);
+    --button-outline-brand-text-hover: var(--white);
+
+    /* Button Outline Danger */
+    --button-outline-danger-background: var(--opacity-12);
+    --button-outline-danger-background-active: var(--primary-500);
+    --button-outline-danger-background-hover: var(--opacity-20);
+    --button-outline-danger-border: var(--opacity-4);
+    --button-outline-danger-border-active: var(--opacity-4);
+    --button-outline-danger-border-hover: var(--opacity-4);
+    --button-outline-danger-text: var(--red-345);
+    --button-outline-danger-text-active: var(--red-345);
+    --button-outline-danger-text-hover: var(--red-345);
+
+    /* Button Outline Positive */
+    --button-outline-positive-background: var(--white-hsl);
+    --button-outline-positive-background-active: var(--green-530);
+    --button-outline-positive-background-hover: var(--green-430);
+    --button-outline-positive-border: var(--green-360);
+    --button-outline-positive-border-active: var(--green-530);
+    --button-outline-positive-border-hover: var(--green-430);
+    --button-outline-positive-text: var(--white);
+    --button-outline-positive-text-active: var(--white);
+    --button-outline-positive-text-hover: var(--white);
+
+    /* Button Outline Primary */
+    --button-outline-primary-background: var(--opacity-1);
+    --button-outline-primary-background-active: var(--opacity-40);
+    --button-outline-primary-background-hover: var(--opacity-49);
+    --button-outline-primary-border: var(--primary-500);
+    --button-outline-primary-border-active: var(--opacity-40);
+    --button-outline-primary-border-hover: var(--opacity-49);
+    --button-outline-primary-text: var(--white);
+    --button-outline-primary-text-active: var(--white);
+    --button-outline-primary-text-hover: var(--white);
+
+    /* -------------------------- */
+
+    --input-background: var(--opacity-12);
+    --input-background-critical: var(--red-430);
+    --input-background-default: var(--opacity-12);
+    --input-border: var(--opacity-8);
+    --input-border-active: var(--blue-300);
+    --input-border-critical: var(--red-430);
+    --input-border-critical-hover: var(--red-500);
+    --input-border-default: var(--opacity-8);
+    --input-border-default-hover: var(--primary-500);
+    --input-border-read-only: var(--opacity-8);
+    --input-background-error: var(--red-430);
+    --input-border-error: var(--red-430);
+    --input-text-error: var(--red-345);
+    --input-border-focused: var(--brand-500);
+    --input-placeholder-text: var(--neutral-32);
+
+    /* Checkbox Colors */
+    --checkbox-border-checked: var(--brand-500);
+    --checkbox-background-checked: var(--brand-500);
+    --checkbox-border-default: var(--neutral-34);
+    --checkbox-background-default: var(--opacity-4);
+
+    /* Background Colors */
+    --background-base-low: #202024;
+    --background-base-lower: #1a1a1e;
+    --background-base-lowest: #121214;
+    --background-modifier-hover: var(--opacity-8);
+    --background-modifier-selected: var(--opacity-20);
+
+    /* Text Colors */
+    --text-link: var(--blue-300);
+    --text-brand: var(--brand-500);
+    --text-muted: var(--neutral-22);
+    --text-primary: var(--neutral-1);
+    --text-default: var(--neutral-9);
+    --text-secondary: var(--neutral-16);
+    --header-primary: var(--neutral-1);
+    --header-secondary: var(--neutral-9);
+
+    /* Border Colors */
+    --border-subtle: var(--opacity-12);
+
+    /* Scrollbar Colors */
+    --scrollbar-thin-thumb: var(--neutral-38);
+    --scrollbar-thin-track: var(--transparent);
+}

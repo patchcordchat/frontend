@@ -1,13 +1,154 @@
-<!DOCTYPE html>
-<html lang="">
+<!doctype html>
+<html lang="en" class="theme-dark">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Vladislav Koshelev" />
+
+    <!--App Title-->
+    <title>Patchcord</title>
+    <meta name="apple-mobile-web-app-title" content="Patchcord" />
+
+    <!--App Scaling-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!--App Icons-->
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="apple-touch-icon" type="image/png" href="/favicon.png" />
+
+    <!--Open Graph-->
+    <meta property="og:title" content="Patchcord" />
+    <meta property="og:description" content="Patchcord" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Patchcord" />
+    <!-- <meta property="og:image" content="/images/og_image.jpg" /> -->
+    <!-- <meta property="og:url" content="https://patchcord.fun/" /> -->
+
+    <!--App Manifest-->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      noscript {
+        background: #f1f4f9;
+        color: #929397;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+      noscript > div {
+        padding: 12px;
+        display: flex;
+        font-family: 'Open Sans', sans-serif;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+      noscript > div > h1 {
+        margin: 8px 0;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      noscript > div > p {
+        margin: 4px 0;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
+    <div id="preloader">
+      <svg
+        width="40"
+        height="40"
+        viewBox="22 22 44 44"
+        id="root-preloader"
+        style="
+          position: fixed;
+          left: calc(50% - 20px);
+          top: calc(50% - 20px);
+          transition: opacity 300ms linear;
+        "
+      >
+        <style>
+          @keyframes dash {
+            0% {
+              stroke-dasharray: 1px, 200px;
+              stroke-dashoffset: 0px;
+            }
+
+            50% {
+              stroke-dasharray: 100px, 200px;
+              stroke-dashoffset: -15px;
+            }
+
+            100% {
+              stroke-dasharray: 100px, 200px;
+              stroke-dashoffset: -125px;
+            }
+          }
+
+          @keyframes rotate {
+            0% {
+              transform-origin: 50% 50%;
+            }
+
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        </style>
+        <g
+          style="
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: rotate 1.4s linear infinite;
+          "
+        >
+          <circle
+            cx="44"
+            cy="44"
+            r="20.2"
+            style="
+              animation: dash 1.4s ease-in-out infinite;
+              stroke-dasharray: 80px, 200px;
+              stroke-dashoffset: 0px;
+            "
+            fill="none"
+            stroke="#5393FF"
+            stroke-width="3.6"
+          ></circle>
+        </g>
+      </svg>
+      <script>
+        setTimeout(function () {
+          !window.app_ready && location.reload()
+        }, 1000 * 30)
+      </script>
+    </div>
     <script type="module" src="/src/main.ts"></script>
+    <noscript>
+      <div>
+        <h1>Упс! JavaScript решил немного вздремнуть...</h1>
+        <p>
+          Похоже, ваш JavaScript отключен. Пожалуйста, включите JavaScript в настройках вашего
+          браузера.
+        </p>
+      </div>
+    </noscript>
   </body>
 </html>
