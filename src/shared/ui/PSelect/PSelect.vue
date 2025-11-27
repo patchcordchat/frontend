@@ -54,7 +54,7 @@ type SelectItemKey<T> = keyof T | ((item: T) => unknown) | null | undefined
 type SelectSize = 'sm' | 'md'
 
 interface Props<T> {
-  size: SelectSize
+  size?: SelectSize
   label?: string
   disabled?: boolean
   items: T[]
@@ -164,13 +164,14 @@ const handleBlur = () => {
   grid-template-columns: 1fr auto;
   gap: var(--space-xs);
   align-items: center;
+  width: 100%;
   min-height: var(--select-height);
   box-sizing: border-box;
   color: var(--text-default);
   font-weight: var(--font-weight-medium);
   border: 1px solid var(--input-border);
   border-radius: var(--radius-sm);
-  background-color: var(--background-base-lower);
+  background-color: var(--input-background);
   cursor: pointer;
   transition: border-color 0.1s ease;
   padding-block: var(--space-xs);

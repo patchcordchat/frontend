@@ -1,5 +1,5 @@
 <template>
-  <a class="p-anchor" :class="{ [`p-anchor--size-${size}`]: true }" :href="props.href">
+  <a class="p-anchor" :class="{ [`p-anchor--size-${size}`]: size }" :href="props.href">
     <slot name="default"></slot>
   </a>
 </template>
@@ -13,7 +13,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   href: '#',
-  size: 'md',
 })
 </script>
 

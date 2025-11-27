@@ -11,8 +11,8 @@ type LabelSize = 'sm' | 'md'
 
 interface Props {
   text: string
-  size: LabelSize
-  required: boolean
+  size?: LabelSize
+  required?: boolean
   for?: string
 }
 
