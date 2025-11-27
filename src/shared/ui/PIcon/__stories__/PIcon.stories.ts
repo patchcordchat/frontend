@@ -10,29 +10,29 @@ export default {
 
 type Story = StoryObj<typeof PIcon>
 
-export const Default: Story = {
+export const Sizes: Story = {
   args: {},
   render: () => ({
     components: { PIcon },
     template: `
       <p-icon
-        icon="logos.github"
+        icon="logos.patchcord.symbol"
         size="xxs"
       />
       <p-icon
-        icon="logos.github"
+        icon="logos.patchcord.symbol"
         size="xs"
       />
       <p-icon
-        icon="logos.github"
+        icon="logos.patchcord.symbol"
         size="sm"
       />
       <p-icon
-        icon="logos.github"
+        icon="logos.patchcord.symbol"
         size="md"
       />
       <p-icon
-        icon="logos.github"
+        icon="logos.patchcord.symbol"
         size="lg"
       />
     `,

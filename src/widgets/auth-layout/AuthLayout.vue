@@ -1,7 +1,7 @@
 <template>
   <div class="auth-layout">
     <img class="auth-layout__background" :src="authBackground" alt="" />
-    <p-icon class="auth-layout__logo" icon="logos.github" size="lg" />
+    <p-icon class="auth-layout__logo" icon="logos.patchcord.combination" />
     <div class="auth-layout__content-wrapper">
       <router-view />
     </div>
@@ -32,6 +32,8 @@ import authBackground from '@/shared/assets/images/auth/background.svg'
     inset-inline-start: 3rem;
     position: relative;
     top: 3rem;
+    width: 7.75rem;
+    height: 1.5rem;
   }
 
   &__content-wrapper {
