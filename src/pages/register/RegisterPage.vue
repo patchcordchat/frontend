@@ -23,7 +23,7 @@
         <p-anchor>Политикой конфиденциальности</p-anchor>
       </div>
       <p-button width="max" size="lg">Создать учётную запись</p-button>
-      <p-anchor size="sm">Уже зарегистрированы? Войти</p-anchor>
+      <p-anchor size="sm" to="login">Уже зарегистрированы? Войти</p-anchor>
     </div>
   </auth-box>
 </template>

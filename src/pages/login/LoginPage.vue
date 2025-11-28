@@ -6,8 +6,8 @@
       <p-anchor size="sm">Забыли пароль?</p-anchor>
       <p-button width="max" size="lg">Вход</p-button>
       <div class="login-form__need-account">
-        <span>Забыли пароль?</span>
-        <p-anchor size="sm">Зарегистрироваться</p-anchor>
+        <span>Нужна учётная запись?</span>
+        <p-anchor size="sm" to="register">Зарегистрироваться</p-anchor>
       </div>
     </div>
   </auth-box>

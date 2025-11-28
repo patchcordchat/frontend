@@ -1,18 +1,36 @@
 <template>
-  <a class="p-anchor" :class="{ [`p-anchor--size-${size}`]: size }" :href="props.href">
+  <component
+    :is="tag"
+    class="p-anchor"
+    :class="{ [`p-anchor--size-${size}`]: size }"
+    v-bind="linkAttributes"
+  >
     <slot name="default"></slot>
-  </a>
+  </component>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { type RouteLocationRaw } from 'vue-router'
+
 type AnchorSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 interface Props {
   size?: AnchorSize
   href?: string
+  to?: RouteLocationRaw
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  href: '#',
+const props = defineProps<Props>()
+
+const tag = computed(() => {
+  return props.to ? 'router-link' : 'a'
+})
+
+const linkAttributes = computed(() => {
+  if (props.to) {
+    return { to: props.to }
+  }
+  return { href: props.href || '#' }
 })
 </script>
 

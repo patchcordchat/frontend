@@ -3,7 +3,11 @@
     <img class="auth-layout__background" :src="authBackground" alt="" />
     <p-icon class="auth-layout__logo" icon="logos.patchcord.combination" />
     <div class="auth-layout__content-wrapper">
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <transition name="fade-slide-top" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
