@@ -109,7 +109,7 @@ defineExpose({ listRef })
   border-style: solid;
   border-color: var(--border-subtle);
   border-radius: var(--radius-sm);
-  background: var(--input-background);
+  background: var(--background-surface-higher);
 
   &__item {
     display: grid;

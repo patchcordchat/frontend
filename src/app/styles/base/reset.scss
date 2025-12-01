@@ -139,11 +139,6 @@ main {
   display: block;
 }
 
-h1 {
-  margin: 0.67em 0;
-  font-size: 2em;
-}
-
 hr {
   overflow: visible;
   height: 0;
@@ -232,7 +227,7 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  appearance: button;
+  appearance: auto;
 }
 
 button::-moz-focus-inner,
@@ -294,7 +289,7 @@ textarea {
 
 ::-webkit-file-upload-button {
   font: inherit;
-  appearance: button;
+  appearance: auto;
 }
 
 details {
@@ -343,11 +338,9 @@ meter {
 }
 
 :where([contenteditable]) {
-  -moz-user-modify: read-write;
-  -webkit-user-modify: read-write;
   overflow-wrap: break-word;
-  line-break: after;
   -webkit-line-break: after-white-space;
+  line-break: after;
 }
 
 :where([draggable='true']) {
@@ -356,12 +349,12 @@ meter {
 
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 input[type='number'],
 input[type='number']:hover,
 input[type='number']:focus {
-  -moz-appearance: textfield;
+  appearance: textfield;
   appearance: none;
 }
