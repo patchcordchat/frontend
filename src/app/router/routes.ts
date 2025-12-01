@@ -33,12 +33,18 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'channels/:serverId/:channelId',
         name: 'channels',
-        component: () => import('@/pages/channels'),
+        components: {
+          content: () => import('@/pages/channels'),
+          // sidebar: () => import('@/widgets/channels-sidebar'),
+        },
       },
       {
         path: 'discovery',
         name: 'discovery',
-        component: () => import('@/pages/discovery'),
+        components: {
+          content: () => import('@/pages/discovery'),
+          // sidebar: () => import('@/widgets/discovery-sidebar'),
+        },
       },
     ],
   },
