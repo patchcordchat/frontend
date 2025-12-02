@@ -3,18 +3,29 @@
     <div class="app-topbar__title-wrapper">
       <div class="app-topbar__title">
         <p-icon icon="logos.patchcord.symbol" size="xs" />
-        <div>Patchcord</div>
+
+        <div>{{ route.meta.title }}</div>
       </div>
     </div>
+
     <div class="app-topbar__actions">
-      <p-icon icon="logos.patchcord.symbol" size="md" clickable />
-      <p-icon icon="logos.patchcord.symbol" size="md" clickable />
+      <div class="app-topbar__control">
+        <p-icon icon="misc.drawer" size="md" clickable />
+      </div>
+
+      <div class="app-topbar__control">
+        <p-icon icon="misc.circle-question" size="md" clickable />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { PIcon } from '@/shared/ui'
+const route = useRoute()
+
+console.log(route)
 </script>
 
 <style scoped lang="scss">
@@ -58,6 +69,17 @@ import { PIcon } from '@/shared/ui'
     gap: var(--space-sm);
     align-items: center;
     justify-content: flex-end;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-tertiary);
+
+    &:hover {
+      color: var(--icon-primary);
+    }
   }
 }
 </style>

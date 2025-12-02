@@ -1,9 +1,18 @@
 <template>
   <section class="user-area">
     <div class="user-area__content">
-      <p-button view="danger" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
-      <p-button view="secondary" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
-      <p-button view="secondary" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
+      <div class="user-area__avatar-wrapper">
+        <div></div>
+        <div>
+          <div>FIZIS</div>
+          <div>В сети</div>
+        </div>
+      </div>
+      <div class="user-area__buttons">
+        <p-button view="danger" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
+        <p-button view="secondary" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
+        <p-button view="secondary" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
+      </div>
     </div>
   </section>
 </template>
@@ -47,6 +56,18 @@ import { PButton, PIcon } from '@/shared/ui'
     container-type: inline-size;
     -webkit-margin-start: -1px;
     margin-inline-start: -1px;
+  }
+
+  &__avatar-wrapper {
+    &:hover {
+      color: var(--interactive-hover);
+      background-color: var(--background-mod-normal);
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: var(--space-xs);
   }
 }
 </style>
