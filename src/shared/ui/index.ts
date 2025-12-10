@@ -6,5 +6,18 @@ import PInput from './PInput'
 import PLabel from './PLabel'
 import PSelect from './PSelect'
 import PTextField from './PTextField'
+import PAvatar from './PAvatar'
+import PSvgDefs from './PSvgDefs'
 
-export { PAnchor, PButton, PCheckbox, PIcon, PLabel, PSelect, PInput, PTextField }
+export {
+  PAnchor,
+  PButton,
+  PCheckbox,
+  PIcon,
+  PLabel,
+  PSelect,
+  PInput,
+  PTextField,
+  PAvatar,
+  PSvgDefs,
+}
