@@ -127,6 +127,12 @@
     /* Border Colors */
     --border-subtle: var(--opacity-12);
 
+    /* Icon Colors */
+    --icon-status-dnd: var(--red-400);
+    --icon-status-idle: var(--yellow-300);
+    --icon-status-online: var(--green-360);
+    --icon-status-offline: var(--neutral-28);
+
     /* Scrollbar Colors */
     --scrollbar-thin-thumb: var(--neutral-38);
     --scrollbar-thin-track: var(--transparent);
