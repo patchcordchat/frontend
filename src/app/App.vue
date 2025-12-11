@@ -2,6 +2,8 @@
   <p-svg-defs />
 
   <router-view />
+
+  <div id="floating"></div>
 </template>
 
 <script setup lang="ts">

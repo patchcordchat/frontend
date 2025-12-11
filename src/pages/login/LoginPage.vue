@@ -4,7 +4,7 @@
       <p-text-field label="Адрес электронной почты или номер телефона" required />
       <p-text-field label="Пароль" required />
       <p-anchor size="sm">Забыли пароль?</p-anchor>
-      <p-button width="max" size="lg">Вход</p-button>
+      <p-button width="max" size="md">Вход</p-button>
       <div class="login-form__need-account">
         <span>Нужна учётная запись?</span>
         <p-anchor size="sm" to="register">Зарегистрироваться</p-anchor>

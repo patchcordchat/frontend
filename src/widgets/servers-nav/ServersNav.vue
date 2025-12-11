@@ -2,24 +2,23 @@
   <nav class="servers-nav">
     <ul class="servers-nav__list">
       <list-item type="link" icon="logos.patchcord.symbol" to="/channels/@me" />
+
       <div class="servers-nav__separator">
         <span></span>
       </div>
+
       <list-item
         src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
         type="link"
         to="/channels/1/1"
       />
+
       <list-item
         src="https://distribution.faceit-cdn.net/images/5491f40f-c2d2-40f6-961a-e2c95a9a2279.jpg"
         type="link"
         to="/channels/2/1"
       />
-      <list-item
-        src="https://m.gjcdn.net/content/750/23852121-qk5ipnag-v4.webp"
-        type="link"
-        to="/channels/3/1"
-      />
+
       <list-item type="button" icon="misc.circle-plus" />
       <list-item type="button" icon="misc.circle-compass" />
     </ul>
@@ -62,7 +61,6 @@ import ListItem from './ListItem.vue'
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
-    padding: var(--space-xs) 0;
   }
 }
 </style>

@@ -39,7 +39,7 @@ type Size =
 
 interface Props {
   src: string
-  alt: string
+  alt?: string
   status?: Status
   size: Size
 }
@@ -70,6 +70,10 @@ const avatarMask = computed(() => {
 
     &-xs {
       --size: var(--avatar-size-xs);
+    }
+
+    &-sm {
+      --size: var(--avatar-size-sm);
     }
 
     &-md {

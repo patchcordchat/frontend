@@ -2,23 +2,31 @@
   <section class="user-area">
     <div class="user-area__content">
       <div class="user-area__avatar-wrapper">
-        <div></div>
-        <div>
-          <div>FIZIS</div>
-          <div>В сети</div>
+        <p-avatar
+          size="sm"
+          src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
+          status="online"
+        />
+
+        <div class="user-area__name-block">
+          <div class="user-area__name">FIZIS</div>
+          <div class="user-area__status">В сети</div>
         </div>
       </div>
+
       <div class="user-area__buttons">
-        <p-button view="danger" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
-        <p-button view="secondary" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
-        <p-button view="secondary" size="xs"><p-icon icon="misc.check" size="xs" /></p-button>
+        <p-toggle><p-icon icon="misc.mic" /></p-toggle>
+
+        <p-toggle><p-icon icon="misc.headset" /></p-toggle>
+
+        <p-toggle><p-icon icon="misc.gear" /></p-toggle>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { PButton, PIcon } from '@/shared/ui'
+import { PToggle, PIcon, PAvatar } from '@/shared/ui'
 </script>
 
 <style scoped lang="scss">
@@ -59,10 +67,36 @@ import { PButton, PIcon } from '@/shared/ui'
   }
 
   &__avatar-wrapper {
+    display: flex;
+    flex: 1;
+    gap: var(--space-xs);
+    align-items: center;
+    min-width: 7rem;
+    margin: 0;
+    padding: var(--space-xxs);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
     &:hover {
       color: var(--interactive-hover);
-      background-color: var(--background-mod-normal);
+      background-color: var(--background-modifier-hover);
     }
+  }
+
+  &__name-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    @include mixins.text-md-medium;
+  }
+
+  &__status {
+    @include mixins.text-xs-normal;
+
+    color: var(--text-secondary);
   }
 
   &__buttons {

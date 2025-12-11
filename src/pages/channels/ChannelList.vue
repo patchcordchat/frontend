@@ -4,18 +4,23 @@
       <div class="channel-list__header-content">
         <div class="channel-list__server-dropdown">
           <div class="channel-list__server-name">
-            <h2>#general</h2>
+            <h2>chocolate nipple</h2>
           </div>
+
           <div></div>
         </div>
       </div>
     </header>
+
     <ul>
-      <li>
-        <div><p-icon icon="misc.hashtag" size="xs" /></div>
+      <li class="channel-list__channel">
+        <div class="channel-list__channel-icon">
+          <p-icon icon="misc.hashtag" />
+        </div>
         <div>pron</div>
       </li>
-      <li>
+
+      <li class="channel-list__channel">
         <div><p-icon icon="misc.speaker" size="xs" /></div>
         <div>pron</div>
       </li>
@@ -71,6 +76,35 @@ import { PIcon } from '@/shared/ui'
     cursor: pointer;
     padding-block: 0;
     padding-inline: var(--space-xs) var(--space-xxs);
+  }
+
+  &__channel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.5rem;
+    padding-top: var(--space-xxs);
+    padding-bottom: var(--space-xxs);
+    box-sizing: border-box;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding-inline: var(--space-xs);
+
+    &:hover {
+      background: var(--background-modifier-hover);
+    }
+
+    &--active {
+      background: var(--background-modifier-selected);
+    }
+  }
+
+  &__channel-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 }
 </style>

@@ -30,7 +30,7 @@ type ButtonView =
   | 'outline-positive'
   | 'outline-primary'
 
-type ButtonSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+type ButtonSize = 'sm' | 'md'
 
 type ButtonWidth = 'auto' | 'max'
 
@@ -234,46 +234,16 @@ const handleClick = (event: MouseEvent) => {
   }
 
   &--size {
-    &-xxs {
-      --size: var(--size-xxs);
-      --space-horizontal: var(--space-xxs);
-      --space-vertical: var(--space-xxs);
-    }
-
-    &-xs {
-      --size: var(--size-xs);
-      --space-horizontal: var(--space-xxs);
-      --space-vertical: var(--space-xs);
-    }
-
     &-sm {
-      --size: var(--size-sm);
+      --size: var(--control-item-height-sm);
       --space-horizontal: var(--space-xs);
       --space-vertical: var(--space-sm);
     }
 
     &-md {
-      --size: var(--size-md);
+      --size: var(--control-item-height-md);
       --space-horizontal: var(--space-xs);
       --space-vertical: var(--space-md);
-    }
-
-    &-lg {
-      --size: var(--size-lg);
-      --space-horizontal: var(--space-sm);
-      --space-vertical: var(--space-lg);
-    }
-
-    &-xl {
-      --size: var(--size-xl);
-      --space-horizontal: var(--space-md);
-      --space-vertical: var(--space-xl);
-    }
-
-    &-xxl {
-      --size: var(--size-xxl);
-      --space-horizontal: var(--space-lg);
-      --space-vertical: var(--space-xxl);
     }
   }
 
@@ -282,8 +252,8 @@ const handleClick = (event: MouseEvent) => {
     display: flex;
     align-items: center;
     overflow: hidden;
-    min-width: var(--size);
-    min-height: var(--size);
+    min-width: calc(var(--size) - 2px);
+    min-height: calc(var(--size) - 2px);
     padding: calc(var(--space-horizontal) - 1px) calc(var(--space-vertical) - 1px);
   }
 }
