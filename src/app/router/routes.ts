@@ -31,22 +31,43 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/widgets/main-layout'),
     children: [
       {
-        path: 'channels/:serverId/:channelId',
+        path: 'channels/',
         name: 'channels',
-        component: () => import('@/pages/channels'),
+        children: [
+          {
+            path: ':serverId/:channelId',
+            name: 'server-channels',
+            components: {
+              content: () => import('@/pages/channels'),
+              sidebar: () => import('@/pages/channels/ChannelList.vue'),
+            },
+            meta: { title: 'Каналы' },
+          },
+          {
+            path: '@me',
+            name: 'private-channels',
+            components: {
+              content: () => import('@/pages/channels'),
+              sidebar: () => import('@/pages/channels/ChannelList.vue'),
+            },
+            meta: { title: 'Приватные каналы' },
+          },
+        ],
       },
       {
         path: 'discovery',
         name: 'discovery',
-        component: () => import('@/pages/discovery'),
+        components: {
+          content: () => import('@/pages/discovery'),
+          // sidebar: () => import('@/widgets/discovery-sidebar'),
+        },
       },
     ],
   },
   {
     path: '/:catchAll(.*)',
-    redirect: () => {
-      return '/'
-    },
+    name: 'not-found',
+    component: () => import('@/pages/not-found'),
   },
 ]
 

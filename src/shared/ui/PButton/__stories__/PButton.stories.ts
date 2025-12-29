@@ -87,20 +87,6 @@ export const Sizes: Story = {
     template: `
         <p-button
           v-bind="args"
-          size="xxs"
-        >
-          Button
-        </p-button>
-        <br/>
-        <p-button
-          v-bind="args"
-          size="xs"
-        >
-          Button
-        </p-button>
-        <br/>
-        <p-button
-          v-bind="args"
           size="sm"
         >
           Button
@@ -109,27 +95,6 @@ export const Sizes: Story = {
         <p-button
           v-bind="args"
           size="md"
-        >
-          Button
-        </p-button>
-        <br/>
-        <p-button
-          v-bind="args"
-          size="lg"
-        >
-          Button
-        </p-button>
-        <br/>
-        <p-button
-          v-bind="args"
-          size="xl"
-        >
-          Button
-        </p-button>
-        <br/>       
-        <p-button
-          v-bind="args"
-          size="xxl"
         >
           Button
         </p-button>

@@ -29,7 +29,7 @@ const hasClick = !!(attrs.onClick || attrs.onClickOnce)
 const classes = {
   'p-icon': true,
   [`p-icon--size-${props.size}`]: props.size,
-  'p-icon--clickable': hasClick,
+  'p-icon--clickable': hasClick || props.clickable,
   'p-icon--disabled': props.disabled,
 }
 

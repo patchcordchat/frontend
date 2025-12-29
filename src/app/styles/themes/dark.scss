@@ -121,11 +121,18 @@
     --text-primary: var(--neutral-1);
     --text-default: var(--neutral-9);
     --text-secondary: var(--neutral-16);
+
+    /* Header Colors */
     --header-primary: var(--neutral-1);
     --header-secondary: var(--neutral-9);
 
+    /* Icons Colors */
+    --icon-tertiary: var(--neutral-29);
+    --interactive-hover: var(--neutral-2);
+    
     /* Border Colors */
     --border-subtle: var(--opacity-12);
+    --app-border-frame: var(--opacity-12);
 
     /* Icon Colors */
     --icon-status-dnd: var(--red-400);

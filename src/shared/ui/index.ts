@@ -7,6 +7,7 @@ import PLabel from './PLabel'
 import PSelect from './PSelect'
 import PTextField from './PTextField'
 import PAvatar from './PAvatar'
+import PToggle from './PToggle'
 import PSvgDefs from './PSvgDefs'
 
 export {
@@ -20,4 +21,5 @@ export {
   PTextField,
   PAvatar,
   PSvgDefs,
+  PToggle,
 }
