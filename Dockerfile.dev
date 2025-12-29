@@ -1,6 +1,6 @@
 ARG NODE_VERSION=25-alpine
-FROM node:${NODE_VERSION} AS dev
 
+FROM node:${NODE_VERSION} AS dev
 ENV NODE_ENV=development
 WORKDIR /app
 COPY package.json package-lock.json ./

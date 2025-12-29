@@ -1,5 +1,5 @@
 ARG NODE_VERSION=25-alpine
-ARG NGINX_VERSION=alpine3.23
+ARG NGINX_VERSION=1.25-alpine
 
 FROM node:${NODE_VERSION} AS builder
 WORKDIR /app
@@ -8,7 +8,7 @@ RUN --mount=type=cache,target=/root/.npm npm ci
 COPY . .
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:${NGINX_VERSION} AS runner
+FROM nginx:${NGINX_VERSION} AS runner
 USER nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --chown=nginx:nginx --from=builder /app/dist /usr/share/nginx/html
