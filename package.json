@@ -1,8 +1,11 @@
 {
   "name": "patchcord",
   "version": "0.0.0",
+  "description": "Patchcord for Web",
   "private": true,
   "type": "module",
+  "author": "Vladislav Koshelev",
+  "license": "ISC",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
