@@ -38,8 +38,8 @@ const routes: RouteRecordRaw[] = [
             path: ':serverId/:channelId',
             name: 'server-channels',
             components: {
-              content: () => import('@/pages/channels'),
-              sidebar: () => import('@/pages/channels/ChannelList.vue'),
+              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
             },
             meta: { title: 'Каналы' },
           },
@@ -47,8 +47,8 @@ const routes: RouteRecordRaw[] = [
             path: '@me',
             name: 'private-channels',
             components: {
-              content: () => import('@/pages/channels'),
-              sidebar: () => import('@/pages/channels/ChannelList.vue'),
+              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
             },
             meta: { title: 'Приватные каналы' },
           },

@@ -9,6 +9,10 @@
 @use 'themes/dark';
 @use 'themes/light';
 
+html {
+    background-color: var(--background-base-lowest) !important;
+}
+
 body {
     width: 100%;
     height: 100%;

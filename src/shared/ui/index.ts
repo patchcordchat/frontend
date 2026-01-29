@@ -9,6 +9,7 @@ import PTextField from './PTextField'
 import PAvatar from './PAvatar'
 import PToggle from './PToggle'
 import PSvgDefs from './PSvgDefs'
+import PStatusMessage from './PStatusMessage'
 
 export {
   PAnchor,
@@ -22,4 +23,5 @@ export {
   PAvatar,
   PSvgDefs,
   PToggle,
+  PStatusMessage,
 }

@@ -1,3 +1,3 @@
-import ResetPage from './ResetPage.vue'
+import ResetPage from './ui/ResetPage.vue'
 
 export default ResetPage

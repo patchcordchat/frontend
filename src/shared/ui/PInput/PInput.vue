@@ -1,8 +1,14 @@
 <template>
-  <input class="p-input" type="text" />
+  <input
+    class="p-input"
+    :value="model"
+    @input="model = ($event.target as HTMLInputElement).value"
+  />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const model = defineModel<string>()
+</script>
 
 <style scoped lang="scss">
 .p-input {

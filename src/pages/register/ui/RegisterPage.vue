@@ -1,28 +1,39 @@
 <template>
   <auth-box title="Создать учётную запись">
     <div class="register-form">
-      <p-text-field label="Адрес электронной почты или номер телефона" required />
+      <p-text-field label="Адрес электронной почты" required />
+
       <p-text-field label="Отображаемое имя" />
+
       <p-text-field label="Имя пользователя" required />
+
       <p-text-field label="Пароль" required />
+
       <div class="register-form__date-of-birth">
         <p-label size="md" text="Дата рождения" required />
+
         <div class="register-form__date-of-birth-fields">
           <p-select :items="[1, 2, 3, 4, 5, 6]" label="День" />
+
           <p-select :items="['Январь', 'Февраль', 'Март', 'Апрель', 'Май']" label="Месяц" />
+
           <p-select :items="[2001, 2002, 2003, 2004, 2005, 2006]" label="Год" />
         </div>
       </div>
+
       <p-checkbox
         label="(Необязательно) Я не против получать электронные письма с новостями Patchcord, советами и специальными предложениями. От рассылки можно отписаться в любое время."
       />
+
       <div class="register-form__consent">
         Нажимая кнопку «Создать учётную запись», вы соглашаетесь с
         <p-anchor>Пользовательским соглашением</p-anchor>
         Patchcord и подтверждаете, что ознакомились с
         <p-anchor>Политикой конфиденциальности</p-anchor>
       </div>
+
       <p-button width="max" size="md">Создать учётную запись</p-button>
+
       <p-anchor size="sm" to="login">Уже зарегистрированы? Войти</p-anchor>
     </div>
   </auth-box>

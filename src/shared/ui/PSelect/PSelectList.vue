@@ -18,7 +18,7 @@
       <p-icon
         v-if="isSelected(item)"
         class="p-select-list__selected-indicator"
-        icon="misc.rounded-check"
+        icon="misc.check-circle"
         size="sm"
       />
     </li>

@@ -2,6 +2,7 @@
   <div class="not-found-page">
     <div class="not-found-page__content">
       <h1 class="not-found-page__title">Заблудились?</h1>
+
       <div class="not-found-page__text">
         Вы выглядите растерянно. Знаете, что помогает, если вы заблудились? Миска с горячей лапшой.
         Присаживайтесь, мы тут в поте лица пытаемся приготовить что-нибудь вкусненькое.

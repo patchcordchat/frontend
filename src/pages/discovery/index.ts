@@ -1,3 +1,3 @@
-import DiscoveryPage from './DiscoveryPage.vue'
+import DiscoveryPage from './ui/DiscoveryPage.vue'
 
 export default DiscoveryPage

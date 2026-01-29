@@ -16,3 +16,25 @@
     transform: scale(1) translateY(0) translateZ(0);
   }
 }
+
+.appear-slide-down {
+  &-enter-active,
+  &-leave-active {
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  &-enter-to,
+  &-leave-from {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

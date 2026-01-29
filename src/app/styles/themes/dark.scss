@@ -122,6 +122,12 @@
     --text-default: var(--neutral-9);
     --text-secondary: var(--neutral-16);
 
+    /* Text Feedback Colors */
+    --text-feedback-info: var(--blue-300);
+    --text-feedback-positive: var(--green-360);
+    --text-feedback-warning: var(--yellow-345);
+    --text-feedback-critical: var(--red-345);
+
     /* Header Colors */
     --header-primary: var(--neutral-1);
     --header-secondary: var(--neutral-9);
