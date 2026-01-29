@@ -9,6 +9,7 @@ import PTextField from './PTextField'
 import PAvatar from './PAvatar'
 import PToggle from './PToggle'
 import PSvgDefs from './PSvgDefs'
+import PFieldHint from './PFieldHint'
 import PStatusMessage from './PStatusMessage'
 
 export {
@@ -23,5 +24,6 @@ export {
   PAvatar,
   PSvgDefs,
   PToggle,
+  PFieldHint,
   PStatusMessage,
 }

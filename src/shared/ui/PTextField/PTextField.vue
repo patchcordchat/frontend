@@ -20,6 +20,8 @@
           :type="props.type"
           :name="props.name"
           :id="id"
+          @blur="emit('blur')"
+          @focus="emit('focus')"
         />
       </div>
 
@@ -33,10 +35,10 @@
 </template>
 
 <script setup lang="ts">
+import { useId } from 'vue'
 import PInput from '../PInput/PInput.vue'
 import PLabel from '../PLabel/PLabel.vue'
 import PStatusMessage from '../PStatusMessage/PStatusMessage.vue'
-import { useId } from 'vue'
 
 type InputSize = 'sm' | 'md'
 
@@ -58,6 +60,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const model = defineModel<string>()
+
+const emit = defineEmits<{
+  (e: 'blur'): void
+  (e: 'focus'): void
+}>()
 
 const classes = {
   'p-text-field': true,

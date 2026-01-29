@@ -24,6 +24,10 @@
         :error="serverError ?? errors.global_name"
       />
 
+      <p-field-hint class="register-form__field-hint">
+        Это имя увидят другие пользователи. Можно добавлять специальные символы и эмодзи.
+      </p-field-hint>
+
       <p-text-field
         v-model="username"
         v-bind="usernameAttrs"
@@ -35,6 +39,10 @@
         :error="serverError ?? errors.username"
         required
       />
+
+      <p-field-hint class="register-form__field-hint">
+        Используйте только цифры, буквы, нижнее подчёркивание и точки.
+      </p-field-hint>
 
       <p-text-field
         v-model="password"
@@ -99,7 +107,7 @@
 
 <script setup lang="ts">
 import AuthBox from '@/widgets/auth-box'
-import { PTextField, PAnchor, PButton, PSelect, PLabel, PCheckbox } from '@/shared/ui'
+import { PTextField, PAnchor, PButton, PSelect, PLabel, PCheckbox, PFieldHint } from '@/shared/ui'
 import { useRegisterForm } from '../model/useRegisterForm'
 
 const {
@@ -150,6 +158,10 @@ const {
     @include mixins.text-sm-normal;
 
     color: var(--text-secondary);
+  }
+
+  &__field-hint {
+    margin-top: calc(var(--space-xs) * -1);
   }
 }
 </style>
