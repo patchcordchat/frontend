@@ -17,6 +17,7 @@ type AnchorSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 interface Props {
   size?: AnchorSize
   href?: string
+  target?: string
   to?: RouteLocationRaw
 }
 
@@ -30,7 +31,7 @@ const linkAttributes = computed(() => {
   if (props.to) {
     return { to: props.to }
   }
-  return { href: props.href || '#' }
+  return { href: props.href || '#', target: props.target || '_self' }
 })
 </script>
 

@@ -24,7 +24,7 @@ export const useLoginForm = () => {
     try {
       const { data } = await authApi.login(values)
 
-      sessionStore.setUser(data.user)
+      sessionStore.setUser(data.user_id)
 
       localStorage.setItem('token', data.token)
 

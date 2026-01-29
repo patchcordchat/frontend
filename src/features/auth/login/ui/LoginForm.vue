@@ -6,10 +6,10 @@
         v-bind="emailAttrs"
         label="Адрес электронной почты"
         maxlength="999"
-        autocomplete="username"
+        autocomplete="username webauthn"
         type="email"
         name="email"
-        :error="errors.email ?? serverError"
+        :error="serverError ?? errors.email"
         required
       />
 
@@ -20,7 +20,7 @@
         autocomplete="current-password"
         type="password"
         name="password"
-        :error="errors.password ?? serverError"
+        :error="serverError ?? errors.password"
         required
       />
 
