@@ -19,8 +19,8 @@
         to="/channels/2/1"
       />
 
-      <list-item type="button" icon="misc.circle-plus" />
-      <list-item type="button" icon="misc.circle-compass" />
+      <list-item type="button" icon="misc.plus-circle" />
+      <list-item type="button" icon="misc.compass-circle" />
     </ul>
   </nav>
 </template>

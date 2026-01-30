@@ -1,3 +1,4 @@
-import ChannelPage from './ChannelPage.vue'
+import ChannelPage from './ui/ChannelPage.vue'
+import ChannelList from './ui/ChannelList.vue'
 
-export default ChannelPage
+export { ChannelPage, ChannelList }

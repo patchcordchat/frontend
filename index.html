@@ -22,8 +22,11 @@
     <meta property="og:description" content="Patchcord" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Patchcord" />
-    <!-- <meta property="og:image" content="/images/og_image.jpg" /> -->
-    <!-- <meta property="og:url" content="https://patchcord.fun/" /> -->
+    <meta property="og:image" content="/images/og_image.jpg" />
+    <meta property="og:url" content="https://patchcord.org/" />
+
+    <!--Theme Color-->
+    <meta name="theme-color" content="#000000" />
 
     <!--App Manifest-->
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -71,76 +74,11 @@
   </head>
   <body>
     <div id="app-mount" class="app-mount"></div>
-    <div id="preloader">
-      <svg
-        width="40"
-        height="40"
-        viewBox="22 22 44 44"
-        id="root-preloader"
-        style="
-          position: fixed;
-          left: calc(50% - 20px);
-          top: calc(50% - 20px);
-          transition: opacity 300ms linear;
-        "
-      >
-        <style>
-          @keyframes dash {
-            0% {
-              stroke-dasharray: 1px, 200px;
-              stroke-dashoffset: 0px;
-            }
 
-            50% {
-              stroke-dasharray: 100px, 200px;
-              stroke-dashoffset: -15px;
-            }
+    <div id="floating"></div>
 
-            100% {
-              stroke-dasharray: 100px, 200px;
-              stroke-dashoffset: -125px;
-            }
-          }
-
-          @keyframes rotate {
-            0% {
-              transform-origin: 50% 50%;
-            }
-
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-        </style>
-        <g
-          style="
-            transform-box: fill-box;
-            transform-origin: center;
-            animation: rotate 1.4s linear infinite;
-          "
-        >
-          <circle
-            cx="44"
-            cy="44"
-            r="20.2"
-            style="
-              animation: dash 1.4s ease-in-out infinite;
-              stroke-dasharray: 80px, 200px;
-              stroke-dashoffset: 0px;
-            "
-            fill="none"
-            stroke="#5393FF"
-            stroke-width="3.6"
-          ></circle>
-        </g>
-      </svg>
-      <script>
-        setTimeout(function () {
-          !window.app_ready && location.reload()
-        }, 1000 * 30)
-      </script>
-    </div>
     <script type="module" src="/src/main.ts"></script>
+
     <noscript>
       <div>
         <h1>Упс! JavaScript решил немного вздремнуть...</h1>

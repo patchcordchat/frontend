@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { authMiddleware } from './middleware'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -6,6 +7,9 @@ const routes: RouteRecordRaw[] = [
     name: 'auth',
     redirect: { name: 'login' },
     component: () => import('@/widgets/auth-layout'),
+    meta: {
+      middleware: [authMiddleware],
+    },
     children: [
       {
         path: 'login',
@@ -29,6 +33,9 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     redirect: { name: 'channels' },
     component: () => import('@/widgets/main-layout'),
+    meta: {
+      middleware: [authMiddleware],
+    },
     children: [
       {
         path: 'channels/',
@@ -38,8 +45,8 @@ const routes: RouteRecordRaw[] = [
             path: ':serverId/:channelId',
             name: 'server-channels',
             components: {
-              content: () => import('@/pages/channels'),
-              sidebar: () => import('@/pages/channels/ChannelList.vue'),
+              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
             },
             meta: { title: 'Каналы' },
           },
@@ -47,8 +54,8 @@ const routes: RouteRecordRaw[] = [
             path: '@me',
             name: 'private-channels',
             components: {
-              content: () => import('@/pages/channels'),
-              sidebar: () => import('@/pages/channels/ChannelList.vue'),
+              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
             },
             meta: { title: 'Приватные каналы' },
           },

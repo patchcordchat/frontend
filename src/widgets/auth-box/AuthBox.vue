@@ -1,17 +1,22 @@
 <template>
   <form class="auth-box">
-    <div class="auth-box__logo"></div>
+    <p-icon class="auth-box__logo" icon="logos.patchcord.combination" />
+
     <div class="auth-box__content-wrapper">
       <div class="auth-box__header">
         <h1 class="auth-box__header-title">{{ title }}</h1>
+
         <div v-if="subtitle" class="auth-box__header-subtitle">{{ subtitle }}</div>
       </div>
+
       <slot></slot>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
+import { PIcon } from '@/shared/ui'
+
 interface Props {
   title: string
   subtitle?: string
@@ -33,8 +38,31 @@ defineProps<Props>()
   background-color: var(--modal-background);
   box-shadow: var(--box-shadow-high);
 
+  @media (width <= 486px) {
+    @include mixins.scrollbar-thin;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
   &__logo {
     display: none;
+
+    @media (width <= 486px) {
+      display: block;
+      inset-inline-start: 3rem;
+      width: 7.75rem;
+      height: 1.5rem;
+    }
   }
 
   &__content-wrapper {

@@ -14,7 +14,7 @@
       </div>
 
       <div class="app-topbar__control">
-        <p-icon icon="misc.circle-question" size="md" clickable />
+        <p-icon icon="misc.question-circle" size="md" clickable />
       </div>
     </div>
   </div>
@@ -24,8 +24,6 @@
 import { useRoute } from 'vue-router'
 import { PIcon } from '@/shared/ui'
 const route = useRoute()
-
-console.log(route)
 </script>
 
 <style scoped lang="scss">

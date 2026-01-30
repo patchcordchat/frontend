@@ -78,6 +78,81 @@ export const Views: Story = {
   }),
 }
 
+export const Loading: Story = {
+  argTypes: {
+    loading: {
+      control: { type: 'boolean' },
+    },
+  },
+  args: {
+    loading: true,
+  },
+  render: (args) => ({
+    components: { PButton },
+    setup() {
+      return { args }
+    },
+    template: `
+      <div style="display: flex; flex-wrap: wrap; max-width: 100%; gap: 0.5rem;">
+        <p-button
+          v-bind="args"
+          view="danger"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="positive"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="secondary"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="filled-brand"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="filled-white"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="outline-brand"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="outline-danger"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="outline-positive"
+        >
+          Button
+        </p-button>
+        <p-button
+          v-bind="args"
+          view="outline-primary"
+        >
+          Button
+        </p-button>
+      </div>
+      `,
+  }),
+}
+
 export const Sizes: Story = {
   args: {
     onClick: action('onClick'),

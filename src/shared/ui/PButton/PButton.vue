@@ -8,11 +8,21 @@
     :class="classes"
     @click="handleClick"
   >
-    <div v-if="slots.default" class="p-button__content-wrapper">
-      <slot name="default"></slot>
-    </div>
+    <div class="p-button__content-wrapper">
+      <div class="p-button__content" :class="{ 'p-button__content--loading': props.loading }">
+        <slot name="default"></slot>
+      </div>
 
-    <span v-if="props.loading" class="p-button__loader"> </span>
+      <transition name="slide-fade-down">
+        <div v-if="props.loading" class="p-button__spinner-wrapper">
+          <span class="p-button__spinner">
+            <span class="p-button__spinner-ellipse"></span>
+            <span class="p-button__spinner-ellipse"></span>
+            <span class="p-button__spinner-ellipse"></span>
+          </span>
+        </div>
+      </transition>
+    </div>
   </component>
 </template>
 
@@ -69,6 +79,7 @@ const classes = {
   [`p-button--view-${props.view}`]: true,
   [`p-button--size-${props.size}`]: true,
   [`p-button--width-${props.width}`]: true,
+  'p-button--has-text': slots.default,
   'p-button--loading': props.loading,
 }
 
@@ -125,10 +136,6 @@ const handleClick = (event: MouseEvent) => {
 
   &:disabled {
     background-color: var(--background-color-disabled);
-  }
-
-  &--loading {
-    pointer-events: none;
   }
 
   &--view {
@@ -247,14 +254,74 @@ const handleClick = (event: MouseEvent) => {
     }
   }
 
+  &--has-text {
+    min-width: var(--button-min-width, 100px);
+  }
+
   &__content-wrapper {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
+    width: 100%;
     min-width: calc(var(--size) - 2px);
     min-height: calc(var(--size) - 2px);
     padding: calc(var(--space-horizontal) - 1px) calc(var(--space-vertical) - 1px);
+    box-sizing: border-box;
+    border-radius: var(--radius-sm);
+  }
+
+  &__content {
+    display: flex;
+    gap: var(--space-xxs);
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transform: translateY(0);
+    transition:
+      opacity 0.2s ease-out,
+      transform 0.2s ease-out;
+
+    &--loading {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+  }
+
+  &__spinner-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__spinner-ellipse {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 2px;
+    border-radius: 3px;
+    background-color: currentcolor;
+    opacity: 0.3;
+    animation: spinner-pulsing-ellipsis 1.4s ease-in-out infinite;
+    animation-delay: 0s;
+
+    &:nth-of-type(2) {
+      animation-delay: 0.2s;
+    }
+
+    &:nth-of-type(3) {
+      animation-delay: 0.4s;
+    }
   }
 }
 </style>
