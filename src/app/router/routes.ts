@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { authMiddleware } from './middleware'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -6,6 +7,9 @@ const routes: RouteRecordRaw[] = [
     name: 'auth',
     redirect: { name: 'login' },
     component: () => import('@/widgets/auth-layout'),
+    meta: {
+      middleware: [authMiddleware],
+    },
     children: [
       {
         path: 'login',
@@ -29,6 +33,9 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     redirect: { name: 'channels' },
     component: () => import('@/widgets/main-layout'),
+    meta: {
+      middleware: [authMiddleware],
+    },
     children: [
       {
         path: 'channels/',

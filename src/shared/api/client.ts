@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { apiConfig } from '@/shared/config'
+import { useRouter } from 'vue-router'
 
 const apiClient = axios.create({
   baseURL: apiConfig.baseUrl,
@@ -18,6 +19,10 @@ apiClient.interceptors.request.use(
     return config
   },
   (error) => {
+    if (error.response.status === 401) {
+      const router = useRouter()
+      router.push({ name: 'login' })
+    }
     return Promise.reject(error)
   },
 )

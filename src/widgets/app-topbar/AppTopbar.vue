@@ -24,8 +24,6 @@
 import { useRoute } from 'vue-router'
 import { PIcon } from '@/shared/ui'
 const route = useRoute()
-
-console.log(route)
 </script>
 
 <style scoped lang="scss">
