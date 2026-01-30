@@ -26,7 +26,7 @@
     --button-filled-brand-background: var(--brand-500);
     --button-filled-brand-background-active: var(--brand-600);
     --button-filled-brand-background-hover: var(--brand-560);
-    --button-filled-brand-border: var(--transparent);
+    --button-filled-brand-border: var(--opacity-white-8);
     --button-filled-brand-text: var(--white);
 
     /* Button Filled White */
@@ -90,8 +90,8 @@
     --input-border-default: var(--opacity-8);
     --input-border-default-hover: var(--primary-500);
     --input-border-read-only: var(--opacity-8);
-    --input-background-error: var(--red-430);
-    --input-border-error: var(--red-430);
+    --input-background-error: var(--opacity-red-4);
+    --input-border-error: var(--red-345);
     --input-text-error: var(--red-345);
     --input-border-focused: var(--brand-500);
     --input-placeholder-text: var(--neutral-32);

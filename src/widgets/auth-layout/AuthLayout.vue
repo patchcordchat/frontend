@@ -6,7 +6,7 @@
 
     <div class="auth-layout__content-wrapper">
       <router-view v-slot="{ Component }">
-        <transition name="fade-slide-top" mode="out-in">
+        <transition name="slide-fade-top" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>

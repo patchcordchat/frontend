@@ -1,8 +1,10 @@
 import { date, string } from 'zod'
 
-export const emailRule = string().min(1, 'Обязательное поле').email('Некорректный email')
+export const emailRule = string({ required_error: 'Обязательное поле' }).email('Некорректный email')
 
-export const passwordRule = string().min(8, 'Минимум 8 символов').max(72, 'Максимум 72 символов')
+export const passwordRule = string({ required_error: 'Обязательное поле' })
+  .min(8, 'Минимум 8 символов')
+  .max(72, 'Максимум 72 символов')
 
 export const usernameRule = string()
   .min(2, 'Минимум 2 символа')

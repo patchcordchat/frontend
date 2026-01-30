@@ -74,8 +74,8 @@ export const useRegisterForm = () => {
       if (error instanceof AxiosError) {
         if (error.response?.status === 400) {
           serverError.value = 'Неверные данные'
-        } else {
-          serverError.value = error.response?.data?.message || 'Ошибка регистрации'
+        } else if (error.response?.status === 409) {
+          serverError.value = 'Адрес электронной почты уже зарегистрирован'
         }
       } else {
         serverError.value = 'Ошибка регистрации'

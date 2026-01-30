@@ -13,36 +13,54 @@
         required
       />
 
-      <p-text-field
-        v-model="globalName"
-        v-bind="globalNameAttrs"
-        label="Отображаемое имя"
-        maxlength="32"
-        autocomplete="off"
-        type="text"
-        name="global_name"
-        :error="serverError ?? errors.global_name"
-      />
+      <div class="register-form__field-with-hint">
+        <p-text-field
+          v-model="globalName"
+          v-bind="globalNameAttrs"
+          label="Отображаемое имя"
+          maxlength="32"
+          autocomplete="off"
+          type="text"
+          name="global_name"
+          :error="errors.global_name"
+          @focus="activeField = 'globalName'"
+          @blur="activeField = null"
+        />
 
-      <p-field-hint class="register-form__field-hint">
-        Это имя увидят другие пользователи. Можно добавлять специальные символы и эмодзи.
-      </p-field-hint>
+        <transition name="expand-fade-down">
+          <p-field-hint
+            v-show="activeField === 'globalName' || globalName"
+            class="register-form__field-hint"
+          >
+            Это имя увидят другие пользователи. Можно добавлять специальные символы и эмодзи.
+          </p-field-hint>
+        </transition>
+      </div>
 
-      <p-text-field
-        v-model="username"
-        v-bind="usernameAttrs"
-        label="Имя пользователя"
-        maxlength="32"
-        autocomplete="off"
-        type="text"
-        name="username"
-        :error="serverError ?? errors.username"
-        required
-      />
+      <div class="register-form__field-with-hint">
+        <p-text-field
+          v-model="username"
+          v-bind="usernameAttrs"
+          label="Имя пользователя"
+          maxlength="32"
+          autocomplete="off"
+          type="text"
+          name="username"
+          :error="errors.username"
+          @focus="activeField = 'username'"
+          @blur="activeField = null"
+          required
+        />
 
-      <p-field-hint class="register-form__field-hint">
-        Используйте только цифры, буквы, нижнее подчёркивание и точки.
-      </p-field-hint>
+        <transition name="expand-fade-down">
+          <p-field-hint
+            v-show="activeField === 'username' || username"
+            class="register-form__field-hint"
+          >
+            Используйте только цифры, буквы, нижнее подчёркивание и точки.
+          </p-field-hint>
+        </transition>
+      </div>
 
       <p-text-field
         v-model="password"
@@ -51,7 +69,7 @@
         autocomplete="new-password"
         type="password"
         name="password"
-        :error="serverError ?? errors.password"
+        :error="errors.password"
         required
       />
 
@@ -90,13 +108,7 @@
         >
       </div>
 
-      <p-button
-        width="max"
-        size="md"
-        type="submit"
-        :loading="isSubmitting"
-        :disabled="isSubmitting"
-      >
+      <p-button width="max" size="md" type="submit" :loading="isSubmitting">
         Создать учётную запись
       </p-button>
 
@@ -106,6 +118,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import AuthBox from '@/widgets/auth-box'
 import { PTextField, PAnchor, PButton, PSelect, PLabel, PCheckbox, PFieldHint } from '@/shared/ui'
 import { useRegisterForm } from '../model/useRegisterForm'
@@ -132,6 +145,8 @@ const {
   isSubmitting,
   onSubmit,
 } = useRegisterForm()
+
+const activeField = ref<string | null>(null)
 </script>
 
 <style scoped lang="scss">
@@ -158,10 +173,6 @@ const {
     @include mixins.text-sm-normal;
 
     color: var(--text-secondary);
-  }
-
-  &__field-hint {
-    margin-top: calc(var(--space-xs) * -1);
   }
 }
 </style>

@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */ /* stylelint-disable selector-class-pattern */
 <template>
   <div :class="classes">
     <p-label
@@ -9,7 +10,7 @@
     />
 
     <div class="p-text-field__control">
-      <div class="p-text-field__input-wrapper">
+      <div class="p-text-field__input-wrapper" :error="props.error ? true : null">
         <p-input
           class="p-text-field__input"
           v-model="model"
@@ -25,7 +26,7 @@
         />
       </div>
 
-      <transition name="appear-slide-down" mode="out-in">
+      <transition name="expand-fade-down">
         <div class="p-text-field__helper-container" v-if="props.error">
           <p-status-message status="error" :text="props.error" />
         </div>
@@ -102,21 +103,41 @@ const id = useId()
     flex-wrap: wrap;
     gap: var(--space-xxs);
     height: var(--input-height);
+    margin-bottom: 0;
     color: var(--input-text);
     border-width: 1px;
     border-style: solid;
     border-color: var(--input-border);
     border-radius: var(--radius-sm);
     background-color: var(--input-background);
-    transition: border-color 0.1s ease;
+    transition:
+      margin-bottom 0.2s ease,
+      border-color 0.2s ease-in-out;
+
+    --input-border-hover: var(--input-border-default-hover);
 
     &:hover {
-      --input-border: var(--input-border-default-hover);
+      border-color: var(--input-border-hover);
     }
 
     &:has(input:focus) {
+      border-width: 2px;
       border-color: var(--input-border-active);
     }
+
+    &[error] {
+      border-width: 1px;
+
+      --input-background: var(--opacity-red-4);
+      --input-border: var(--input-border-error);
+      --input-border-hover: var(--input-border-error);
+      --input-border-active: var(--input-border-error);
+    }
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  .p-text-field__input-wrapper:has(+ .p-text-field__helper-container) {
+    margin-bottom: var(--space-xxs);
   }
 
   &__input {
@@ -130,15 +151,6 @@ const id = useId()
   &__control {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xxs);
-    min-width: 0;
-  }
-
-  &__helper-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-sm);
-    align-items: start;
     min-width: 0;
   }
 }

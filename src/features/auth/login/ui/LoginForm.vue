@@ -26,15 +26,7 @@
 
       <p-anchor size="sm" to="reset">Забыли пароль?</p-anchor>
 
-      <p-button
-        width="max"
-        size="md"
-        type="submit"
-        :loading="isSubmitting"
-        :disabled="isSubmitting"
-      >
-        Вход
-      </p-button>
+      <p-button width="max" size="md" type="submit" :loading="isSubmitting"> Вход </p-button>
 
       <div class="login-form__need-account">
         <span>Нужна учётная запись?</span>
