@@ -1,9 +1,9 @@
-export interface LoginCredentials {
+export interface LoginDto {
   email: string
   password: string
 }
 
-export interface RegisterCredentials extends LoginCredentials {
+export interface RegisterDto extends LoginDto {
   username?: string
   global_name?: string
   date_of_birth?: Date

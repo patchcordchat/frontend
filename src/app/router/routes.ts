@@ -7,9 +7,6 @@ const routes: RouteRecordRaw[] = [
     name: 'auth',
     redirect: { name: 'login' },
     component: () => import('@/widgets/auth-layout'),
-    meta: {
-      middleware: [authMiddleware],
-    },
     children: [
       {
         path: 'login',

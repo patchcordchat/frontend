@@ -1,26 +1,25 @@
 import { defineStore } from 'pinia'
-import type { User } from './types'
 
 export const useSessionStore = defineStore('session', {
   state: () => ({
-    user: null as User | null,
+    user_id: null as string | null,
     isAuthenticated: false,
   }),
 
   actions: {
-    setUser(user: User) {
-      this.user = user
+    setUserId(userId: string) {
+      this.user_id = userId
       this.isAuthenticated = true
     },
 
     clearSession() {
-      this.user = null
+      this.user_id = null
       this.isAuthenticated = false
       localStorage.removeItem('token')
     },
   },
 
   getters: {
-    userName: (state) => state.user?.name ?? 'Unknown',
+    userId: (state) => state.user_id ?? null,
   },
 })

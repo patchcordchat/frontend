@@ -1,3 +1,3 @@
-export { authApi } from './api/authApi'
-export { useSessionStore } from './model/store'
-export type { User, LoginCredentials, AuthResponse } from './model/types'
+export { authApi } from './api'
+export { useSessionStore } from './model'
+export type { LoginDto, RegisterDto, AuthResponse } from './model'

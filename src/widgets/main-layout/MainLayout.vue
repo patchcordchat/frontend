@@ -1,6 +1,7 @@
 <template>
   <div class="main-layout">
     <app-topbar />
+
     <div class="main-layout__content">
       <app-sidebar>
         <router-view name="sidebar"></router-view>

@@ -1,3 +1,2 @@
-export { default as LoginForm } from './ui/LoginForm.vue'
-export { useLoginForm } from './model/useLoginForm'
-export type { LoginFormData } from './model/schema'
+export { LoginForm } from './ui'
+export { useLoginForm, type LoginFormData } from './model'

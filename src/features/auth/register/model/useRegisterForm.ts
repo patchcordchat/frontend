@@ -65,7 +65,7 @@ export const useRegisterForm = () => {
 
       const { data } = await authApi.register({ ...values, date_of_birth: dateOfBirthValue })
 
-      sessionStore.setUser(data.user_id)
+      sessionStore.setUserId(data.user_id)
 
       localStorage.setItem('token', data.token)
 

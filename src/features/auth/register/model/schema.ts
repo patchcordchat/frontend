@@ -17,4 +17,4 @@ export const registerSchema = z.object({
   promotional_email_opt_in: z.boolean().optional(),
 })
 
-export type LoginFormData = z.infer<typeof registerSchema>
+export type RegisterFormData = z.infer<typeof registerSchema>
