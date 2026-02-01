@@ -16,17 +16,15 @@ export const Default: Story = {
     components: { PModal },
     template: `
       <p-modal>
-        <template #header>
-          header
-        </template>
-
-        <template #body>
-          header
-        </template>
-
-        <template #footer>
-          footer
-        </template>
+        <div class="p-modal__header p-modal__section">
+          Custom header
+        </div>
+        <div class="p-modal__body p-modal__section">
+          Custom body
+        </div>
+        <div class="p-modal__footer p-modal__section">
+          Custom body
+        </div>
       </p-modal>`,
   }),
 }

@@ -52,7 +52,11 @@ const classes = {
 </script>
 
 <style scoped lang="scss">
-.p-modal-wrapper {
+@use '@/app/styles/utils/mixins.scss' as mixins;
+
+$block: '.p-modal';
+
+#{$block}-wrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -64,7 +68,7 @@ const classes = {
   pointer-events: none;
 }
 
-.p-modal {
+#{$block} {
   --border-radius: var(--radius-md);
 
   display: flex;
@@ -125,11 +129,13 @@ const classes = {
     }
   }
 
-  &__header {
+  &__header,
+  :deep(#{$block}__header) {
     position: relative;
   }
 
-  &__body {
+  &__body,
+  :deep(#{$block}__body) {
     overflow-y: hidden;
     min-height: 1px;
     padding-right: var(--padding);
@@ -139,13 +145,15 @@ const classes = {
     overflow-wrap: break-word;
   }
 
-  &__footer {
+  &__footer,
+  :deep(#{$block}__footer) {
     padding-bottom: 0;
     overflow-wrap: break-word;
     word-break: break-all;
   }
 
-  &__section {
+  &__section,
+  :deep(#{$block}__section) {
     flex-grow: 0;
     flex-shrink: 0;
     padding: var(--space-md) var(--padding);
@@ -153,6 +161,23 @@ const classes = {
     transition-duration: 100ms;
     transition-property: padding;
     transition-timing-function: ease-out;
+  }
+
+  &__title,
+  :deep(#{$block}__title) {
+    @include mixins.heading-xl-semibold;
+
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+
+  &__subtitle,
+  :deep(#{$block}__subtitle) {
+    @include mixins.text-md-normal;
+
+    margin-top: var(--space-xs);
+    text-align: center;
+    overflow-wrap: break-word;
   }
 }
 </style>

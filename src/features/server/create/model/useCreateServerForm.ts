@@ -2,50 +2,42 @@ import { ref, computed } from 'vue'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { AxiosError } from 'axios'
-import { createServerSchema, type CreateServerFormData } from './shema'
+import { createServerSchema, type CreateServerFormData } from './schema'
 import { serverApi } from '@/entities/server'
 import { useRouter } from 'vue-router'
 
 enum Step {
-  INFO = 0,
-  TEMPLATE = 1,
+  TEMPLATE = 0,
+  AUDIENCE = 1,
+  CUSTOMIZE = 2,
 }
 
 export const useCreateServerForm = (onSuccess?: () => void) => {
   const router = useRouter()
-  const currentStep = ref<Step>(Step.INFO)
+  const currentStep = ref<Step>(Step.TEMPLATE)
   const serverError = ref<string | undefined>(undefined)
 
-  const { handleSubmit, errors, isSubmitting, defineField, validateField, values } =
-    useForm<CreateServerFormData>({
+  const { handleSubmit, errors, isSubmitting, defineField, values } = useForm<CreateServerFormData>(
+    {
       validationSchema: toTypedSchema(createServerSchema),
       initialValues: {
         is_public: false,
       },
-    })
+    },
+  )
 
   const [name, nameAttrs] = defineField('name')
   const [templateId, templateIdAttrs] = defineField('template_id')
   const [isPublic, isPublicAttrs] = defineField('is_public')
 
-  const isLastStep = computed(() => currentStep.value === Step.TEMPLATE)
-  const isFirstStep = computed(() => currentStep.value === Step.INFO)
+  const isLastStep = computed(() => currentStep.value === Step.CUSTOMIZE)
+  const isFirstStep = computed(() => currentStep.value === Step.TEMPLATE)
 
-  const nextStep = async () => {
-    // Валидируем только поля текущего шага перед переходом
-    let isValid = false
-
-    if (currentStep.value === Step.INFO) {
-      const { valid } = await validateField('name')
-      isValid = valid
-    }
-
-    if (isValid) {
-      currentStep.value++
-    }
+  const nextStep: () => void = async () => {
+    currentStep.value++
   }
 
-  const prevStep = () => {
+  const prevStep: () => void = () => {
     if (!isFirstStep.value) {
       currentStep.value--
     }
