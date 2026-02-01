@@ -1,22 +1,35 @@
 <template>
-  <div class="p-modal-wrapper">
-    <div class="p-modal" :class="classes">
-      <header class="p-modal__header p-modal__section">
-        <slot name="header"></slot>
-      </header>
+  <teleport to="#floating">
+    <p-scrim />
 
-      <main class="p-modal__body">
-        <slot name="body"></slot>
-      </main>
+    <div class="p-modal-wrapper">
+      <div class="p-modal" :class="classes">
+        <template v-if="slots.default">
+          <slot name="default"></slot>
+        </template>
 
-      <footer class="p-modal__footer p-modal__section">
-        <slot name="footer"></slot>
-      </footer>
+        <template v-else>
+          <header class="p-modal__header p-modal__section">
+            <slot name="header"></slot>
+          </header>
+
+          <main class="p-modal__body">
+            <slot name="body"></slot>
+          </main>
+
+          <footer class="p-modal__footer p-modal__section">
+            <slot name="footer"></slot>
+          </footer>
+        </template>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script setup lang="ts">
+import { useSlots } from 'vue'
+import PScrim from '../PScrim/PScrim.vue'
+
 type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 type PaddingSize = 'sm' | 'lg'
 
@@ -29,6 +42,8 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   paddingSize: 'sm',
 })
+
+const slots = useSlots()
 
 const classes = {
   [`p-modal--size-${props.size}`]: true,

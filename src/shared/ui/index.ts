@@ -11,6 +11,8 @@ import PToggle from './PToggle'
 import PSvgDefs from './PSvgDefs'
 import PFieldHint from './PFieldHint'
 import PStatusMessage from './PStatusMessage'
+import PModal from './PModal'
+import PScrim from './PScrim'
 
 export {
   PAnchor,
@@ -26,4 +28,6 @@ export {
   PToggle,
   PFieldHint,
   PStatusMessage,
+  PModal,
+  PScrim,
 }

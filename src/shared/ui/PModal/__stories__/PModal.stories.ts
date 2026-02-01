@@ -17,6 +17,27 @@ export const Default: Story = {
     template: `
       <p-modal>
         <template #header>
+          header
+        </template>
+
+        <template #body>
+          header
+        </template>
+
+        <template #footer>
+          footer
+        </template>
+      </p-modal>`,
+  }),
+}
+
+export const WithSlots: Story = {
+  args: {},
+  render: () => ({
+    components: { PModal },
+    template: `
+      <p-modal>
+        <template #header>
           <h1> Header </h1>
           <div> custom-text </div>
         </template>
