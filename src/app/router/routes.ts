@@ -54,7 +54,7 @@ const routes: RouteRecordRaw[] = [
               content: () => import('@/pages/channels/ui/ChannelPage.vue'),
               sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
             },
-            meta: { title: 'Приватные каналы' },
+            meta: { title: 'Друзья' },
           },
         ],
       },

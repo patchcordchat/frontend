@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import routes from './routes'
@@ -18,6 +19,14 @@ router.beforeEach(async (to, from) => {
     }
   }
   return true
+})
+
+router.afterEach((to) => {
+  nextTick(() => {
+    document.title = (to.meta.title as string)
+      ? `Patchcord | ${to.meta.title as string}`
+      : 'Patchcord'
+  })
 })
 
 export default router
