@@ -34,6 +34,10 @@ const props = defineProps<Props>()
   background-color: var(--background-modifier-muted);
   cursor: pointer;
 
+  &:hover {
+    background-color: var(--interactive-background-hover);
+  }
+
   &__icon {
     margin-block: var(--space-md) var(--space-md);
     margin-inline: var(--space-md) var(--space-md);

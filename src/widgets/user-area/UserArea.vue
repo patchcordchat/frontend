@@ -79,7 +79,7 @@ import { PToggle, PIcon, PAvatar } from '@/shared/ui'
     transition: background-color 0.2s ease;
 
     &:hover {
-      color: var(--interactive-hover);
+      color: var(--interactive-text-hover);
       background-color: var(--background-modifier-hover);
     }
   }

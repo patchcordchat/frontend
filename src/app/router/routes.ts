@@ -38,7 +38,7 @@ const routes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: 'channels/',
+        path: 'channels',
         name: 'channels',
         children: [
           {
@@ -64,11 +64,26 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'discovery',
         name: 'discovery',
-        components: {
-          content: () => import('@/pages/discovery'),
-          // sidebar: () => import('@/widgets/discovery-sidebar'),
-        },
+        redirect: { name: 'discovery-applications' },
         meta: { title: 'Путешествие', icon: 'misc.compass-circle' },
+        children: [
+          {
+            path: 'applications',
+            name: 'discovery-applications',
+            components: {
+              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+            },
+          },
+          {
+            path: 'servers',
+            name: 'discovery-servers',
+            components: {
+              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+            },
+          },
+        ],
       },
     ],
   },

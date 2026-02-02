@@ -1,14 +1,11 @@
 <template>
-  <p-modal>
-    <transition name="expand-fade-down">
-      <component :is="currentStepComponent" :key="currentStep" />
-    </transition>
-  </p-modal>
+  <transition name="expand-fade-down">
+    <component :is="currentStepComponent" :key="currentStep" />
+  </transition>
 </template>
 
 <script setup lang="ts">
 import { provide, computed } from 'vue'
-import { PModal } from '@/shared/ui'
 import { useCreateServerForm, CREATE_SERVER_FORM_KEY } from '../model'
 
 // Компоненты шагов

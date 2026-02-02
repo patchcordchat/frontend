@@ -1,34 +1,39 @@
 <template>
   <teleport to="#floating">
-    <p-scrim />
+    <transition-group name="modal-fade">
+      <p-scrim v-if="isOpen" @click="handleScrimClick" />
 
-    <div class="p-modal-wrapper">
-      <div class="p-modal" :class="classes">
-        <template v-if="slots.default">
-          <slot name="default"></slot>
-        </template>
+      <div v-if="isOpen" class="p-modal-wrapper">
+        <div class="p-modal" :class="classes">
+          <template v-if="slots.default">
+            <slot name="default"></slot>
+          </template>
 
-        <template v-else>
-          <header class="p-modal__header p-modal__section">
-            <slot name="header"></slot>
-          </header>
+          <template v-else>
+            <header class="p-modal__header p-modal__section">
+              <slot name="header"></slot>
 
-          <main class="p-modal__body">
-            <slot name="body"></slot>
-          </main>
+              <p-close-button v-if="showCloseButton" class="p-modal__close-button" @click="close" />
+            </header>
 
-          <footer class="p-modal__footer p-modal__section">
-            <slot name="footer"></slot>
-          </footer>
-        </template>
+            <main class="p-modal__body">
+              <slot name="body"></slot>
+            </main>
+
+            <footer class="p-modal__footer p-modal__section">
+              <slot name="footer"></slot>
+            </footer>
+          </template>
+        </div>
       </div>
-    </div>
+    </transition-group>
   </teleport>
 </template>
 
 <script setup lang="ts">
-import { useSlots } from 'vue'
-import PScrim from '../PScrim/PScrim.vue'
+import { useSlots, onMounted, onUnmounted, ref } from 'vue'
+import PCloseButton from '../PCloseButton'
+import PScrim from '../PScrim'
 
 type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 type PaddingSize = 'sm' | 'lg'
@@ -37,12 +42,23 @@ interface Props {
   size?: ModalSize
   paddingSize?: PaddingSize
   class?: string
+  showCloseButton?: boolean
+  closeOnScrimClick?: boolean
+  closeOnEscape?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   paddingSize: 'sm',
+  showCloseButton: true,
+  closeOnScrimClick: true,
+  closeOnEscape: true,
 })
+
+const emit = defineEmits<{
+  close: []
+  open: []
+}>()
 
 const slots = useSlots()
 
@@ -51,6 +67,43 @@ const classes = {
   [`p-modal--padding-${props.paddingSize}`]: true,
   [`${props.class}`]: props.class,
 }
+
+const isOpen = ref<boolean>(false)
+
+const close = () => {
+  isOpen.value = false
+  emit('close')
+}
+
+const open = () => {
+  isOpen.value = true
+  emit('open')
+}
+
+const handleScrimClick = () => {
+  if (props.closeOnScrimClick) {
+    close()
+  }
+}
+
+const handleEscape = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && props.closeOnEscape && isOpen.value) {
+    close()
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleEscape)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleEscape)
+})
+
+defineExpose({
+  close,
+  open,
+})
 </script>
 
 <style scoped lang="scss">

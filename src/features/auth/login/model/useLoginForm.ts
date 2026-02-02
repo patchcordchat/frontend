@@ -28,7 +28,7 @@ export const useLoginForm = () => {
 
       localStorage.setItem('token', data.token)
 
-      await router.push({ name: 'discovery' })
+      await router.push({ name: 'private-channels' })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {

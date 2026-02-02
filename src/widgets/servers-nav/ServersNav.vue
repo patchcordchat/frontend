@@ -19,7 +19,11 @@
         to="/channels/2/1"
       />
 
-      <list-item type="button" icon="misc.plus-circle" />
+      <list-item type="button" icon="misc.plus-circle" @click="modalRef?.open()" />
+
+      <p-modal ref="modalRef">
+        <create-server-form />
+      </p-modal>
 
       <list-item type="link" to="/discovery" icon="misc.compass-circle" />
     </ul>
@@ -27,7 +31,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { PModal } from '@/shared/ui'
+import CreateServerForm from '@/features/server/create'
 import ListItem from './ListItem.vue'
+
+const modalRef = ref<InstanceType<typeof PModal>>()
 </script>
 
 <style scoped lang="scss">

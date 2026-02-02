@@ -27,5 +27,10 @@ import PIcon from '../PIcon'
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
   user-select: none;
+
+  &:hover {
+    color: var(--interactive-text-hover);
+    opacity: 1;
+  }
 }
 </style>

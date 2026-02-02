@@ -50,6 +50,8 @@ const { nextStep } = inject(CREATE_SERVER_FORM_KEY)!
 @use '@/app/styles/utils/mixins.scss' as mixins;
 
 .template-list {
+  @include mixins.scrollbar-thin;
+
   overflow: hidden scroll !important;
   height: 20.625rem;
   margin-top: var(--space-xl);
