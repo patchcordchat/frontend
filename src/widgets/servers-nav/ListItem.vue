@@ -146,6 +146,7 @@ const onClick = (event: MouseEvent) => {
     transform: translateY(1px);
   }
 
+  &.router-link-active &__content,
   &:hover &__content {
     color: var(--text-primary);
     background-color: var(--brand-500);

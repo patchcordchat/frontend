@@ -20,7 +20,8 @@
       />
 
       <list-item type="button" icon="misc.plus-circle" />
-      <list-item type="button" icon="misc.compass-circle" />
+
+      <list-item type="link" to="/discovery" icon="misc.compass-circle" />
     </ul>
   </nav>
 </template>
