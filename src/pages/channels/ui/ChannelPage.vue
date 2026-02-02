@@ -14,6 +14,7 @@
             </li>
           </ol>
         </div>
+
         <form
           style="
             position: relative;
@@ -29,12 +30,9 @@
       </main>
     </div>
   </div>
-
-  <create-server-form></create-server-form>
 </template>
 
 <script setup lang="ts">
-import { CreateServerForm } from '@/features/server/create'
 const messages = [
   {
     id: 1,

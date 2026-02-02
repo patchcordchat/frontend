@@ -20,15 +20,10 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
   const { handleSubmit, errors, isSubmitting, defineField, values } = useForm<CreateServerFormData>(
     {
       validationSchema: toTypedSchema(createServerSchema),
-      initialValues: {
-        is_public: false,
-      },
     },
   )
 
   const [name, nameAttrs] = defineField('name')
-  const [templateId, templateIdAttrs] = defineField('template_id')
-  const [isPublic, isPublicAttrs] = defineField('is_public')
 
   const isLastStep = computed(() => currentStep.value === Step.CUSTOMIZE)
   const isFirstStep = computed(() => currentStep.value === Step.TEMPLATE)
@@ -49,10 +44,8 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
     try {
       const { data } = await serverApi.createServer(values)
 
-      // Логика после успеха: навигация или закрытие модалки
       if (onSuccess) onSuccess()
 
-      // Например, переходим на страницу нового сервера
       await router.push({ name: 'server', params: { id: data.id } })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
@@ -67,10 +60,6 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
     // Поля
     name,
     nameAttrs,
-    templateId,
-    templateIdAttrs,
-    isPublic,
-    isPublicAttrs,
 
     // Состояние формы
     values,

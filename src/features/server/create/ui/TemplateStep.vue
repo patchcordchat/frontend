@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="p-modal__header p-modal__section">
+      <p-close-button class="p-modal__close-button" />
+
       <h1 class="p-modal__title">Создайте свой сервер</h1>
 
       <div class="p-modal__subtitle">
@@ -9,24 +11,26 @@
       </div>
     </div>
 
-    <div class="p-modal__body p-modal__section">
-      <p-button width="max" view="secondary" @click="nextStep">Свой шаблон</p-button>
+    <div class="p-modal__body p-modal__section template-list">
+      <purpose-option @click="nextStep" icon="pixel.pencil">Свой шаблон</purpose-option>
 
-      <p-button width="max" view="secondary" @click="nextStep">Игры</p-button>
+      <div class="template-list__option-header">Начните с шаблона</div>
 
-      <p-button width="max" view="secondary" @click="nextStep">Друзья</p-button>
+      <purpose-option @click="nextStep" icon="pixel.gamepad">Игры</purpose-option>
 
-      <p-button width="max" view="secondary" @click="nextStep">Учебная группа</p-button>
+      <purpose-option @click="nextStep" icon="pixel.heart">Друзья</purpose-option>
 
-      <p-button width="max" view="secondary" @click="nextStep">Школьный клуб</p-button>
+      <purpose-option @click="nextStep" icon="pixel.peach">Учебная группа</purpose-option>
 
-      <p-button width="max" view="secondary" @click="nextStep">Местное сообщество</p-button>
+      <purpose-option @click="nextStep" icon="pixel.book">Школьный клуб</purpose-option>
 
-      <p-button width="max" view="secondary" @click="nextStep">Художники и авторы</p-button>
+      <purpose-option @click="nextStep" icon="pixel.leaf">Местное сообщество</purpose-option>
+
+      <purpose-option @click="nextStep" icon="pixel.palette">Художники и авторы</purpose-option>
     </div>
 
     <div class="p-modal__footer p-modal__section">
-      <h2>У вас уже есть приглашение?</h2>
+      <h2 class="p-modal__footer-title">У вас уже есть приглашение?</h2>
 
       <p-button width="max" view="secondary">Присоединиться к серверу</p-button>
     </div>
@@ -35,8 +39,29 @@
 
 <script setup lang="ts">
 import { inject } from 'vue'
-import { PButton } from '@/shared/ui'
+import { PButton, PCloseButton } from '@/shared/ui'
 import { CREATE_SERVER_FORM_KEY } from '../model'
+import PurposeOption from './PurposeOption.vue'
 
 const { nextStep } = inject(CREATE_SERVER_FORM_KEY)!
 </script>
+
+<style scoped lang="scss">
+@use '@/app/styles/utils/mixins.scss' as mixins;
+
+.template-list {
+  overflow: hidden scroll !important;
+  height: 20.625rem;
+  margin-top: var(--space-xl);
+  padding-block: var(--space-xs) var(--space-xs);
+  padding-inline: var(--space-xl) var(--space-xs);
+
+  &__option-header {
+    @include mixins.text-xs-bold;
+
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xs);
+    text-transform: uppercase;
+  }
+}
+</style>

@@ -114,6 +114,8 @@
     --background-surface-higher: var(--neutral-62);
     --background-modifier-hover: var(--opacity-8);
     --background-modifier-selected: var(--opacity-20);
+    --background-modifier-normal: var(--opacity-16);
+    --background-modifier-muted: var(--opacity-4);
 
     /* Text Colors */
     --text-link: var(--blue-300);
@@ -137,6 +139,7 @@
     /* Icons Colors */
     --icon-tertiary: var(--neutral-29);
     --interactive-hover: var(--neutral-2);
+    --interactive-text-default: var(--neutral-23);
     
     /* Border Colors */
     --border-subtle: var(--opacity-12);

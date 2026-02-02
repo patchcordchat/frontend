@@ -36,6 +36,7 @@ type PaddingSize = 'sm' | 'lg'
 interface Props {
   size?: ModalSize
   paddingSize?: PaddingSize
+  class?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -48,6 +49,7 @@ const slots = useSlots()
 const classes = {
   [`p-modal--size-${props.size}`]: true,
   [`p-modal--padding-${props.paddingSize}`]: true,
+  [`${props.class}`]: props.class,
 }
 </script>
 
@@ -147,9 +149,12 @@ $block: '.p-modal';
 
   &__footer,
   :deep(#{$block}__footer) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-bottom: 0;
-    overflow-wrap: break-word;
     word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   &__section,
@@ -163,7 +168,6 @@ $block: '.p-modal';
     transition-timing-function: ease-out;
   }
 
-  &__title,
   :deep(#{$block}__title) {
     @include mixins.heading-xl-semibold;
 
@@ -171,13 +175,25 @@ $block: '.p-modal';
     overflow-wrap: break-word;
   }
 
-  &__subtitle,
   :deep(#{$block}__subtitle) {
     @include mixins.text-md-normal;
 
     margin-top: var(--space-xs);
     text-align: center;
     overflow-wrap: break-word;
+  }
+
+  :deep(#{$block}__footer-title) {
+    @include mixins.heading-lg-semibold;
+
+    margin-bottom: var(--space-xs);
+  }
+
+  :deep(#{$block}__close-button) {
+    position: absolute;
+    top: 0.75rem;
+    z-index: 1000;
+    inset-inline-end: 1rem;
   }
 }
 </style>

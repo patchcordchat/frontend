@@ -13,6 +13,8 @@ import PFieldHint from './PFieldHint'
 import PStatusMessage from './PStatusMessage'
 import PModal from './PModal'
 import PScrim from './PScrim'
+import PCloseButton from './PCloseButton'
+import PUploadIcon from './PUploadIcon'
 
 export {
   PAnchor,
@@ -30,4 +32,6 @@ export {
   PStatusMessage,
   PModal,
   PScrim,
+  PCloseButton,
+  PUploadIcon,
 }
