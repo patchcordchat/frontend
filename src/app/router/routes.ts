@@ -39,17 +39,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: 'channels',
-        name: 'channels',
         children: [
-          {
-            path: ':serverId/:channelId',
-            name: 'server-channels',
-            components: {
-              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
-            },
-            meta: { title: 'Каналы' },
-          },
           {
             path: '@me',
             name: 'private-channels',
@@ -58,6 +48,35 @@ const routes: RouteRecordRaw[] = [
               sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
             },
             meta: { title: 'Друзья', icon: 'misc.greeting' },
+            children: [
+              {
+                path: ':dmId',
+                name: 'dm-chat',
+                components: {
+                  content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+                  sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+                },
+              },
+            ],
+          },
+          {
+            path: ':serverId',
+            name: 'server',
+            components: {
+              sidebar: () => import('@/widgets/server-sidebar'),
+              content: () => import('@/pages/server-chat/ui/NoChannel.vue'),
+            },
+            meta: { title: 'Каналы' },
+            children: [
+              {
+                path: ':channelId',
+                name: 'channel',
+                components: {
+                  content: () => import('@/pages/channels/ui/ChannelPage.vue'),
+                  sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+                },
+              },
+            ],
           },
         ],
       },
