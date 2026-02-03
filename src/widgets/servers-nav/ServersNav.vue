@@ -8,21 +8,18 @@
       </div>
 
       <list-item
-        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
+        v-for="server in servers"
+        :key="server.id"
+        :src="server.icon"
+        :label="server.name"
         type="link"
-        to="/channels/1/1"
-      />
-
-      <list-item
-        src="https://distribution.faceit-cdn.net/images/5491f40f-c2d2-40f6-961a-e2c95a9a2279.jpg"
-        type="link"
-        to="/channels/2/1"
+        :to="`/channels/${server.id}`"
       />
 
       <list-item type="button" icon="misc.plus-circle" @click="modalRef?.open()" />
 
-      <p-modal ref="modalRef">
-        <create-server-form />
+      <p-modal show-close-button ref="modalRef">
+        <create-server-form @close="modalRef?.close()" />
       </p-modal>
 
       <list-item type="link" to="/discovery" icon="misc.compass-circle" />
@@ -31,12 +28,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { PModal } from '@/shared/ui'
 import CreateServerForm from '@/features/server/create'
+import { useServerStore } from '@/entities/server'
 import ListItem from './ListItem.vue'
 
 const modalRef = ref<InstanceType<typeof PModal>>()
+const serverStore = useServerStore()
+const { servers } = storeToRefs(serverStore)
+
+onMounted(async () => {
+  await serverStore.fetchServers()
+})
 </script>
 
 <style scoped lang="scss">

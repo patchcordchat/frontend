@@ -1,6 +1,6 @@
 <template>
   <transition name="expand-fade-down">
-    <component :is="currentStepComponent" :key="currentStep" />
+    <component :is="currentStepComponent" :key="currentStep" @close="emit('close')" />
   </transition>
 </template>
 
@@ -12,6 +12,10 @@ import { useCreateServerForm, CREATE_SERVER_FORM_KEY } from '../model'
 import TemplateStep from './TemplateStep.vue'
 import AudienceStep from './AudienceStep.vue'
 import CustomizeStep from './CustomizeStep.vue'
+
+const emit = defineEmits<{
+  close: []
+}>()
 
 const formApi = useCreateServerForm()
 

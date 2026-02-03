@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p-modal__header p-modal__section">
-      <p-close-button class="p-modal__close-button" />
+      <p-close-button class="p-modal__close-button" @click="emit('close')" />
 
       <h1 class="p-modal__title">Создайте свой сервер</h1>
 
@@ -28,6 +28,11 @@ import { inject } from 'vue'
 import { PButton, PCloseButton } from '@/shared/ui'
 import { CREATE_SERVER_FORM_KEY } from '../model'
 import PurposeOption from './PurposeOption.vue'
+
+// TODO Переписать (дублирование кода)
+const emit = defineEmits<{
+  close: []
+}>()
 
 const { prevStep, nextStep } = inject(CREATE_SERVER_FORM_KEY)!
 </script>

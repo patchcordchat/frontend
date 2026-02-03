@@ -128,6 +128,7 @@ $block: '.p-modal';
 
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   width: 100%;
   max-height: 100%;
   padding-top: var(--padding-top);
@@ -182,6 +183,19 @@ $block: '.p-modal';
       --padding-top: calc(var(--space-xl) - var(--space-md));
       --padding-bottom: var(--space-md);
     }
+  }
+
+  @media screen and (width >= 486px) and (height <= 580px) {
+    @include mixins.scrollbar-thin;
+
+    position: absolute;
+    overflow-y: auto;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    border: none !important;
+    border-radius: 0 !important;
+    inset: 0;
   }
 
   &__header,

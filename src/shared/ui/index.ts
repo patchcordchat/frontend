@@ -1,37 +1,17 @@
-import PAnchor from './PAnchor'
-import PButton from './PButton'
-import PCheckbox from './PCheckbox'
-import PIcon from './PIcon'
-import PInput from './PInput'
-import PLabel from './PLabel'
-import PSelect from './PSelect'
-import PTextField from './PTextField'
-import PAvatar from './PAvatar'
-import PToggle from './PToggle'
-import PSvgDefs from './PSvgDefs'
-import PFieldHint from './PFieldHint'
-import PStatusMessage from './PStatusMessage'
-import PModal from './PModal'
-import PScrim from './PScrim'
-import PCloseButton from './PCloseButton'
-import PUploadIcon from './PUploadIcon'
-
-export {
-  PAnchor,
-  PButton,
-  PCheckbox,
-  PIcon,
-  PLabel,
-  PSelect,
-  PInput,
-  PTextField,
-  PAvatar,
-  PSvgDefs,
-  PToggle,
-  PFieldHint,
-  PStatusMessage,
-  PModal,
-  PScrim,
-  PCloseButton,
-  PUploadIcon,
-}
+export { default as PAnchor } from './PAnchor'
+export { default as PButton } from './PButton'
+export { default as PCheckbox } from './PCheckbox'
+export { default as PIcon } from './PIcon'
+export { default as PInput } from './PInput'
+export { default as PLabel } from './PLabel'
+export { default as PSelect } from './PSelect'
+export { default as PTextField } from './PTextField'
+export { default as PAvatar } from './PAvatar'
+export { default as PToggle } from './PToggle'
+export { default as PSvgDefs } from './PSvgDefs'
+export { default as PFieldHint } from './PFieldHint'
+export { default as PStatusMessage } from './PStatusMessage'
+export { default as PModal } from './PModal'
+export { default as PScrim } from './PScrim'
+export { default as PCloseButton } from './PCloseButton'
+export { default as PUploadIcon } from './PUploadIcon'

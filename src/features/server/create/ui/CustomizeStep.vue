@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p-modal__header p-modal__section">
-      <p-close-button class="p-modal__close-button" />
+      <p-close-button class="p-modal__close-button" @click="emit('close')" />
 
       <h1 class="p-modal__title">Персонализируйте свой сервер</h1>
 
@@ -41,6 +41,11 @@
 import { inject, useId } from 'vue'
 import { PTextField, PButton, PCloseButton, PUploadIcon } from '@/shared/ui'
 import { CREATE_SERVER_FORM_KEY } from '../model'
+
+// TODO Переписать (дублирование кода)
+const emit = defineEmits<{
+  close: []
+}>()
 
 const { name, nameAttrs, errors, prevStep, onSubmit } = inject(CREATE_SERVER_FORM_KEY)!
 
