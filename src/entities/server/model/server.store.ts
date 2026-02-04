@@ -21,7 +21,7 @@ export const useServerStore = defineStore('server', () => {
     error.value = null
 
     try {
-      const { data } = await serverApi.getServers()
+      const { data } = await serverApi.getMyServers()
       servers.value = data
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Ошибка загрузки серверов'

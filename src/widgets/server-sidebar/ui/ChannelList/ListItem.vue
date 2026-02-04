@@ -1,5 +1,5 @@
 <template>
-  <li class="channel">
+  <component :is="tag" class="channel" v-bind="linkAttributes">
     <div class="channel__icon">
       <p-icon :icon="icon" />
     </div>
@@ -13,7 +13,7 @@
 
       <p-icon class="channel__control" icon="misc.gear" size="xs" />
     </div>
-  </li>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +23,7 @@ import { PIcon } from '@/shared/ui'
 interface Props {
   type: number
   name: string
+  id?: string
 }
 
 const props = defineProps<Props>()
@@ -31,6 +32,17 @@ const iconMap: Record<number, string> = {
   0: 'misc.hashtag',
   1: 'misc.speaker',
 }
+
+const tag = computed(() => {
+  return props.id ? 'router-link' : 'li'
+})
+
+const linkAttributes = computed(() => {
+  if (props.id) {
+    return { to: { name: 'channel', params: { channelId: props.id } } }
+  }
+  return {}
+})
 
 const icon = computed(() => iconMap[props.type] ?? 'misc.hashtag')
 </script>
@@ -59,7 +71,7 @@ $block: '.channel';
     background: var(--background-modifier-hover);
 
     #{$block}__name {
-      color: var(--interactive-text-active);
+      color: var(--text-strong);
     }
 
     #{$block}__control {
@@ -67,8 +79,20 @@ $block: '.channel';
     }
   }
 
-  &--active {
+  &.router-link-active {
     background: var(--background-modifier-selected);
+
+    #{$block}__name {
+      color: var(--text-strong);
+    }
+
+    #{$block}__control {
+      display: block;
+    }
+
+    #{$block}__icon {
+      color: var(--icon-strong);
+    }
   }
 
   &__icon {

@@ -1,7 +1,7 @@
 <template>
   <li class="channel-group">
     <div class="channel-group__content">
-      <h3 class="channel-group__name">Голосовые каналы</h3>
+      <h3 class="channel-group__name">{{ props.name }}</h3>
 
       <p-icon class="channel-group__expand-indicator" icon="misc.chevron-down" size="xs" />
     </div>
@@ -14,6 +14,12 @@
 
 <script setup lang="ts">
 import { PIcon } from '@/shared/ui'
+
+interface Props {
+  name: string
+}
+
+const props = defineProps<Props>()
 </script>
 
 <style scoped lang="scss">

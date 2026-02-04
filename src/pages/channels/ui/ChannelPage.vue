@@ -1,54 +1,113 @@
 <template>
   <div class="channel-page">
-    <div></div>
-    <div style="display: flex; flex: 1 1 auto; flex-direction: column">
-      <main style="display: flex; flex: 1 1 auto; flex-direction: column">
-        <div style="display: flex; flex: 1 1 auto" class="message-wrapper">
+    <section class="channel-page__title">
+      <div>
+        <div class="channel-page__channel-icon">
+          <p-icon icon="misc.hashtag" />
+        </div>
+
+        <h1 class="channel-page__channel-name">general</h1>
+      </div>
+
+      <div class="channel-page__toolbar">
+        <p-icon icon="misc.bell" size="md" />
+
+        <p-icon icon="misc.pin" size="md" />
+
+        <p-icon icon="misc.users" size="md" />
+
+        <div class="channel-page__search"></div>
+      </div>
+    </section>
+
+    <div class="channel-page__content">
+      <main>
+        <div class="messages-wrapper">
           <ol>
-            <li v-for="message in messages" :key="message.id">
-              <div>
-                <div>
-                  {{ message.content }}
+            <li>
+              <div class="message">
+                <div class="message_contents">
+                  <p-avatar />
+
+                  <h3>FIZIS</h3>
+
+                  <div>message content</div>
                 </div>
               </div>
             </li>
           </ol>
         </div>
 
-        <form
-          style="
-            position: relative;
-            flex-shrink: 0;
-            margin-top: -16px;
-            padding-inline: var(--space-xs);
-          "
-        >
-          <div class="channel-textarea">
-            <textarea name="" id=""></textarea>
-          </div>
-        </form>
+        <form class="message-form"></form>
       </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const messages = [
-  {
-    id: 1,
-    content: 'lorem ipsum',
-  },
-]
+import { PIcon } from '@/shared/ui'
 </script>
 
 <style scoped lang="scss">
+@use '@/app/styles/utils/mixins.scss' as mixins;
+
 .channel-page {
   position: relative;
   display: flex;
-  width: 100%;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
   min-width: 0;
-  height: 100%;
-  box-sizing: border-box;
+  min-height: 0;
   background: var(--background-base-lower);
+
+  &__title {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    height: 3rem;
+    min-height: 3rem;
+    padding: var(--space-xs);
+    color: var(--text-default);
+    font-size: 1rem;
+    line-height: 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--background-base-lower);
+    cursor: default;
+    -webkit-padding-end: var(--space-xs);
+    padding-inline: var(--space-md) var(--space-xs);
+    -webkit-padding-start: var(--space-md);
+  }
+
+  &__channel-icon {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 2rem;
+    margin-inline: -1px calc(var(--space-xs) / 2 + 1px);
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--channel-icon);
+    }
+  }
+
+  &__channel-name {
+    @include mixins.text-md-medium;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    color: var(--text-strong);
+    white-space: nowrap;
+  }
 }
 </style>

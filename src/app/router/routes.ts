@@ -44,18 +44,15 @@ const routes: RouteRecordRaw[] = [
             path: '@me',
             name: 'private-channels',
             components: {
-              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+              content: () => import('@/widgets/server-sidebar'),
+              sidebar: () => import('@/pages/server-chat'),
             },
             meta: { title: 'Друзья', icon: 'misc.greeting' },
             children: [
               {
                 path: ':dmId',
                 name: 'dm-chat',
-                components: {
-                  content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-                  sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
-                },
+                component: () => import('@/pages/channels'),
               },
             ],
           },
@@ -64,17 +61,14 @@ const routes: RouteRecordRaw[] = [
             name: 'server',
             components: {
               sidebar: () => import('@/widgets/server-sidebar'),
-              content: () => import('@/pages/server-chat/ui/NoChannel.vue'),
+              content: () => import('@/pages/server-chat'),
             },
             meta: { title: 'Каналы' },
             children: [
               {
                 path: ':channelId',
                 name: 'channel',
-                components: {
-                  content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-                  sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
-                },
+                component: () => import('@/pages/channels'),
               },
             ],
           },
@@ -90,16 +84,16 @@ const routes: RouteRecordRaw[] = [
             path: 'applications',
             name: 'discovery-applications',
             components: {
-              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+              sidebar: () => import('@/widgets/server-sidebar'),
+              content: () => import('@/pages/server-chat'),
             },
           },
           {
             path: 'servers',
             name: 'discovery-servers',
             components: {
-              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+              sidebar: () => import('@/widgets/server-sidebar'),
+              content: () => import('@/pages/server-chat'),
             },
           },
         ],

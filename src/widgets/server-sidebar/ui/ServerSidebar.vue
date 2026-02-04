@@ -2,25 +2,26 @@
   <nav class="server-sidebar">
     <header class="server-sidebar__header">
       <div class="server-sidebar__header-content">
-        <div class="server-sidebar__server-dropdown">
-          <div class="server-sidebar__server-name">
-            <h2>chocolate nipple</h2>
-          </div>
+        <server-dropdown />
 
-          <div>
-            <p-icon icon="misc.chevron-down" size="xs" />
+        <span>
+          <div class="server-sidebar__invite-button">
+            <p-icon icon="misc.users-add" />
           </div>
-        </div>
+        </span>
       </div>
     </header>
 
-    <channel-list />
+    <div class="server-sidebar__body">
+      <channel-list />
+    </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { PIcon } from '@/shared/ui'
 import ChannelList from './ChannelList'
+import ServerDropdown from './ServerDropdown.vue'
 </script>
 
 <style scoped lang="scss">
@@ -30,15 +31,22 @@ import ChannelList from './ChannelList'
   @include mixins.scrollbar-thin;
 
   position: relative;
+  display: flex;
   flex: 1 1 auto;
-  overflow: hidden scroll;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   min-height: 0;
-  box-sizing: border-box;
+  padding-bottom: calc(3.625rem + var(--space-xs) - 1rem);
+  -webkit-margin-start: -1px;
+  margin-inline-start: -1px;
 
   &__header {
     position: relative;
     z-index: 1;
     height: var(--custom-channel-header-height);
+    height: 3rem;
+    min-height: 3rem;
     padding: var(--space-xs);
     box-sizing: border-box;
     font-family: var(--font-display);
@@ -57,16 +65,32 @@ import ChannelList from './ChannelList'
     color: var(--header-primary);
   }
 
-  &__server-dropdown {
+  &__body {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    overflow: hidden scroll;
+    min-height: 0;
+    margin-bottom: var(--space-xxs);
+    padding-right: var(--space-xs);
+    padding-bottom: var(--space-md);
+    box-sizing: border-box;
+    -webkit-padding-end: var(--space-xs);
+    padding-inline-end: var(--space-xs);
+    -webkit-margin-end: 1px;
+    margin-inline-end: 1px;
+  }
+
+  &__invite-button {
     display: flex;
-    gap: 0.125rem;
+    flex: 0 0 auto;
     align-items: center;
-    min-width: 0;
+    justify-content: center;
+    width: 2rem;
     height: 2rem;
-    border-radius: 0.5rem;
+    padding: 0.375rem;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    padding-block: 0;
-    padding-inline: var(--space-xs) var(--space-xxs);
   }
 }
 </style>
