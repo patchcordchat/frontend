@@ -31,7 +31,7 @@
 import { ref, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { PModal } from '@/shared/ui'
-import CreateServerForm from '@/features/server/create'
+import CreateServerForm from '@/features/create-server'
 import { useServerStore } from '@/entities/server'
 import ListItem from './ListItem.vue'
 

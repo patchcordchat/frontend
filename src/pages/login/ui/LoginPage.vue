@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import { LoginForm } from '@/features/auth/login'
+import { LoginForm } from '@/features/login'
 </script>

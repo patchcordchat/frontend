@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import { RegisterForm } from '@/features/auth/register'
+import { RegisterForm } from '@/features/register'
 </script>

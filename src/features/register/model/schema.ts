@@ -5,7 +5,7 @@ import {
   dateOfBirthRule,
   emailRule,
   passwordRule,
-} from '../../lib/validation'
+} from '@/entities/session/lib/validation'
 
 export const registerSchema = z.object({
   username: usernameRule,

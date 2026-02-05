@@ -44,8 +44,8 @@ const routes: RouteRecordRaw[] = [
             path: '@me',
             name: 'private-channels',
             components: {
-              content: () => import('@/widgets/server-sidebar'),
-              sidebar: () => import('@/pages/server-chat'),
+              sidebar: () => import('@/widgets/server-sidebar'),
+              content: () => import('@/pages/server-chat'),
             },
             meta: { title: 'Друзья', icon: 'misc.greeting' },
             children: [
