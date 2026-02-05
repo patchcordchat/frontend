@@ -44,7 +44,7 @@ const routes: RouteRecordRaw[] = [
             path: '@me',
             name: 'private-channels',
             components: {
-              sidebar: () => import('@/widgets/server-sidebar'),
+              sidebar: () => import('@/pages/server-sidebar'),
               content: () => import('@/pages/server-chat'),
             },
             meta: { title: 'Друзья', icon: 'misc.greeting' },
@@ -60,7 +60,7 @@ const routes: RouteRecordRaw[] = [
             path: ':serverId',
             name: 'server',
             components: {
-              sidebar: () => import('@/widgets/server-sidebar'),
+              sidebar: () => import('@/pages/server-sidebar'),
               content: () => import('@/pages/server-chat'),
             },
             meta: { title: 'Каналы' },
@@ -84,7 +84,7 @@ const routes: RouteRecordRaw[] = [
             path: 'applications',
             name: 'discovery-applications',
             components: {
-              sidebar: () => import('@/widgets/server-sidebar'),
+              sidebar: () => import('@/pages/server-sidebar'),
               content: () => import('@/pages/server-chat'),
             },
           },
@@ -92,7 +92,7 @@ const routes: RouteRecordRaw[] = [
             path: 'servers',
             name: 'discovery-servers',
             components: {
-              sidebar: () => import('@/widgets/server-sidebar'),
+              sidebar: () => import('@/pages/server-sidebar'),
               content: () => import('@/pages/server-chat'),
             },
           },

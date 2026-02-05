@@ -1,7 +1,5 @@
 <template>
-  <div></div>
+  <form class="message-form"></form>
 </template>
 
 <script setup lang="ts"></script>
-
-<style scoped></style>

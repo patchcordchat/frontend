@@ -1,44 +1,23 @@
 <template>
   <div class="channel-page">
-    <section class="channel-page__title">
-      <div>
-        <div class="channel-page__channel-icon">
-          <p-icon icon="misc.hashtag" />
-        </div>
-
-        <h1 class="channel-page__channel-name">general</h1>
-      </div>
-
-      <div class="channel-page__toolbar">
-        <p-icon icon="misc.bell" size="md" />
-
-        <p-icon icon="misc.pin" size="md" />
-
-        <p-icon icon="misc.users" size="md" />
-
-        <div class="channel-page__search"></div>
-      </div>
-    </section>
+    <div class="channel-page__subtitle-container">
+      <chat-header />
+    </div>
 
     <div class="channel-page__content">
       <main>
-        <div class="messages-wrapper">
-          <ol>
-            <li v-for="i in 10" :key="i">
-              <message-card />
-            </li>
-          </ol>
-        </div>
+        <message-feed />
 
-        <form class="message-form"></form>
+        <message-form />
       </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PIcon } from '@/shared/ui'
-import { MessageCard } from '@/entities/message'
+import ChatHeader from '@/widgets/chat-header'
+import MessageFeed from '@/widgets/message-feed'
+import MessageForm from '@/features/send-message'
 </script>
 
 <style scoped lang="scss">

@@ -1,15 +1,17 @@
 <template>
   <div class="app-sidebar">
     <servers-nav />
+
     <div class="app-sidebar__list">
       <slot></slot>
     </div>
+
     <user-area />
   </div>
 </template>
 
 <script setup lang="ts">
-import ServersNav from '../servers-nav'
+import ServersNav from '../server-list'
 import UserArea from '../user-area'
 </script>
 

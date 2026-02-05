@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import NoChannel from './NoChannel.vue'
+import NoChannel from '@/widgets/no-channel'
 </script>

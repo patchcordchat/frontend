@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { PIcon } from '@/shared/ui'
-import ChannelList from './ChannelList'
+import ChannelList from '@/widgets/channel-list'
 import ServerDropdown from './ServerDropdown.vue'
 </script>
 
