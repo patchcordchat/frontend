@@ -24,16 +24,8 @@
       <main>
         <div class="messages-wrapper">
           <ol>
-            <li>
-              <div class="message">
-                <div class="message_contents">
-                  <p-avatar />
-
-                  <h3>FIZIS</h3>
-
-                  <div>message content</div>
-                </div>
-              </div>
+            <li v-for="i in 10" :key="i">
+              <message-card />
             </li>
           </ol>
         </div>
@@ -46,6 +38,7 @@
 
 <script setup lang="ts">
 import { PIcon } from '@/shared/ui'
+import { MessageCard } from '@/entities/message'
 </script>
 
 <style scoped lang="scss">
