@@ -107,9 +107,9 @@
 
     /* Background Colors */
     --background-scrim: var(--opacity-black-72);
-    --background-base-low: #202024;
-    --background-base-lower: #1a1a1e;
-    --background-base-lowest: #121214;
+    --background-base-low: var(--neutral-82);
+    --background-base-lower: var(--neutral-86);
+    --background-base-lowest: var(--neutral-92);
     --background-surface-high: var(--neutral-79);
     --background-surface-higher: var(--neutral-62);
     --background-modifier-hover: var(--opacity-8);
@@ -123,7 +123,7 @@
     --text-muted: var(--neutral-22);
     --text-danger: var(--red-345);
     --text-primary: var(--neutral-1);
-    --text-default: var(--neutral-9);
+    --text-default: var(--neutral-5);
     --text-strong: var(--neutral-2);
     --text-secondary: var(--neutral-16);
 
@@ -146,6 +146,7 @@
     
     /* Border Colors */
     --border-subtle: var(--opacity-12);
+    --border-muted: var(--opacity-4);
     --app-border-frame: var(--opacity-12);
 
     /* Icon Colors */
@@ -161,4 +162,7 @@
     /* Channels */
     --channels-default: var(--neutral-35);
     --channel-icon: var(--neutral-35);
+
+    /* Chat */
+    --chat-background-default: var(--neutral-80);
 }
