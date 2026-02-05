@@ -18,7 +18,7 @@
 
       <list-item type="button" icon="misc.plus-circle" @click="modalRef?.open()" />
 
-      <p-modal show-close-button ref="modalRef">
+      <p-modal size="md" padding-size="sm" show-close-button ref="modalRef">
         <create-server-form @close="modalRef?.close()" />
       </p-modal>
 

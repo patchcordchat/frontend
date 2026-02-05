@@ -1,7 +1,7 @@
 <template>
   <div class="channel-page">
     <div class="channel-page__subtitle-container">
-      <chat-header />
+      <channel-header />
     </div>
 
     <div class="channel-page__content">
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import ChatHeader from '@/widgets/chat-header'
+import ChannelHeader from '@/widgets/channel-header'
 import MessageFeed from '@/widgets/message-feed'
 import MessageForm from '@/features/send-message'
 </script>

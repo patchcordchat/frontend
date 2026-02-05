@@ -48,8 +48,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  size: 'md',
-  paddingSize: 'sm',
   showCloseButton: true,
   closeOnScrimClick: true,
   closeOnEscape: true,
@@ -63,8 +61,8 @@ const emit = defineEmits<{
 const slots = useSlots()
 
 const classes = {
-  [`p-modal--size-${props.size}`]: true,
-  [`p-modal--padding-${props.paddingSize}`]: true,
+  [`p-modal--size-${props.size}`]: props.size,
+  [`p-modal--padding-${props.paddingSize}`]: props.paddingSize,
   [`${props.class}`]: props.class,
 }
 
@@ -118,7 +116,8 @@ $block: '.p-modal';
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  padding: calc(2rem + var(--space-xl)) var(--space-xl);
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
   box-sizing: border-box;
   pointer-events: none;
 }

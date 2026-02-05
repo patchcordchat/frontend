@@ -45,14 +45,14 @@ const routes: RouteRecordRaw[] = [
             name: 'private-channels',
             components: {
               sidebar: () => import('@/pages/server-sidebar'),
-              content: () => import('@/pages/server-chat'),
+              content: () => import('@/pages/server-content'),
             },
             meta: { title: 'Друзья', icon: 'misc.greeting' },
             children: [
               {
                 path: ':dmId',
                 name: 'dm-chat',
-                component: () => import('@/pages/channels'),
+                component: () => import('@/pages/channel'),
               },
             ],
           },
@@ -61,14 +61,14 @@ const routes: RouteRecordRaw[] = [
             name: 'server',
             components: {
               sidebar: () => import('@/pages/server-sidebar'),
-              content: () => import('@/pages/server-chat'),
+              content: () => import('@/pages/server-content'),
             },
             meta: { title: 'Каналы' },
             children: [
               {
                 path: ':channelId',
                 name: 'channel',
-                component: () => import('@/pages/channels'),
+                component: () => import('@/pages/channel'),
               },
             ],
           },
@@ -85,7 +85,7 @@ const routes: RouteRecordRaw[] = [
             name: 'discovery-applications',
             components: {
               sidebar: () => import('@/pages/server-sidebar'),
-              content: () => import('@/pages/server-chat'),
+              content: () => import('@/pages/server-content'),
             },
           },
           {
@@ -93,7 +93,7 @@ const routes: RouteRecordRaw[] = [
             name: 'discovery-servers',
             components: {
               sidebar: () => import('@/pages/server-sidebar'),
-              content: () => import('@/pages/server-chat'),
+              content: () => import('@/pages/server-content'),
             },
           },
         ],
