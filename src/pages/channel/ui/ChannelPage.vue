@@ -5,7 +5,7 @@
     </div>
 
     <div class="channel-page__content">
-      <main>
+      <main class="channel-page__chat-wrapper">
         <message-feed />
 
         <message-form />
@@ -33,53 +33,24 @@ import MessageForm from '@/features/send-message'
   min-height: 0;
   background: var(--background-base-lower);
 
-  &__title {
+  &__content {
     position: relative;
-    z-index: 2;
     display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-    width: 100%;
+    flex: 1 1 auto;
+    flex-direction: column;
     min-width: 0;
-    height: 3rem;
-    min-height: 3rem;
-    padding: var(--space-xs);
-    color: var(--text-default);
-    font-size: 1rem;
-    line-height: 1.25rem;
-    border-bottom: 1px solid var(--border-subtle);
+    min-height: 0;
     background: var(--background-base-lower);
-    cursor: default;
-    -webkit-padding-end: var(--space-xs);
-    padding-inline: var(--space-md) var(--space-xs);
-    -webkit-padding-start: var(--space-md);
   }
 
-  &__channel-icon {
+  &__chat-wrapper {
+    position: relative;
+    z-index: 0;
     display: flex;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: 2rem;
-    margin-inline: -1px calc(var(--space-xs) / 2 + 1px);
-
-    svg {
-      width: 1.25rem;
-      height: 1.25rem;
-      color: var(--channel-icon);
-    }
-  }
-
-  &__channel-name {
-    @include mixins.text-md-medium;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    overflow: hidden;
-    color: var(--text-strong);
-    white-space: nowrap;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
   }
 }
 </style>
