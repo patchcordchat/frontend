@@ -1,33 +1,22 @@
 <template>
   <form class="message-form">
     <div class="message-form__inner">
-      <div class="message-form__attach-wrapper">
-        <div class="message-form__attach-button">
-          <p-icon icon="misc.plus-large" />
-        </div>
-      </div>
+      <attach-action />
 
-      <textarea class="message-form__textarea" style="height: 56px"></textarea>
+      <message-input v-model="text" />
 
-      <div class="message-form__buttons">
-        <div class="message-form__attach-button">
-          <p-icon icon="misc.cross" />
-        </div>
-
-        <div class="message-form__attach-button">
-          <p-icon icon="misc.cross" />
-        </div>
-
-        <div class="message-form__attach-button">
-          <p-icon icon="misc.cross" />
-        </div>
-      </div>
+      <action-toolbar />
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import { PIcon } from '@/shared/ui'
+import { ref } from 'vue'
+import MessageInput from './MessageInput.vue'
+import ActionToolbar from './ActionToolbar.vue'
+import AttachAction from './AttachAction.vue'
+
+const text = ref<string>('')
 </script>
 
 <style scoped lang="scss">
@@ -71,21 +60,6 @@ import { PIcon } from '@/shared/ui'
     cursor: pointer;
     transition-duration: 0.2s;
     margin-inline: -0.875rem 0.625rem;
-  }
-
-  &__textarea {
-    width: 100%;
-  }
-
-  &__buttons {
-    position: sticky;
-    top: 0;
-    display: flex;
-    flex-direction: row;
-    gap: var(--space-xs);
-    align-items: center;
-    height: 3.5rem;
-    margin-inline-end: 0.375rem;
   }
 }
 </style>

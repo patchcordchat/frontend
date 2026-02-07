@@ -17,6 +17,8 @@ import { MessageCard } from '@/entities/message'
 </script>
 
 <style scoped lang="scss">
+@use '@/app/styles/utils/mixins.scss' as mixins;
+
 .message-feed {
   position: relative;
   z-index: 0;
@@ -26,6 +28,8 @@ import { MessageCard } from '@/entities/message'
   min-height: 0;
 
   &__scroller {
+    @include mixins.scrollbar-thin;
+
     position: absolute;
     top: 0;
     bottom: 0;

@@ -19,6 +19,10 @@
     background-color: var(--scrollbar-thin-thumb);
   }
 
+  &:not(:hover)::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
   &::-webkit-scrollbar-track {
     border: 2px solid var(--scrollbar-thin-track);
     border-color: var(--scrollbar-thin-track);

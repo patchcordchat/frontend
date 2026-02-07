@@ -1,3 +1,3 @@
-import MessageForm from './MessageForm.vue'
+import SendMessageForm from './SendMessageForm.vue'
 
-export default MessageForm
+export default SendMessageForm

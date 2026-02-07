@@ -40,7 +40,7 @@ import { PToggle, PIcon, PAvatar } from '@/shared/ui'
   justify-content: space-between;
   width: calc(100% - var(--space-xs) * 2);
   box-sizing: border-box;
-  border: 1px solid var(--border-faint);
+  border: 1px solid var(--border-muted);
   border-radius: var(--radius-sm);
   background: var(--background-base-low);
   inset-inline-start: var(--space-xs);
