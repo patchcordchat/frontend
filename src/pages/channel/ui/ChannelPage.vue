@@ -8,7 +8,7 @@
       <main class="channel-page__chat-wrapper">
         <message-feed />
 
-        <send-message-form />
+        <create-message-form />
       </main>
     </div>
   </div>
@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import ChannelHeader from '@/widgets/channel-header'
 import MessageFeed from '@/widgets/message-feed'
-import SendMessageForm from '@/features/send-message'
+import CreateMessageForm from '@/features/create-message'
 </script>
 
 <style scoped lang="scss">

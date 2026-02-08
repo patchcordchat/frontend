@@ -96,9 +96,15 @@ onMounted(() => {
   max-height: 35.188rem;
   color: inherit;
   line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
   border: none;
   background: transparent;
   outline: none;
   resize: none;
+
+  &::placeholder {
+    color: var(--channel-text-area-placeholder);
+  }
 }
 </style>

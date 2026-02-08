@@ -1,3 +1,2 @@
-import { MessageCard } from './ui'
-
-export { MessageCard }
+export { messageApi } from './api'
+export { MessageCard } from './ui'
