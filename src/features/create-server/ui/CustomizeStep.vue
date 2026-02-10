@@ -32,7 +32,7 @@
     >
       <p-button view="secondary" @click="prevStep">Назад</p-button>
 
-      <p-button type="submit" :form="formId">Создать</p-button>
+      <p-button type="submit" :form="formId" :loading="isSubmitting">Создать</p-button>
     </div>
   </div>
 </template>
@@ -47,7 +47,8 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const { name, nameAttrs, errors, prevStep, onSubmit } = inject(CREATE_SERVER_FORM_KEY)!
+const { name, nameAttrs, errors, prevStep, onSubmit, isSubmitting } =
+  inject(CREATE_SERVER_FORM_KEY)!
 
 const formId = `form-${useId()}`
 </script>

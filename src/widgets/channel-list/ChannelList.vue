@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ListItem from './ListItem.vue'
 import ListGroup from './ListGroup.vue'
@@ -42,6 +42,10 @@ const textChannels = computed(() => channels.value.filter((ch) => ch.type === 0)
 const voiceChannels = computed(() => channels.value.filter((ch) => ch.type === 1))
 
 onBeforeMount(async () => {
+  await fetchChannels(serverId.value)
+})
+
+watch(serverId, async () => {
   await fetchChannels(serverId.value)
 })
 </script>

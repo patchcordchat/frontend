@@ -3,7 +3,7 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { AxiosError } from 'axios'
 import { createServerSchema, type CreateServerFormData } from './schema'
-import { serverApi } from '@/entities/server'
+import { useServerStore } from '@/entities/server'
 import { useRouter } from 'vue-router'
 
 enum Step {
@@ -42,11 +42,11 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
     serverError.value = undefined
 
     try {
-      const { data } = await serverApi.createServer(values)
+      const newServer = await useServerStore().createServer(values)
+
+      await router.push({ name: 'server', params: { id: newServer.id } })
 
       if (onSuccess) onSuccess()
-
-      await router.push({ name: 'server', params: { id: data.id } })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         serverError.value = error.response?.data?.message || 'Ошибка создания сервера'

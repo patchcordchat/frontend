@@ -17,7 +17,9 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const formApi = useCreateServerForm()
+const formApi = useCreateServerForm(() => {
+  emit('close')
+})
 
 const { Step, currentStep } = formApi
 
