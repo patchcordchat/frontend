@@ -5,6 +5,7 @@
     :class="{ 'nav-item--active': isActive }"
     :to="to"
     @click="onClick"
+    v-tooltip="{ content: label, placement: 'right', appendTo: 'parent' }"
   >
     <div v-if="type === 'link'" class="nav-item__marker">
       <span></span>
@@ -25,6 +26,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { PIcon } from '@/shared/ui'
+import { vTooltip } from '@/shared/directives/v-tooltip'
 
 interface Props {
   type?: 'button' | 'link'

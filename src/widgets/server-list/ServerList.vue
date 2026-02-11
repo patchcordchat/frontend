@@ -10,7 +10,7 @@
       <list-item
         v-for="server in servers"
         :key="server.id"
-        :src="server.icon"
+        :src="serverIcon(server.id, server.icon)"
         :label="server.name"
         type="link"
         :to="`/channels/${server.id}`"
@@ -33,11 +33,21 @@ import { storeToRefs } from 'pinia'
 import { PModal } from '@/shared/ui'
 import CreateServerForm from '@/features/create-server'
 import { useServerStore } from '@/entities/server'
+import { StoragePaths } from '@/shared/utils'
+import { mediaConfig } from '@/shared/config'
 import ListItem from './ListItem.vue'
 
 const modalRef = ref<InstanceType<typeof PModal>>()
 const serverStore = useServerStore()
 const { servers } = storeToRefs(serverStore)
+
+const serverIcon = (serverId: string, iconHash: string | undefined): string | undefined => {
+  if (iconHash) {
+    return `${mediaConfig.mediaUrl}/${StoragePaths.serverIcon(serverId, iconHash)}`
+  }
+
+  return undefined
+}
 
 onMounted(async () => {
   await serverStore.fetchMyServers()
