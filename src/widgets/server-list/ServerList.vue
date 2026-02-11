@@ -40,7 +40,7 @@ const serverStore = useServerStore()
 const { servers } = storeToRefs(serverStore)
 
 onMounted(async () => {
-  await serverStore.fetchServers()
+  await serverStore.fetchMyServers()
 })
 </script>
 

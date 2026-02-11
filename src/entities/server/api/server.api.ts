@@ -2,11 +2,11 @@ import { apiClient } from '@/shared/api'
 import type { Server, CreateServerDto } from '../model/server.types'
 
 export const serverApi = {
-  getServers: () => apiClient.get<Server[]>('/servers'),
+  fetchServers: () => apiClient.get<Server[]>('/servers'),
 
-  getMyServers: () => apiClient.get<Server[]>('/users/@me/servers'),
+  fetchMyServers: () => apiClient.get<Server[]>('/users/@me/servers'),
 
-  getServerById: (id: string) => apiClient.get<Server>(`/servers/${id}`),
+  fetchServerById: (id: string) => apiClient.get<Server>(`/servers/${id}`),
 
   createServer: (data: CreateServerDto) => apiClient.post<Server>('/servers', data),
 

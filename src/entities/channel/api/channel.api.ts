@@ -2,9 +2,9 @@ import { apiClient } from '@/shared/api'
 import type { Channel, CreateChannelDto } from '../model/channel.types'
 
 export const channelApi = {
-  getChannels: (serverId: string) => apiClient.get<Channel[]>(`/servers/${serverId}/channels`),
+  fetchChannels: (serverId: string) => apiClient.get<Channel[]>(`/servers/${serverId}/channels`),
 
-  getChannelById: (channelId: string) => apiClient.get<Channel>(`/channels/${channelId}`),
+  fetchChannelById: (channelId: string) => apiClient.get<Channel>(`/channels/${channelId}`),
 
   createChannel: (serverId: string, data: CreateChannelDto) =>
     apiClient.post<Channel>(`/servers/${serverId}/channels`, data),

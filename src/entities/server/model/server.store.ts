@@ -16,12 +16,12 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Загрузить список серверов
    */
-  async function fetchServers() {
+  async function fetchMyServers() {
     isLoading.value = true
     error.value = null
 
     try {
-      const { data } = await serverApi.getMyServers()
+      const { data } = await serverApi.fetchMyServers()
       servers.value = data
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Ошибка загрузки серверов'
@@ -40,7 +40,7 @@ export const useServerStore = defineStore('server', () => {
     error.value = null
 
     try {
-      const { data: server } = await serverApi.getServerById(id)
+      const { data: server } = await serverApi.fetchServerById(id)
 
       // Обновить сервер в списке, если он там есть
       const index = servers.value.findIndex((s) => s.id === id)
@@ -152,7 +152,7 @@ export const useServerStore = defineStore('server', () => {
     serversList,
 
     // Actions
-    fetchServers,
+    fetchMyServers,
     fetchServerById,
     createServer,
     updateServer,

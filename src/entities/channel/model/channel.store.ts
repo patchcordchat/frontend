@@ -18,7 +18,7 @@ export const useChannelStore = defineStore('channel', () => {
     error.value = null
 
     try {
-      const { data } = await channelApi.getChannels(serverId)
+      const { data } = await channelApi.fetchChannels(serverId)
 
       channels[serverId] = data
     } catch (err) {
