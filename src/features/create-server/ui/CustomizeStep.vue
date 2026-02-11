@@ -12,7 +12,7 @@
     </div>
 
     <form :id="formId" class="p-modal__body p-modal__section" @submit.prevent="onSubmit">
-      <p-upload-icon />
+      <p-upload-icon @upload="onIconUpload" />
 
       <p-text-field
         v-model="name"
@@ -47,8 +47,12 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const { name, nameAttrs, errors, prevStep, onSubmit, isSubmitting } =
+const { name, nameAttrs, icon, errors, prevStep, onSubmit, isSubmitting } =
   inject(CREATE_SERVER_FORM_KEY)!
 
 const formId = `form-${useId()}`
+
+const onIconUpload = (_: File, base64: string) => {
+  icon.value = base64
+}
 </script>

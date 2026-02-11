@@ -24,6 +24,7 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
   )
 
   const [name, nameAttrs] = defineField('name')
+  const [icon, iconAttrs] = defineField('icon')
 
   const isLastStep = computed(() => currentStep.value === Step.CUSTOMIZE)
   const isFirstStep = computed(() => currentStep.value === Step.TEMPLATE)
@@ -60,6 +61,8 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
     // Поля
     name,
     nameAttrs,
+    icon,
+    iconAttrs,
 
     // Состояние формы
     values,
