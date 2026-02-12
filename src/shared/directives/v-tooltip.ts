@@ -20,7 +20,6 @@ export interface TooltipOptions {
   appendTo?: 'body' | 'parent' | string | HTMLElement
 }
 
-// Расширяем HTMLElement для хранения состояния
 interface TooltipElement extends HTMLElement {
   _tooltipCleanup?: () => void
   _tooltipContainer?: HTMLElement
@@ -36,7 +35,7 @@ export const vTooltip: Directive<TooltipElement, TooltipOptions> = {
   },
 
   updated(el, binding) {
-    const oldVal = binding.oldValue || {}
+    const oldVal: TooltipOptions = binding.oldValue || ({} as TooltipOptions)
     const newVal = binding.value || {}
 
     if (oldVal.content !== newVal.content || oldVal.maxWidth !== newVal.maxWidth) {
@@ -54,10 +53,15 @@ function initTooltip(el: TooltipElement, binding: DirectiveBinding<TooltipOption
 
   const container = document.createElement('div')
 
-  container.style.position = 'absolute'
-  container.style.top = '0'
-  container.style.left = '0'
-  container.style.width = '100%'
+  Object.assign(container.style, {
+    position: 'absolute',
+    visibility: 'visible',
+    inset: '0px auto auto 0px',
+    margin: '0',
+    [`z-index`]: 9999,
+    [`pointer-events`]: 'none',
+    [`max-width`]: `calc(100vw - 10px)`,
+  })
 
   el._tooltipContainer = container
 
@@ -97,7 +101,7 @@ function initTooltip(el: TooltipElement, binding: DirectiveBinding<TooltipOption
       if (tooltipEl && arrowEl) {
         // Запускаем Floating UI
         el._tooltipCleanup = autoUpdate(el, tooltipEl, () => {
-          updatePosition(el, tooltipEl, arrowEl, binding.value.placement || 'top')
+          updatePosition(el, container, arrowEl, binding.value.placement || 'top')
         })
       }
     }, options.delay)
@@ -118,7 +122,7 @@ function initTooltip(el: TooltipElement, binding: DirectiveBinding<TooltipOption
       el._tooltipCleanup = undefined
     }
 
-    // Ждем окончания анимации transition (0.2s)
+    // Ждем окончания анимации
     setTimeout(() => {
       if (container.isConnected) {
         // Проверка на "передумывание" (юзер быстро увел и вернул мышь)
@@ -190,8 +194,7 @@ function updatePosition(
     middleware,
   }).then(({ x, y, placement: finalPlacement, middlewareData }) => {
     Object.assign(floating.style, {
-      left: `${x}px`,
-      top: `${y}px`,
+      transform: `translate(${x}px, ${y}px)`,
     })
 
     // Обновляем data-side для CSS стрелки
@@ -201,12 +204,15 @@ function updatePosition(
     if (middlewareData.arrow) {
       const { x: arrowX, y: arrowY } = middlewareData.arrow
 
+      const placementParts = finalPlacement?.split('-')
+      if (!placementParts[0]) return
+
       const staticSide = {
         top: 'bottom',
         right: 'left',
         bottom: 'top',
         left: 'right',
-      }[finalPlacement.split('-')[0]] as string
+      }[placementParts[0]] as string
 
       Object.assign(arrowEl.style, {
         left: arrowX != null ? `${arrowX}px` : '',

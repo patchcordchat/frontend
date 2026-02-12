@@ -1,5 +1,5 @@
 <template>
-  <Transition name="tooltip-fade">
+  <Transition name="fade">
     <div
       v-show="props.visible"
       ref="tooltipRef"
@@ -37,61 +37,66 @@ defineExpose({
 </script>
 
 <style lang="scss">
-.tooltip-fade-enter-active,
-.tooltip-fade-leave-active {
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-}
-
-.tooltip-fade-enter-from,
-.tooltip-fade-leave-to {
-  opacity: 0;
-  transform: scale(0.95);
-}
+@use '@/app/styles/utils/mixins.scss' as mixins;
 
 .p-tooltip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  width: max-content;
-  padding: 8px 12px;
-  color: #fff;
-  font-size: 13px;
-  line-height: 1.4;
-  border-radius: 6px;
-  background: #222;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
-  pointer-events: none;
+  position: relative;
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  width: auto;
+  max-width: 12.5rem;
+  padding: var(--space-xs) var(--space-sm);
+  box-sizing: border-box;
+  color: var(--text-default);
+  border-radius: var(--radius-sm);
+  background-color: var(--background-surface-high);
+  box-shadow:
+    inset 0 0 0 1px var(--border-subtle),
+    var(--shadow-high);
+  will-change: opacity, transform;
 
   &__content {
-    position: relative;
-    z-index: 1;
+    @include mixins.text-md-semibold;
+
+    overflow: hidden;
+    color: var(--text-default);
   }
 
   &__arrow {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #222;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--background-surface-high);
     transform: rotate(45deg);
   }
 
   &[data-side^='top'] &__arrow {
-    bottom: -4px;
+    bottom: -0.25rem;
+    box-shadow:
+      inset -1px -1px 0 0 var(--border-subtle),
+      var(--shadow-high);
   }
 
   &[data-side^='bottom'] &__arrow {
-    top: -4px;
+    top: -0.25rem;
+    box-shadow:
+      inset 1px 1px 0 0 var(--border-subtle),
+      var(--shadow-high);
   }
 
   &[data-side^='left'] &__arrow {
-    right: -4px;
+    right: -0.25rem;
+    box-shadow:
+      inset -1px 1px 0 0 var(--border-subtle),
+      var(--shadow-high);
   }
 
   &[data-side^='right'] &__arrow {
-    left: -4px;
+    left: -0.25rem;
+    box-shadow:
+      inset 1px -1px 0 0 var(--border-subtle),
+      var(--shadow-high);
   }
 }
 </style>

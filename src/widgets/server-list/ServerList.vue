@@ -1,7 +1,12 @@
 <template>
   <nav class="servers-nav">
     <ul class="servers-nav__list">
-      <list-item type="link" icon="logos.patchcord.symbol" to="/channels/@me" />
+      <list-item
+        type="link"
+        icon="logos.patchcord.symbol"
+        label="Личные Сообщения"
+        to="/channels/@me"
+      />
 
       <div class="servers-nav__separator">
         <span></span>
@@ -16,13 +21,18 @@
         :to="`/channels/${server.id}`"
       />
 
-      <list-item type="button" icon="misc.plus-circle" @click="modalRef?.open()" />
+      <list-item
+        type="button"
+        icon="misc.plus-circle"
+        label="Добавить Сервер"
+        @click="modalRef?.open()"
+      />
 
       <p-modal size="md" padding-size="sm" show-close-button ref="modalRef">
         <create-server-form @close="modalRef?.close()" />
       </p-modal>
 
-      <list-item type="link" to="/discovery" icon="misc.compass-circle" />
+      <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" />
     </ul>
   </nav>
 </template>

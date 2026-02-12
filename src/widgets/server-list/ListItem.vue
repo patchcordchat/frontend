@@ -5,13 +5,18 @@
     :class="{ 'nav-item--active': isActive }"
     :to="to"
     @click="onClick"
-    v-tooltip="{ content: label, placement: 'right', appendTo: 'parent' }"
   >
     <div v-if="type === 'link'" class="nav-item__marker">
       <span></span>
     </div>
 
-    <div class="nav-item__content">
+    <div
+      class="nav-item__content"
+      v-tooltip="{
+        content: props.label,
+        placement: 'right',
+      }"
+    >
       <img v-if="src" class="nav-item__image" :src="src" :alt="label" />
 
       <p-icon v-else-if="icon" :icon="icon" size="md" class="nav-item__icon-component" />
