@@ -39,7 +39,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import { PModal } from '@/shared/ui'
 import CreateServerForm from '@/features/create-server'
 import { useServerStore } from '@/entities/server'
@@ -48,8 +47,7 @@ import { mediaConfig } from '@/shared/config'
 import ListItem from './ListItem.vue'
 
 const modalRef = ref<InstanceType<typeof PModal>>()
-const serverStore = useServerStore()
-const { servers } = storeToRefs(serverStore)
+const { servers, fetchMyServers } = useServerStore()
 
 const serverIcon = (serverId: string, iconHash: string | undefined): string | undefined => {
   if (iconHash) {
@@ -60,7 +58,7 @@ const serverIcon = (serverId: string, iconHash: string | undefined): string | un
 }
 
 onMounted(async () => {
-  await serverStore.fetchMyServers()
+  await fetchMyServers()
 })
 </script>
 

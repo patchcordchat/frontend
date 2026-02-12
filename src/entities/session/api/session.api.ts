@@ -1,7 +1,7 @@
 import type { LoginDto, RegisterDto, AuthResponse } from '../model/session.types'
 import { apiClient } from '@/shared/api'
 
-export const authApi = {
+export const sessionApi = {
   login: (credentials: LoginDto) => apiClient.post<AuthResponse>('/auth/login', credentials),
 
   register: (credentials: RegisterDto) =>

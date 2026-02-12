@@ -1,1 +1,1 @@
-export { authApi } from './session.api'
+export { sessionApi } from './session.api'

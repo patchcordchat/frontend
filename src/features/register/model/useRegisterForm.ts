@@ -4,7 +4,7 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { registerSchema } from './schema'
 import { AxiosError } from 'axios'
-import { authApi, useSessionStore } from '@/entities/session'
+import { useSessionStore } from '@/entities/session'
 
 interface MonthItem {
   title: string
@@ -13,7 +13,7 @@ interface MonthItem {
 
 export const useRegisterForm = () => {
   const router = useRouter()
-  const sessionStore = useSessionStore()
+  const { register } = useSessionStore()
   const serverError = ref<string | undefined>(undefined)
 
   const { handleSubmit, errors, isSubmitting, defineField } = useForm({
@@ -63,11 +63,7 @@ export const useRegisterForm = () => {
           ? new Date(selectedYear.value, selectedMonth.value - 1, selectedDay.value)
           : undefined
 
-      const { data } = await authApi.register({ ...values, date_of_birth: dateOfBirthValue })
-
-      sessionStore.setUserId(data.user_id)
-
-      localStorage.setItem('token', data.token)
+      await register({ ...values, date_of_birth: dateOfBirthValue })
 
       await router.push({ name: 'private-channels' })
     } catch (error: AxiosError | unknown) {
