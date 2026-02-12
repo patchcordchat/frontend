@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
 import PAvatar from '../PAvatar.vue'
 import PIcon from '../../PIcon/PIcon.vue'
-import PSvgDefs from '../../PSvgDefs/PSvgDefs.vue'
+import SvgDefs from '@/app/ui/SvgDefs'
 
 export default {
   title: 'Components/Data Display/PAvatar',
@@ -15,10 +15,10 @@ type Story = StoryObj<typeof PAvatar>
 export const Default: Story = {
   args: {},
   render: () => ({
-    components: { PAvatar, PSvgDefs, PIcon },
+    components: { PAvatar, SvgDefs, PIcon },
     template: `
     <div style="display: flex; gap: 0.5rem;">
-      <p-svg-defs />
+      <svg-defs />
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" />
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" status="dnd" />
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" status="idle" />
@@ -26,7 +26,7 @@ export const Default: Story = {
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" status="offline" />
     </div>
     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-      <p-svg-defs />
+      <svg-defs />
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" size="xxxs" status="online" />
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" size="xxs" status="online" />
       <p-avatar src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" size="xs" status="online" />
