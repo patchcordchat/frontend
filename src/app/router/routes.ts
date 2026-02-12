@@ -38,36 +38,65 @@ const routes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: 'channels/',
-        name: 'channels',
+        path: 'channels',
         children: [
-          {
-            path: ':serverId/:channelId',
-            name: 'server-channels',
-            components: {
-              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
-            },
-            meta: { title: 'Каналы' },
-          },
           {
             path: '@me',
             name: 'private-channels',
             components: {
-              content: () => import('@/pages/channels/ui/ChannelPage.vue'),
-              sidebar: () => import('@/pages/channels/ui/ChannelList.vue'),
+              sidebar: () => import('@/pages/server-sidebar'),
+              content: () => import('@/pages/server-content'),
             },
-            meta: { title: 'Приватные каналы' },
+            meta: { title: 'Друзья', icon: 'misc.greeting' },
+            children: [
+              {
+                path: ':dmId',
+                name: 'dm-chat',
+                component: () => import('@/pages/channel'),
+              },
+            ],
+          },
+          {
+            path: ':serverId',
+            name: 'server',
+            components: {
+              sidebar: () => import('@/pages/server-sidebar'),
+              content: () => import('@/pages/server-content'),
+            },
+            meta: { title: 'Каналы' },
+            children: [
+              {
+                path: ':channelId',
+                name: 'channel',
+                component: () => import('@/pages/channel'),
+              },
+            ],
           },
         ],
       },
       {
         path: 'discovery',
         name: 'discovery',
-        components: {
-          content: () => import('@/pages/discovery'),
-          // sidebar: () => import('@/widgets/discovery-sidebar'),
-        },
+        redirect: { name: 'discovery-applications' },
+        meta: { title: 'Путешествие', icon: 'misc.compass-circle' },
+        children: [
+          {
+            path: 'applications',
+            name: 'discovery-applications',
+            components: {
+              sidebar: () => import('@/pages/server-sidebar'),
+              content: () => import('@/pages/server-content'),
+            },
+          },
+          {
+            path: 'servers',
+            name: 'discovery-servers',
+            components: {
+              sidebar: () => import('@/pages/server-sidebar'),
+              content: () => import('@/pages/server-content'),
+            },
+          },
+        ],
       },
     ],
   },

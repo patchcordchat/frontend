@@ -2,7 +2,7 @@
   <div class="app-topbar">
     <div class="app-topbar__title-wrapper">
       <div class="app-topbar__title">
-        <p-icon icon="logos.patchcord.symbol" size="xs" />
+        <p-icon :icon="(route.meta.icon as string) || 'logos.patchcord.symbol'" size="xs" />
 
         <div>{{ route.meta.title }}</div>
       </div>
