@@ -5,8 +5,9 @@ import { AxiosError } from 'axios'
 import { createChannelSchema, type CreateChannelFormData } from './schema'
 import { useChannelStore } from '@/entities/channel'
 
-export const useCreateChannelForm = (serverId: string, onSuccess?: () => void) => {
+export const useCreateChannelForm = (onSuccess?: () => void) => {
   const serverError = ref<string | undefined>(undefined)
+  const serverId = ref<string>('')
 
   const { handleSubmit, errors, isSubmitting, defineField, values } =
     useForm<CreateChannelFormData>({
@@ -18,7 +19,7 @@ export const useCreateChannelForm = (serverId: string, onSuccess?: () => void) =
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      await useChannelStore().createChannel(serverId, values)
+      await useChannelStore().createChannel(serverId.value, values)
 
       if (onSuccess) onSuccess()
     } catch (error: AxiosError | unknown) {
@@ -42,6 +43,7 @@ export const useCreateChannelForm = (serverId: string, onSuccess?: () => void) =
     errors,
     serverError,
     isSubmitting,
+    serverId,
 
     // Actions
     onSubmit,

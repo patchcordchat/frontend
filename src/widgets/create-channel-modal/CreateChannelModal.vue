@@ -9,7 +9,7 @@
         <template #body>
             <div class="p-modal__body-spacer" />
 
-            <create-channel-form ref="formRef" />
+            <create-channel-form ref="formRef" :server-id="props.serverId" />
         </template>
 
         <template #footer>
@@ -26,6 +26,12 @@
 import { ref } from 'vue'
 import { PModal, PButton } from '@/shared/ui'
 import CreateChannelForm from '@/features/create-channel'
+
+interface Props {
+    serverId: string
+}
+
+const props = defineProps<Props>()
 
 const modalRef = ref<InstanceType<typeof PModal>>()
 const formRef = ref<InstanceType<typeof CreateChannelForm>>()

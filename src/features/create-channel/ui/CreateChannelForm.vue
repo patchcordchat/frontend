@@ -7,9 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from 'vue'
+import { useId, watch } from 'vue'
 import { PTextField, PRadioGroup, type RadioOption } from '@/shared/ui'
 import { useCreateChannelForm } from '../model'
+
+interface Props {
+  serverId: string
+}
+
+const props = defineProps<Props>()
 
 const options: RadioOption<number>[] = [
   {
@@ -32,10 +38,19 @@ const options: RadioOption<number>[] = [
   },
 ]
 
-const formApi = useCreateChannelForm('123')
+const formApi = useCreateChannelForm()
 const { name, nameAttrs, type, typeAttrs, onSubmit } = formApi
 
 const formId = `form-${useId()}`
+
+watch(
+  () => props.serverId,
+  (newServerId) => {
+    formApi.serverId.value = newServerId
+  },
+  { immediate: true },
+)
+
 
 defineExpose({
   formId,

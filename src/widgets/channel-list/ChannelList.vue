@@ -11,7 +11,7 @@
       :type="channel.type" />
   </ul>
 
-  <create-channel-modal ref="createModalRef" :channel-id="serverId" />
+  <create-channel-modal ref="createModalRef" :server-id="serverId" />
 </template>
 
 <script setup lang="ts">
