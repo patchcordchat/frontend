@@ -1,21 +1,13 @@
 <template>
-  <div>
-    <div>Создать канал</div>
-    <div>в Текстовые каналы</div>
-
+  <form class="create-channel-form">
     <p-radio-group label="Тип канала" :options="options" />
 
-    <p-text-field label="Название канала" />
-
-    <div>
-      <p-button view="secondary">Отмена</p-button>
-      <p-button>Создать канал</p-button>
-    </div>
-  </div>
+    <p-text-field label="Название канала" size="md" />
+  </form>
 </template>
 
 <script setup lang="ts">
-import { PButton, PTextField, PRadioGroup, type RadioOption } from '@/shared/ui'
+import { PTextField, PRadioGroup, type RadioOption } from '@/shared/ui'
 
 const options: RadioOption<number>[] = [
   {
@@ -38,3 +30,11 @@ const options: RadioOption<number>[] = [
   },
 ]
 </script>
+
+<style lang="scss">
+.create-channel-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+</style>

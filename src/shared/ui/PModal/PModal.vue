@@ -184,7 +184,7 @@ $block: '.p-modal';
     }
   }
 
-  @media screen and (width >= 486px) and (height <= 580px) {
+  @media screen and (width >=486px) and (height <=580px) {
     @include mixins.scrollbar-thin;
 
     position: absolute;
@@ -260,6 +260,11 @@ $block: '.p-modal';
     top: 0.75rem;
     z-index: 1000;
     inset-inline-end: 1rem;
+  }
+
+  :deep(#{$block}__body-spacer) {
+    flex-grow: 0;
+    padding-top: var(--space-md);
   }
 }
 </style>
