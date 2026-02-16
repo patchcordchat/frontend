@@ -9,14 +9,14 @@
         <template #body>
             <div class="p-modal__body-spacer" />
 
-            <create-channel-form />
+            <create-channel-form ref="formRef" />
         </template>
 
         <template #footer>
             <div class="create-channel-modal__footer">
                 <p-button view="secondary" width="max" @click="modalRef?.close()">Отмена</p-button>
 
-                <p-button width="max">Создать канал</p-button>
+                <p-button width="max" type="submit" :form="formRef?.formId">Создать канал</p-button>
             </div>
         </template>
     </p-modal>
@@ -28,6 +28,7 @@ import { PModal, PButton } from '@/shared/ui'
 import CreateChannelForm from '@/features/create-channel'
 
 const modalRef = ref<InstanceType<typeof PModal>>()
+const formRef = ref<InstanceType<typeof CreateChannelForm>>()
 
 defineExpose({
     open: () => modalRef.value?.open(),

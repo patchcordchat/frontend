@@ -14,7 +14,7 @@ import AudienceStep from './AudienceStep.vue'
 import CustomizeStep from './CustomizeStep.vue'
 
 const emit = defineEmits<{
-  close: []
+  (e: 'close'): void
 }>()
 
 const formApi = useCreateServerForm(() => {

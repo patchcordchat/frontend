@@ -11,21 +11,13 @@
         <create-message-form />
       </main>
     </div>
-    <p-button @click="modalRef?.open()">Открыть модалку</p-button>
-
-    <create-channel-modal ref="modalRef" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { PButton } from '@/shared/ui'
 import ChannelHeader from '@/widgets/channel-header'
 import MessageFeed from '@/widgets/message-feed'
 import CreateMessageForm from '@/features/create-message'
-import CreateChannelModal from '@/widgets/create-channel-modal';
-
-const modalRef = ref<InstanceType<typeof CreateChannelModal>>()
 </script>
 
 <style scoped lang="scss">

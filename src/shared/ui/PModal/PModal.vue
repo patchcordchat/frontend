@@ -54,8 +54,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  close: []
-  open: []
+  (e: 'close'): void
+  (e: 'open'): void
 }>()
 
 const slots = useSlots()

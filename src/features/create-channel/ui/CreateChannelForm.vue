@@ -1,13 +1,15 @@
 <template>
-  <form class="create-channel-form">
-    <p-radio-group label="Тип канала" :options="options" />
+  <form :id="formId" class="create-channel-form" @submit.prevent="onSubmit">
+    <p-radio-group v-model="type" v-bind="typeAttrs" label="Тип канала" :options="options" />
 
-    <p-text-field label="Название канала" size="md" />
+    <p-text-field v-model="name" v-bind="nameAttrs" label="Название канала" size="md" />
   </form>
 </template>
 
 <script setup lang="ts">
+import { useId } from 'vue'
 import { PTextField, PRadioGroup, type RadioOption } from '@/shared/ui'
+import { useCreateChannelForm } from '../model'
 
 const options: RadioOption<number>[] = [
   {
@@ -29,6 +31,15 @@ const options: RadioOption<number>[] = [
     icon: 'misc.chat-bubbles',
   },
 ]
+
+const formApi = useCreateChannelForm('123')
+const { name, nameAttrs, type, typeAttrs, onSubmit } = formApi
+
+const formId = `form-${useId()}`
+
+defineExpose({
+  formId,
+})
 </script>
 
 <style lang="scss">

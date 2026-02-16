@@ -1,26 +1,14 @@
 <template>
   <ul ref="listRef" class="p-select-list">
-    <li
-      v-for="(item, index) in items"
-      :key="getKey(item, index)"
-      class="p-select-list__item"
-      :class="{
-        'p-select-list__item--selected': isSelected(item),
-        [`p-select-list__item--size-${size}`]: size,
-      }"
-      v-bind="resolveItemProps(item)"
-      @click="select(item)"
-    >
+    <li v-for="(item, index) in items" :key="getKey(item, index)" class="p-select-list__item" :class="{
+      'p-select-list__item--selected': isSelected(item),
+      [`p-select-list__item--size-${size}`]: size,
+    }" v-bind="resolveItemProps(item)" @click="select(item)">
       <slot name="item" :item="item" :selected="isSelected(item)">
         {{ getText(item) }}
       </slot>
 
-      <p-icon
-        v-if="isSelected(item)"
-        class="p-select-list__selected-indicator"
-        icon="misc.check-circle"
-        size="sm"
-      />
+      <p-icon v-if="isSelected(item)" class="p-select-list__selected-indicator" icon="misc.check-circle" size="sm" />
     </li>
   </ul>
 </template>
@@ -50,7 +38,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
 })
 
 const emit = defineEmits<{
-  select: [value: unknown]
+  (e: 'select', value: unknown): void
 }>()
 
 const listRef = ref<HTMLElement | null>(null)

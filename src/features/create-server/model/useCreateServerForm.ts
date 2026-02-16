@@ -58,25 +58,25 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
   })
 
   return {
-    // Поля
+    // Fields
     name,
     nameAttrs,
     icon,
     iconAttrs,
 
-    // Состояние формы
+    // State
     values,
     errors,
     serverError,
     isSubmitting,
 
-    // Состояние визарда
+    // Wizard state
     currentStep,
     isLastStep,
     isFirstStep,
     Step,
 
-    // Методы
+    // Actions
     nextStep,
     prevStep,
     onSubmit,
