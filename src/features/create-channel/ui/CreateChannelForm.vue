@@ -3,40 +3,38 @@
     <div>Создать канал</div>
     <div>в Текстовые каналы</div>
 
-    <label>Тип канала</label>
+    <p-radio-group label="Тип канала" :options="options" />
+
+    <p-text-field label="Название канала" />
 
     <div>
-      <div>Текст</div>
-      <div>Отправляйте сообщения, изображения, GIF, эмодзи, мнения и приколы</div>
-    </div>
-
-    <div>
-      <div>Голос</div>
-      <div>Общайтесь голосом или в видеочате и пользуйтесь функцией показа экрана</div>
-    </div>
-
-    <div>
-      <div>Форум</div>
-      <div>Создайте площадку для обсуждений</div>
-    </div>
-
-    <div>
-      <div>Название канала</div>
-      <input type="text" />
-    </div>
-
-    <div>
-      <div>Приватный канал</div>
-      <div>
-        Только выбранные участники и участники с выбранными ролями смогут просматривать этот канал.
-      </div>
-    </div>
-
-    <div>
-      <button>Отмена</button>
-      <button>Создать канал</button>
+      <p-button view="secondary">Отмена</p-button>
+      <p-button>Создать канал</p-button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { PButton, PTextField, PRadioGroup, type RadioOption } from '@/shared/ui'
+
+const options: RadioOption<number>[] = [
+  {
+    label: 'Текст',
+    value: 1,
+    description: 'Отправляйте сообщения, изображения, GIF, эмодзи, мнения и приколы',
+    icon: 'misc.hashtag',
+  },
+  {
+    label: 'Голос',
+    value: 2,
+    description: 'Общайтесь голосом или в видеочате и пользуйтесь функцией показа экрана',
+    icon: 'misc.speaker',
+  },
+  {
+    label: 'Форум',
+    value: 3,
+    description: 'Создайте площадку для обсуждений',
+    icon: 'misc.chat-bubbles',
+  },
+]
+</script>

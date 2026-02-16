@@ -106,11 +106,25 @@
     --checkbox-background-default: var(--opacity-4);
 
     /** Radio Colors */
-    --radio-background-selected-default: var(--brand-500);
     --radio-background-default: var(--opacity-black-8);
+    --radio-background-hover: var(--opacity-black-8);
     --radio-border-default: var(--opacity-64);
-    --radio-border-selected-default: var(--opacity-12);
+    --radio-border-hover: var(--opacity-80);
     --radio-thumb-background-active: var(--neutral-1);
+    --radio-background-selected-default: var(--brand-500);
+    --radio-background-selected-hover: var(--brand-530);
+    --radio-border-selected-default: var(--opacity-12);
+    --radio-border-selected-hover: var(--opacity-12);
+
+    /** Switch Colors */
+    --switch-background-default: var(--opacity-black-8);
+    --switch-background-hover: var(--opacity-black-8);
+    --switch-background-selected-default: var(--brand-500);
+    --switch-background-selected-hover: var(--brand-530);
+    --switch-border-selected-default: var(--opacity-12);
+    --switch-border-selected-hover: var(--opacity-12);
+    --switch-border-default: var(--opacity-24);
+    --switch-border-hover: var(--opacity-80);
 
     /* Background Colors */
     --background-scrim: var(--opacity-black-72);
@@ -133,6 +147,7 @@
     --text-default: var(--neutral-5);
     --text-strong: var(--neutral-2);
     --text-secondary: var(--neutral-16);
+    --text-subtle: var(--neutral-23);
 
     /* Text Feedback Colors */
     --text-feedback-info: var(--blue-300);

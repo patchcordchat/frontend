@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
 import PRadio from '../PRadio.vue'
@@ -11,10 +12,14 @@ export default {
 type Story = StoryObj<typeof PRadio>
 
 export const Default: Story = {
-  args: {},
-  render: () => ({
+  render: (args) => ({
     components: { PRadio },
+    setup() {
+      const model = ref(false)
+      const value = 'option1'
+      return { args, value, model }
+    },
     template: `
-      <p-radio>Radio</p-radio>`,
+      <p-radio v-model="model" :value="value">Radio</p-radio>`,
   }),
 }
