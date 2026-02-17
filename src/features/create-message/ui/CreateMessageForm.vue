@@ -3,7 +3,7 @@
     <div class="message-form__inner">
       <attach-action />
 
-      <p-textarea v-model="text" placeholder="Напишите сообщение..." />
+      <p-textarea v-model="content" @submit="onSubmit" placeholder="Написать #test" />
 
       <action-toolbar />
     </div>
@@ -11,12 +11,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { watch } from 'vue'
 import { PTextarea } from '@/shared/ui'
 import ActionToolbar from './ActionToolbar.vue'
 import AttachAction from './AttachAction.vue'
+import { useCreateMessageForm } from '../model'
 
-const text = ref<string>('')
+interface Props {
+  channelId: string
+}
+
+const props = defineProps<Props>()
+
+const formApi = useCreateMessageForm()
+const { content, onSubmit } = formApi
+
+watch(() => props.channelId, (newChannelId) => {
+  formApi.channelId.value = newChannelId
+})
 </script>
 
 <style scoped lang="scss">

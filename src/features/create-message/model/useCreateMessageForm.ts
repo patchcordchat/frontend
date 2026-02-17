@@ -5,22 +5,21 @@ import { AxiosError } from 'axios'
 import { createMessageSchema, type createMessageFormData } from './schema'
 import { messageApi } from '@/entities/message'
 
-export const useSendMessageForm = () => {
+export const useCreateMessageForm = () => {
   const serverError = ref<string | undefined>(undefined)
+  const channelId = ref<string>('')
 
-  const { handleSubmit, errors, isSubmitting, defineField, values } =
-    useForm<createMessageFormData>({
-      validationSchema: toTypedSchema(createMessageSchema),
-    })
+  const { errors, isSubmitting, defineField, values } = useForm<createMessageFormData>({
+    validationSchema: toTypedSchema(createMessageSchema),
+  })
 
   const [content, contentAttrs] = defineField('content')
 
-  const onSubmit = handleSubmit(async (values) => {
+  const onSubmit = async (content: string) => {
     serverError.value = undefined
 
     try {
-      // TODO Добавить channelId
-      await messageApi.createMessage('asd', values)
+      await messageApi.createMessage(channelId.value, { content })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         serverError.value = error.response?.data?.message || 'Ошибка создания сообщения'
@@ -28,7 +27,7 @@ export const useSendMessageForm = () => {
         serverError.value = 'Произошла непредвиденная ошибка'
       }
     }
-  })
+  }
 
   return {
     // Поля
@@ -40,6 +39,7 @@ export const useSendMessageForm = () => {
     errors,
     serverError,
     isSubmitting,
+    channelId,
 
     // Методы
     onSubmit,

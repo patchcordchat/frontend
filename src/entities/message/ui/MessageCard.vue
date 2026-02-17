@@ -1,20 +1,17 @@
 <template>
   <div class="message">
     <div class="message__contents">
-      <p-avatar
-        class="message__user-avatar"
-        size="md"
-        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-      />
+      <p-avatar class="message__user-avatar" size="md"
+        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" />
 
       <h3 class="message__header">
-        <span class="message__username">FIZIS</span>
+        <span class="message__username">{{ props.message.author.username }}</span>
 
-        <time class="message__timestamp">10:48</time>
+        <time class="message__timestamp">{{ formatTimestamp(props.message.timestamp) }}</time>
       </h3>
 
       <div class="message__content">
-        <span>message content</span>
+        <span>{{ props.message.content }}</span>
       </div>
     </div>
 
@@ -25,7 +22,23 @@
 </template>
 
 <script setup lang="ts">
+import type { Message } from '../model';
 import { PAvatar } from '@/shared/ui'
+
+interface Props {
+  message: Message
+}
+
+const props = defineProps<Props>()
+
+const formatTimestamp = (timestamp: number) => {
+  const date = new Date(timestamp);
+
+  return date.toLocaleTimeString('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
 </script>
 
 <style scoped lang="scss">

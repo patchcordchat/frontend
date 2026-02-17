@@ -191,10 +191,13 @@ onMounted(() => {
 
   &__placeholder {
     position: absolute;
+    overflow: hidden;
     min-height: 3.5rem;
     padding: calc((3.5rem - 1.375rem) / 2) 0;
     box-sizing: border-box;
     color: var(--text-secondary);
+    text-overflow: ellipsis;
+    white-space: nowrap;
     inset-inline: 0 10px;
   }
 
