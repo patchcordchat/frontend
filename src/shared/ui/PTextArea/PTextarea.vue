@@ -1,5 +1,5 @@
 <template>
-  <div class="p-textarea" :class="{ 'is-disabled': props.disabled }">
+  <div class="p-textarea" :class="{ 'is-disabled': props.disabled }" :style="{ height: `${currentHeight}px` }">
     <div>
       <div v-if="isEmpty" class="p-textarea__placeholder">
         {{ props.placeholder }}
@@ -32,6 +32,10 @@ const emit = defineEmits<{
 
 const editorRef = ref<HTMLDivElement | null>(null);
 const isEmpty = ref(true);
+
+const MAX_HEIGHT = 475;
+const MIN_HEIGHT = 56;
+const currentHeight = ref(MIN_HEIGHT);
 
 const ZWS = '\u200B';
 
@@ -71,15 +75,15 @@ const handleInput = () => {
   const rawText = editorRef.value.innerText;
   const cleanText = rawText.replace(/\u200B/g, '');
 
-  isEmpty.value = cleanText.length === 0;
-
-  console.log(isEmpty.value, cleanText, cleanText.length);
+  isEmpty.value = cleanText.length === 0 || cleanText === '\n';
 
   model.value = cleanText;
 
   if (editorRef.value.childNodes.length === 0 || editorRef.value.innerText === '') {
     ensureStructure();
   }
+
+  updateHeight();
 };
 
 const handleKeydown = (event: KeyboardEvent) => {
@@ -136,6 +140,24 @@ const handlePaste = (event: ClipboardEvent) => {
   });
 };
 
+const updateHeight = () => {
+  if (!editorRef.value) return;
+  const editor = editorRef.value;
+  const contentHeight = editor.scrollHeight;
+
+  let finalHeight = contentHeight;
+
+  if (finalHeight > MAX_HEIGHT) {
+    finalHeight = MAX_HEIGHT;
+  }
+
+  if (finalHeight < MIN_HEIGHT) {
+    finalHeight = MIN_HEIGHT;
+  }
+
+  currentHeight.value = finalHeight;
+};
+
 watch(model, (newVal) => {
   if (newVal === '' && editorRef.value) {
     editorRef.value.innerHTML = '';
@@ -152,8 +174,8 @@ onMounted(() => {
 <style scoped lang="scss">
 .p-textarea {
   position: relative;
+  overflow: hidden auto;
   width: 100%;
-  height: 3.5rem;
   min-height: 3.5rem;
   padding: 0;
   box-sizing: border-box;

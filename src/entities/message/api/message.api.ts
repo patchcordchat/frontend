@@ -2,9 +2,9 @@ import { apiClient } from '@/shared/api'
 import type { Message, CreateMessageDto } from '../model/message.types'
 
 export const messageApi = {
-  getMessages: (channelId: string) => apiClient.get<Message[]>(`/channels/${channelId}/messages`),
+  fetchMessages: (channelId: string) => apiClient.get<Message[]>(`/channels/${channelId}/messages`),
 
-  getMessageById: (channelId: string, messageId: string) =>
+  fetchMessageById: (channelId: string, messageId: string) =>
     apiClient.get<Message>(`/channels/${channelId}/messages/${messageId}`),
 
   createMessage: (channelId: string, payload: CreateMessageDto) =>

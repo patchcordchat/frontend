@@ -2,18 +2,31 @@
   <div class="message-feed">
     <div class="message-feed__scroller">
       <div class="message-feed__scroller-content">
-        <ol class="message-feed__scroller-inner">
-          <li v-for="i in 20" :key="i">
+        <ol v-if="!isLoading" class="message-feed__scroller-inner">
+          <li v-for="message in messages" :key="message.id">
             <message-card />
           </li>
         </ol>
+        <div v-else>
+          Loading...
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { MessageCard } from '@/entities/message'
+import { onMounted, ref } from 'vue';
+import { MessageCard, messageApi } from '@/entities/message'
+
+const isLoading = ref(false);
+const messages = ref();
+
+onMounted(async () => {
+  const { data } = await messageApi.fetchMessages('69830b8699aa646fc011a4f2')
+
+  messages.value = data;
+})
 </script>
 
 <style scoped lang="scss">
