@@ -3,7 +3,7 @@
     <div class="message-form__inner">
       <attach-action />
 
-      <message-input v-model="text" />
+      <p-textarea v-model="text" placeholder="Напишите сообщение..." />
 
       <action-toolbar />
     </div>
@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import MessageInput from './MessageInput.vue'
+import { PTextarea } from '@/shared/ui'
 import ActionToolbar from './ActionToolbar.vue'
 import AttachAction from './AttachAction.vue'
 
