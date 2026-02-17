@@ -12,6 +12,9 @@ export const useCreateChannelForm = (onSuccess?: () => void) => {
   const { handleSubmit, errors, isSubmitting, defineField, values } =
     useForm<CreateChannelFormData>({
       validationSchema: toTypedSchema(createChannelSchema),
+      initialValues: {
+        type: 0,
+      },
     })
 
   const [name, nameAttrs] = defineField('name')

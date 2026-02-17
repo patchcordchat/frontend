@@ -10,9 +10,9 @@
       <list-item v-for="server in servers" :key="server.id" :src="serverIcon(server.id, server.icon)"
         :label="server.name" type="link" :to="`/channels/${server.id}`" />
 
-      <list-item type="button" icon="misc.plus-circle" label="Добавить Сервер" />
+      <list-item type="button" icon="misc.plus-circle" label="Добавить Сервер" @click="CreateServerModalRef?.open()" />
 
-      <create-server-modal />
+      <create-server-modal ref="CreateServerModalRef" />
 
       <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" />
     </ul>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import CreateServerModal from '@/widgets/create-server-modal'
 import { useServerStore } from '@/entities/server'
 import { StoragePaths } from '@/shared/utils'
@@ -28,6 +28,8 @@ import { mediaConfig } from '@/shared/config'
 import ListItem from './ListItem.vue'
 
 const { servers, fetchMyServers } = useServerStore()
+
+const CreateServerModalRef = ref<InstanceType<typeof CreateServerModal>>()
 
 const serverIcon = (serverId: string, iconHash: string | undefined): string | undefined => {
   if (iconHash) {

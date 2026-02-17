@@ -7,6 +7,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { PModal } from '@/shared/ui'
+import CreateServerForm from '@/features/create-server'
 
 const modalRef = ref<InstanceType<typeof PModal>>()
+
+defineExpose({
+    open: () => modalRef.value?.open(),
+    close: () => modalRef.value?.close(),
+})
 </script>

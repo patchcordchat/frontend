@@ -9,7 +9,7 @@
         <template #body>
             <div class="p-modal__body-spacer" />
 
-            <create-channel-form ref="formRef" :server-id="props.serverId" />
+            <create-channel-form ref="formRef" :server-id="props.serverId" @submit="modalRef?.close()" />
         </template>
 
         <template #footer>
