@@ -2,7 +2,7 @@
   <form :id="formId" class="create-channel-form" @submit.prevent="handleSubmit">
     <p-radio-group v-model="type" v-bind="typeAttrs" label="Тип канала" :options="options" />
 
-    <p-text-field v-model="name" v-bind="nameAttrs" label="Название канала" size="md" />
+    <p-text-field v-model="name" v-bind="nameAttrs" label="Название канала" placeholder="новый-канал" size="md" />
   </form>
 </template>
 
@@ -44,7 +44,7 @@ const options: RadioOption<number>[] = [
 ]
 
 const formApi = useCreateChannelForm()
-const { name, nameAttrs, type, typeAttrs, onSubmit } = formApi
+const { name, nameAttrs, type, typeAttrs, isSubmitting, onSubmit, isValid } = formApi
 
 const formId = `form-${useId()}`
 
@@ -64,6 +64,8 @@ watch(
 
 defineExpose({
   formId,
+  isSubmitting,
+  isValid,
 })
 </script>
 

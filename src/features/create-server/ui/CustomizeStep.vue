@@ -21,7 +21,7 @@
     <div class="p-modal__footer p-modal__section" style="flex-direction: row; justify-content: space-between">
       <p-button view="secondary" @click="prevStep">Назад</p-button>
 
-      <p-button type="submit" :form="formId" :loading="isSubmitting">Создать</p-button>
+      <p-button type="submit" :form="formId" :loading="isSubmitting" :disabled="!isValid">Создать</p-button>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const { name, nameAttrs, icon, errors, prevStep, onSubmit, isSubmitting } =
+const { name, nameAttrs, icon, errors, prevStep, onSubmit, isSubmitting, isValid } =
   inject(CREATE_SERVER_FORM_KEY)!
 
 const formId = `form-${useId()}`

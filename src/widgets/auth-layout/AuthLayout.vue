@@ -46,7 +46,7 @@ import authBackground from '@/shared/assets/images/auth/background.svg'
     width: 100%;
     height: 100%;
 
-    @media (width >= 486px) and (height >= 580px) {
+    @media (width >=486px) and (height >=580px) {
       position: absolute;
       top: 0;
       display: flex;
@@ -56,7 +56,7 @@ import authBackground from '@/shared/assets/images/auth/background.svg'
       inset-inline-start: 0;
     }
 
-    @media (width >= 486px) and (height >= 0) {
+    @media (width >=486px) and (height >=0) {
       position: absolute;
       top: 0;
       display: flex;

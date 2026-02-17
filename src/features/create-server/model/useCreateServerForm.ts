@@ -17,11 +17,12 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
   const currentStep = ref<Step>(Step.TEMPLATE)
   const serverError = ref<string | undefined>(undefined)
 
-  const { handleSubmit, errors, isSubmitting, defineField, values } = useForm<CreateServerFormData>(
-    {
+  const { handleSubmit, errors, isSubmitting, defineField, values, meta } =
+    useForm<CreateServerFormData>({
       validationSchema: toTypedSchema(createServerSchema),
-    },
-  )
+    })
+
+  const isValid = computed<boolean>(() => meta.value.valid)
 
   const [name, nameAttrs] = defineField('name')
   const [icon, iconAttrs] = defineField('icon')
@@ -69,6 +70,7 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
     errors,
     serverError,
     isSubmitting,
+    isValid,
 
     // Wizard state
     currentStep,

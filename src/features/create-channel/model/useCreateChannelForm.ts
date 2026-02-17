@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { AxiosError } from 'axios'
@@ -9,13 +9,15 @@ export const useCreateChannelForm = (onSuccess?: () => void) => {
   const serverError = ref<string | undefined>(undefined)
   const serverId = ref<string>('')
 
-  const { handleSubmit, errors, isSubmitting, defineField, values } =
+  const { handleSubmit, errors, isSubmitting, defineField, values, meta } =
     useForm<CreateChannelFormData>({
       validationSchema: toTypedSchema(createChannelSchema),
       initialValues: {
         type: 0,
       },
     })
+
+  const isValid = computed<boolean>(() => meta.value.valid)
 
   const [name, nameAttrs] = defineField('name')
   const [type, typeAttrs] = defineField('type')
@@ -47,6 +49,7 @@ export const useCreateChannelForm = (onSuccess?: () => void) => {
     serverError,
     isSubmitting,
     serverId,
+    isValid,
 
     // Actions
     onSubmit,

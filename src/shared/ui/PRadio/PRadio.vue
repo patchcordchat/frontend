@@ -1,17 +1,8 @@
 <template>
-  <label
-    class="p-radio"
-    :class="{ 'p-radio--disabled': disabled, 'p-radio--selected': isSelected }"
-    @click.prevent="toggle"
-  >
+  <label class="p-radio" :class="{ 'p-radio--disabled': disabled, 'p-radio--selected': isSelected }"
+    @click.prevent="toggle">
     <span class="p-radio__input-wrapper">
-      <input
-        type="radio"
-        :name="props.name"
-        :value="props.value"
-        :checked="isSelected"
-        :disabled="props.disabled"
-      />
+      <input type="radio" :name="props.name" :value="props.value" :checked="isSelected" :disabled="props.disabled" />
     </span>
 
     <svg class="p-radio__indicator" viewBox="0 0 40 40" fill="none">
@@ -233,13 +224,18 @@ $block: '.p-radio';
     color: var(--text-subtle);
   }
 
-  &:hover {
+  &:hover:not(&--disabled) {
     cursor: pointer;
 
     #{$block}__base {
       fill: var(--radio-background-hover);
       stroke: var(--radio-border-hover);
     }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   &--selected {
