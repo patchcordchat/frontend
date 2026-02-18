@@ -10,7 +10,7 @@ export const useSessionStore = defineStore('session', () => {
   const token = computed(() => localStorage.getItem('token') ?? null)
 
   // Actions
-  async function register(payload: RegisterDto) {
+  const register = async (payload: RegisterDto) => {
     try {
       const { data } = await sessionApi.register(payload)
 
@@ -23,7 +23,7 @@ export const useSessionStore = defineStore('session', () => {
     }
   }
 
-  async function login(payload: LoginDto) {
+  const login = async (payload: LoginDto) => {
     try {
       const { data } = await sessionApi.login(payload)
 
@@ -36,7 +36,7 @@ export const useSessionStore = defineStore('session', () => {
     }
   }
 
-  async function logout() {
+  const logout = async () => {
     try {
       await sessionApi.logout()
       $reset()
@@ -49,7 +49,7 @@ export const useSessionStore = defineStore('session', () => {
   /**
    * Сбросить состояние
    */
-  function $reset() {
+  const $reset = () => {
     user_id.value = null
     isAuthenticated.value = false
   }

@@ -1,1 +1,1 @@
-export { channelApi } from './channel.api'
+export * from './channel.api'

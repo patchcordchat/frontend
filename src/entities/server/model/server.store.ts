@@ -11,7 +11,7 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Загрузить список серверов
    */
-  async function fetchMyServers() {
+  const fetchMyServers = async () => {
     try {
       const { data } = await serverApi.fetchMyServers()
       data.forEach((server) => (servers[server.id] = server))
@@ -24,7 +24,7 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Загрузить сервер по ID
    */
-  async function fetchServerById(id: string) {
+  const fetchServerById = async (id: string) => {
     try {
       const { data: server } = await serverApi.fetchServerById(id)
 
@@ -39,7 +39,7 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Создать новый сервер
    */
-  async function createServer(payload: CreateServerDto) {
+  const createServer = async (payload: CreateServerDto) => {
     try {
       const { data: newServer } = await serverApi.createServer(payload)
       servers[newServer.id] = newServer
@@ -54,7 +54,7 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Обновить сервер
    */
-  async function updateServer(id: string, payload: Partial<CreateServerDto>) {
+  const updateServer = async (id: string, payload: Partial<CreateServerDto>) => {
     try {
       const { data: updatedServer } = await serverApi.updateServer(id, payload)
 
@@ -69,7 +69,7 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Удалить сервер
    */
-  async function deleteServer(id: string) {
+  const deleteServer = async (id: string) => {
     try {
       await serverApi.deleteServer(id)
 
@@ -83,7 +83,7 @@ export const useServerStore = defineStore('server', () => {
   /**
    * Сбросить состояние
    */
-  function $reset() {
+  const $reset = () => {
     Object.entries(servers).forEach(([id]) => {
       delete servers[id]
     })

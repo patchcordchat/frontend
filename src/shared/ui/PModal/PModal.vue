@@ -1,8 +1,8 @@
 <template>
   <teleport to="#floating">
-    <transition-group name="modal-fade">
-      <p-scrim v-if="isOpen" @click="handleScrimClick" />
+    <p-scrim v-if="isOpen" @click="handleScrimClick" />
 
+    <transition-group name="fade">
       <div v-if="isOpen" class="p-modal-wrapper">
         <div class="p-modal" :class="classes">
           <template v-if="slots.default">

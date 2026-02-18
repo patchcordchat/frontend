@@ -1,1 +1,1 @@
-export { messageApi } from './message.api'
+export * from './message.api'

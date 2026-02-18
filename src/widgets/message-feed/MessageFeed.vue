@@ -2,7 +2,7 @@
   <div class="message-feed">
     <div class="message-feed__scroller">
       <div class="message-feed__scroller-content">
-        <transition name="fade" mode="in-out">
+        <transition name="fade" mode="out-in">
           <ol v-if="!isLoading" class="message-feed__scroller-inner">
             <li v-for="message in messages" :key="message.id">
               <message-card :message="message" />
@@ -23,29 +23,28 @@
 <script setup lang="ts">
 import { onMounted, ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router'
-import { MessageCard, MessageCardSkeleton, messageApi } from '@/entities/message'
+import { MessageCard, MessageCardSkeleton, useMessageStore } from '@/entities/message'
+
+const { fetchMessages, getMessages } = useMessageStore()
 
 const isLoading = ref(true);
-const messages = ref();
 
 const route = useRoute()
 const channelId = computed(() => route.params.channelId as string)
 
+const messages = computed(() => getMessages(channelId.value))
+
 onMounted(async () => {
-  const { data } = await messageApi.fetchMessages(channelId.value)
+  await fetchMessages(channelId.value)
 
   isLoading.value = false
-  messages.value = data
 })
 
 watch(channelId, async (newChannelId) => {
   isLoading.value = true
-  messages.value = undefined
-
-  const { data } = await messageApi.fetchMessages(newChannelId)
+  await fetchMessages(newChannelId)
 
   isLoading.value = false
-  messages.value = data
 })
 </script>
 

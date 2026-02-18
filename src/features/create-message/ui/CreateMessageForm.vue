@@ -3,7 +3,7 @@
     <div class="message-form__inner">
       <attach-action />
 
-      <p-textarea v-model="content" @submit="onSubmit" placeholder="Написать #test" />
+      <p-textarea v-model="content" @submit="handelSubmit" placeholder="Написать #test" />
 
       <action-toolbar />
     </div>
@@ -24,11 +24,18 @@ interface Props {
 const props = defineProps<Props>()
 
 const formApi = useCreateMessageForm()
-const { content, onSubmit } = formApi
+const { content, onSubmit, isSubmitting } = formApi
 
 watch(() => props.channelId, (newChannelId) => {
   formApi.channelId.value = newChannelId
 })
+
+const handelSubmit = async (text: string) => {
+  if (isSubmitting.value) return
+
+  await onSubmit(text)
+  content.value = ''
+}
 </script>
 
 <style scoped lang="scss">

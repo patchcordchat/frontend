@@ -1,3 +1,2 @@
-export { serverApi } from './api'
-export { useServerStore } from './model'
-export type { Server, CreateServerDto } from './model'
+export * from './api'
+export * from './model'

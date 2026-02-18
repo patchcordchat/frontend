@@ -10,9 +10,9 @@ export const messageApi = {
   createMessage: (channelId: string, payload: CreateMessageDto) =>
     apiClient.post<Message>(`/channels/${channelId}/messages`, payload),
 
-  updateMessage: (channelId: string, data: Partial<CreateMessageDto>) =>
-    apiClient.patch<Message>(`/channels/${channelId}`, data),
+  updateMessage: (channelId: string, messageId: string, data: Partial<CreateMessageDto>) =>
+    apiClient.patch<Message>(`/channels/${channelId}/messages/${messageId}`, data),
 
-  deleteMessage: (serverId: string, channelId: string) =>
-    apiClient.delete(`/servers/${serverId}/channels/${channelId}`),
+  deleteMessage: (channelId: string, messageId: string) =>
+    apiClient.delete(`/channels/${channelId}/messages/${messageId}`),
 }
