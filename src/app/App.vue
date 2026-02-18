@@ -2,24 +2,17 @@
   <svg-defs />
 
   <transition name="fade" mode="out-in">
-    <splash-screen v-if="!isReady" />
+    <splash-screen v-if="!isConnected" />
 
     <router-view v-else />
   </transition>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { SplashScreen, SvgDefs } from './ui'
+import { useSocketWorker } from '@/shared/api/socket';
 
-const isReady = ref(false)
-
-//TODO сделать появление splash-screen завсящим на приложения и websocket соединения
-onMounted(() => {
-  setTimeout(() => {
-    isReady.value = true
-  }, 500)
-})
+const { isConnected } = useSocketWorker();
 </script>
 
 <style lang="scss">
