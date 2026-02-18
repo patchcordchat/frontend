@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client'
+import { apiConfig } from '@/shared/config'
 import type { WorkerMessage, ClientMessage } from './types'
 
 interface SharedWorkerGlobalScope {
@@ -13,10 +14,8 @@ let socket: Socket | null = null
 function initSocket(token: string) {
   if (socket) return
 
-  socket = io('api.patchcord.org', {
-    path: '/',
-    port: '443',
-    transports: ['websocket'],
+  socket = io(apiConfig.baseUrl, {
+    transports: ['polling', 'websocket'],
     reconnection: true,
     extraHeaders: {
       Authorization: token,
