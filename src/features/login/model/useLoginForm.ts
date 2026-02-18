@@ -4,11 +4,11 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { loginSchema } from './schema'
 import { AxiosError } from 'axios'
-import { authApi, useSessionStore } from '@/entities/session'
+import { useSessionStore } from '@/entities/session'
 
 export const useLoginForm = () => {
   const router = useRouter()
-  const sessionStore = useSessionStore()
+  const { login } = useSessionStore()
   const serverError = ref<string | undefined>(undefined)
 
   const { handleSubmit, errors, isSubmitting, defineField } = useForm({
@@ -22,11 +22,7 @@ export const useLoginForm = () => {
     serverError.value = undefined
 
     try {
-      const { data } = await authApi.login(values)
-
-      sessionStore.setUserId(data.user_id)
-
-      localStorage.setItem('token', data.token)
+      await login(values)
 
       await router.push({ name: 'private-channels' })
     } catch (error: AxiosError | unknown) {

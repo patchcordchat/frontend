@@ -27,7 +27,12 @@ export interface IReaction {
 export interface Message {
   id: string
   channel_id: string
-  author: string
+  author: {
+    id: string
+    username: string
+    global_name: string
+    bot: boolean
+  }
   content: string
   timestamp: number
   edited_timestamp: number | null

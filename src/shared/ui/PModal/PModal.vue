@@ -1,8 +1,8 @@
 <template>
   <teleport to="#floating">
-    <transition-group name="modal-fade">
-      <p-scrim v-if="isOpen" @click="handleScrimClick" />
+    <p-scrim v-if="isOpen" @click="handleScrimClick" />
 
+    <transition-group name="fade">
       <div v-if="isOpen" class="p-modal-wrapper">
         <div class="p-modal" :class="classes">
           <template v-if="slots.default">
@@ -54,8 +54,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  close: []
-  open: []
+  (e: 'close'): void
+  (e: 'open'): void
 }>()
 
 const slots = useSlots()
@@ -184,7 +184,7 @@ $block: '.p-modal';
     }
   }
 
-  @media screen and (width >= 486px) and (height <= 580px) {
+  @media screen and (width >=486px) and (height <=580px) {
     @include mixins.scrollbar-thin;
 
     position: absolute;
@@ -260,6 +260,11 @@ $block: '.p-modal';
     top: 0.75rem;
     z-index: 1000;
     inset-inline-end: 1rem;
+  }
+
+  :deep(#{$block}__body-spacer) {
+    flex-grow: 0;
+    padding-top: var(--space-md);
   }
 }
 </style>

@@ -1,13 +1,7 @@
 <template>
-  <component
-    :is="tag"
-    :href="isLink ? href : undefined"
-    :type="!isLink ? type : undefined"
-    :target="isLink ? target : undefined"
-    :disabled="!isLink ? disabled : undefined"
-    :class="classes"
-    @click="handleClick"
-  >
+  <component :is="tag" :href="isLink ? href : undefined" :type="!isLink ? type : undefined"
+    :target="isLink ? target : undefined" :disabled="!isLink ? disabled : undefined" :class="classes"
+    @click="handleClick">
     <div class="p-button__content-wrapper">
       <div class="p-button__content" :class="{ 'p-button__content--loading': props.loading }">
         <slot name="default"></slot>
@@ -69,7 +63,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  click: [event: MouseEvent]
+  (e: 'click', event: MouseEvent): void
 }>()
 
 const slots = useSlots()

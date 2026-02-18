@@ -24,10 +24,12 @@
 }
 
 .fade-enter-active {
+  transform-origin: center;
   animation: fade-enter 0.1s ease forwards;
 }
 
 .fade-leave-active {
+  transform-origin: center;
   animation: fade-leave 0.1s ease forwards;
 }
 

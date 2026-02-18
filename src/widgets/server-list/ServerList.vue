@@ -1,36 +1,18 @@
 <template>
   <nav class="servers-nav">
     <ul class="servers-nav__list">
-      <list-item
-        type="link"
-        icon="logos.patchcord.symbol"
-        label="Личные Сообщения"
-        to="/channels/@me"
-      />
+      <list-item type="link" icon="logos.patchcord.symbol" label="Личные Сообщения" to="/channels/@me" />
 
       <div class="servers-nav__separator">
         <span></span>
       </div>
 
-      <list-item
-        v-for="server in servers"
-        :key="server.id"
-        :src="serverIcon(server.id, server.icon)"
-        :label="server.name"
-        type="link"
-        :to="`/channels/${server.id}`"
-      />
+      <list-item v-for="server in servers" :key="server.id" :src="serverIcon(server.id, server.icon)"
+        :label="server.name" type="link" :to="`/channels/${server.id}`" />
 
-      <list-item
-        type="button"
-        icon="misc.plus-circle"
-        label="Добавить Сервер"
-        @click="modalRef?.open()"
-      />
+      <list-item type="button" icon="misc.plus-circle" label="Добавить Сервер" @click="CreateServerModalRef?.open()" />
 
-      <p-modal size="md" padding-size="sm" show-close-button ref="modalRef">
-        <create-server-form @close="modalRef?.close()" />
-      </p-modal>
+      <create-server-modal ref="CreateServerModalRef" />
 
       <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" />
     </ul>
@@ -38,18 +20,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
-import { PModal } from '@/shared/ui'
-import CreateServerForm from '@/features/create-server'
+import { onMounted, ref } from 'vue'
+import CreateServerModal from '@/widgets/create-server-modal'
 import { useServerStore } from '@/entities/server'
 import { StoragePaths } from '@/shared/utils'
 import { mediaConfig } from '@/shared/config'
 import ListItem from './ListItem.vue'
 
-const modalRef = ref<InstanceType<typeof PModal>>()
-const serverStore = useServerStore()
-const { servers } = storeToRefs(serverStore)
+const { servers, fetchMyServers } = useServerStore()
+
+const CreateServerModalRef = ref<InstanceType<typeof CreateServerModal>>()
 
 const serverIcon = (serverId: string, iconHash: string | undefined): string | undefined => {
   if (iconHash) {
@@ -60,7 +40,7 @@ const serverIcon = (serverId: string, iconHash: string | undefined): string | un
 }
 
 onMounted(async () => {
-  await serverStore.fetchMyServers()
+  await fetchMyServers()
 })
 </script>
 

@@ -1,12 +1,12 @@
 <template>
   <li class="channel-group">
-    <div class="channel-group__content">
+    <div class="channel-group__content" @click.stop="emit('toggle')">
       <h3 class="channel-group__name">{{ props.name }}</h3>
 
       <p-icon class="channel-group__expand-indicator" icon="misc.chevron-down" size="xs" />
     </div>
 
-    <div class="channel-group__controls">
+    <div class="channel-group__controls" @click.stop="emit('create:channel')">
       <p-icon icon="misc.plus" size="xs" />
     </div>
   </li>
@@ -20,6 +20,11 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'create:channel'): void
+  (e: 'toggle'): void
+}>()
 </script>
 
 <style scoped lang="scss">

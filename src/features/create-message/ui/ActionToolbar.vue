@@ -1,15 +1,15 @@
 <template>
   <div class="actions">
     <button class="action-btn" type="button">
-      <p-icon icon="misc.cross" />
+      <p-icon icon="misc.gif" size="md" />
     </button>
 
     <button class="action-btn" type="button">
-      <p-icon icon="misc.cross" />
+      <p-icon icon="misc.sticker" size="md" />
     </button>
 
     <button class="action-btn" type="button">
-      <p-icon icon="misc.cross" />
+      <p-icon icon="misc.emoji" size="md" />
     </button>
   </div>
 </template>

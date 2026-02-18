@@ -2,18 +2,50 @@
   <div class="message-feed">
     <div class="message-feed__scroller">
       <div class="message-feed__scroller-content">
-        <ol class="message-feed__scroller-inner">
-          <li v-for="i in 20" :key="i">
-            <message-card />
-          </li>
-        </ol>
+        <transition name="fade" mode="out-in">
+          <ol v-if="!isLoading" class="message-feed__scroller-inner">
+            <li v-for="message in messages" :key="message.id">
+              <message-card :message="message" />
+            </li>
+          </ol>
+
+          <ol v-else class="message-feed__scroller-inner">
+            <li v-for="i in 20" :key="i">
+              <message-card-skeleton />
+            </li>
+          </ol>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { MessageCard } from '@/entities/message'
+import { onMounted, ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router'
+import { MessageCard, MessageCardSkeleton, useMessageStore } from '@/entities/message'
+
+const { fetchMessages, getMessages } = useMessageStore()
+
+const isLoading = ref(true);
+
+const route = useRoute()
+const channelId = computed(() => route.params.channelId as string)
+
+const messages = computed(() => getMessages(channelId.value))
+
+onMounted(async () => {
+  await fetchMessages(channelId.value)
+
+  isLoading.value = false
+})
+
+watch(channelId, async (newChannelId) => {
+  isLoading.value = true
+  await fetchMessages(newChannelId)
+
+  isLoading.value = false
+})
 </script>
 
 <style scoped lang="scss">

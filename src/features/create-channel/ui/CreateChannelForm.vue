@@ -1,42 +1,78 @@
 <template>
-  <div>
-    <div>Создать канал</div>
-    <div>в Текстовые каналы</div>
+  <form :id="formId" class="create-channel-form" @submit.prevent="handleSubmit">
+    <p-radio-group v-model="type" v-bind="typeAttrs" label="Тип канала" :options="options" />
 
-    <label>Тип канала</label>
-
-    <div>
-      <div>Текст</div>
-      <div>Отправляйте сообщения, изображения, GIF, эмодзи, мнения и приколы</div>
-    </div>
-
-    <div>
-      <div>Голос</div>
-      <div>Общайтесь голосом или в видеочате и пользуйтесь функцией показа экрана</div>
-    </div>
-
-    <div>
-      <div>Форум</div>
-      <div>Создайте площадку для обсуждений</div>
-    </div>
-
-    <div>
-      <div>Название канала</div>
-      <input type="text" />
-    </div>
-
-    <div>
-      <div>Приватный канал</div>
-      <div>
-        Только выбранные участники и участники с выбранными ролями смогут просматривать этот канал.
-      </div>
-    </div>
-
-    <div>
-      <button>Отмена</button>
-      <button>Создать канал</button>
-    </div>
-  </div>
+    <p-text-field v-model="name" v-bind="nameAttrs" label="Название канала" placeholder="новый-канал" size="md" />
+  </form>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useId, watch } from 'vue'
+import { PTextField, PRadioGroup, type RadioOption } from '@/shared/ui'
+import { useCreateChannelForm } from '../model'
+
+interface Props {
+  serverId: string
+}
+
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'submit'): void
+}>()
+
+const options: RadioOption<number>[] = [
+  {
+    label: 'Текст',
+    value: 0,
+    description: 'Отправляйте сообщения, изображения, GIF, эмодзи, мнения и приколы',
+    icon: 'misc.hashtag',
+  },
+  {
+    label: 'Голос',
+    value: 1,
+    description: 'Общайтесь голосом или в видеочате и пользуйтесь функцией показа экрана',
+    icon: 'misc.speaker',
+  },
+  {
+    label: 'Форум',
+    value: 15,
+    description: 'Создайте площадку для обсуждений',
+    icon: 'misc.chat-bubbles',
+    disabled: true,
+  },
+]
+
+const formApi = useCreateChannelForm()
+const { name, nameAttrs, type, typeAttrs, isSubmitting, onSubmit, isValid } = formApi
+
+const formId = `form-${useId()}`
+
+const handleSubmit = async (payload: SubmitEvent) => {
+  await onSubmit(payload)
+  emit('submit')
+}
+
+watch(
+  () => props.serverId,
+  (newServerId) => {
+    formApi.serverId.value = newServerId
+  },
+  { immediate: true },
+)
+
+
+defineExpose({
+  formId,
+  isSubmitting,
+  isValid,
+})
+</script>
+
+<style lang="scss">
+.create-channel-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+</style>

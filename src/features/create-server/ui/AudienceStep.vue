@@ -31,7 +31,7 @@ import PurposeOption from './PurposeOption.vue'
 
 // TODO Переписать (дублирование кода)
 const emit = defineEmits<{
-  close: []
+  (e: 'close'): void
 }>()
 
 const { prevStep, nextStep } = inject(CREATE_SERVER_FORM_KEY)!

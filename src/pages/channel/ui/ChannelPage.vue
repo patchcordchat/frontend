@@ -8,16 +8,22 @@
       <main class="channel-page__chat-wrapper">
         <message-feed />
 
-        <create-message-form />
+        <create-message-form :channel-id="channelId" />
       </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import ChannelHeader from '@/widgets/channel-header'
 import MessageFeed from '@/widgets/message-feed'
 import CreateMessageForm from '@/features/create-message'
+
+const route = useRoute()
+
+const channelId = computed(() => route.params.channelId as string)
 </script>
 
 <style scoped lang="scss">

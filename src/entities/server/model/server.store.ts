@@ -1,155 +1,97 @@
-import { ref, computed } from 'vue'
+import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { serverApi } from '../api/server.api'
 import type { CreateServerDto, Server } from './server.types'
 
 export const useServerStore = defineStore('server', () => {
   // State
-  const servers = ref<Server[]>([])
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
-
-  // Getters
-  const serversList = computed(() => servers.value)
+  const servers = reactive<Record<string, Server>>({})
 
   // Actions
   /**
    * Загрузить список серверов
    */
-  async function fetchMyServers() {
-    isLoading.value = true
-    error.value = null
-
+  const fetchMyServers = async () => {
     try {
       const { data } = await serverApi.fetchMyServers()
-      servers.value = data
+      data.forEach((server) => (servers[server.id] = server))
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Ошибка загрузки серверов'
       console.error('Error fetching servers:', err)
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 
   /**
    * Загрузить сервер по ID
    */
-  async function fetchServerById(id: string) {
-    isLoading.value = true
-    error.value = null
-
+  const fetchServerById = async (id: string) => {
     try {
       const { data: server } = await serverApi.fetchServerById(id)
 
-      // Обновить сервер в списке, если он там есть
-      const index = servers.value.findIndex((s) => s.id === id)
-      if (index !== -1) {
-        servers.value[index] = server
-      }
-
+      servers[id] = server
       return server
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Ошибка загрузки сервера'
       console.error('Error fetching server:', err)
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 
   /**
    * Создать новый сервер
    */
-  async function createServer(payload: CreateServerDto) {
-    isLoading.value = true
-    error.value = null
-
+  const createServer = async (payload: CreateServerDto) => {
     try {
       const { data: newServer } = await serverApi.createServer(payload)
-      servers.value.push(newServer)
+      servers[newServer.id] = newServer
 
       return newServer
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Ошибка создания сервера'
       console.error('Error creating server:', err)
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 
   /**
    * Обновить сервер
    */
-  async function updateServer(id: string, payload: Partial<CreateServerDto>) {
-    isLoading.value = true
-    error.value = null
-
+  const updateServer = async (id: string, payload: Partial<CreateServerDto>) => {
     try {
       const { data: updatedServer } = await serverApi.updateServer(id, payload)
 
-      // Обновить в списке
-      const index = servers.value.findIndex((s) => s.id === id)
-      if (index !== -1) {
-        servers.value[index] = updatedServer
-      }
-
+      servers[id] = updatedServer
       return updatedServer
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Ошибка обновления сервера'
       console.error('Error updating server:', err)
       throw err
-    } finally {
-      isLoading.value = false
     }
   }
 
   /**
    * Удалить сервер
    */
-  async function deleteServer(id: string) {
-    isLoading.value = true
-    error.value = null
-
+  const deleteServer = async (id: string) => {
     try {
       await serverApi.deleteServer(id)
 
-      // Удалить из списка
-      servers.value = servers.value.filter((s) => s.id !== id)
+      delete servers[id]
     } catch (err) {
-      error.value = err instanceof Error ? err.message : 'Ошибка удаления сервера'
       console.error('Error deleting server:', err)
       throw err
-    } finally {
-      isLoading.value = false
     }
-  }
-
-  /**
-   * Очистить ошибку
-   */
-  function clearError() {
-    error.value = null
   }
 
   /**
    * Сбросить состояние
    */
-  function reset() {
-    servers.value = []
-    isLoading.value = false
-    error.value = null
+  const $reset = () => {
+    Object.entries(servers).forEach(([id]) => {
+      delete servers[id]
+    })
   }
 
   return {
     // State
     servers,
-    isLoading,
-    error,
-
-    // Getters
-    serversList,
 
     // Actions
     fetchMyServers,
@@ -157,7 +99,6 @@ export const useServerStore = defineStore('server', () => {
     createServer,
     updateServer,
     deleteServer,
-    clearError,
-    reset,
+    $reset,
   }
 })

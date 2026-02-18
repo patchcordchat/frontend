@@ -12,10 +12,9 @@ import { PIcon } from '@/shared/ui'
 
 <style scoped lang="scss">
 .attach-wrapper {
-  position: sticky;
   display: flex;
   flex: 0 0 auto;
-  align-items: center;
+  align-items: start;
   align-self: stretch;
   justify-content: center;
   padding: var(--space-sm) calc(var(--space-md) - 6px);

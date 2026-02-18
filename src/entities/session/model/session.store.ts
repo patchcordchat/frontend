@@ -1,25 +1,69 @@
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { sessionApi } from '../api'
+import type { LoginDto, RegisterDto } from './session.types'
 
-export const useSessionStore = defineStore('session', {
-  state: () => ({
-    user_id: null as string | null,
-    isAuthenticated: false,
-  }),
+export const useSessionStore = defineStore('session', () => {
+  // State
+  const user_id = ref<string | null>(null)
+  const isAuthenticated = ref(false)
+  const token = computed(() => localStorage.getItem('token') ?? null)
 
-  actions: {
-    setUserId(userId: string) {
-      this.user_id = userId
-      this.isAuthenticated = true
-    },
+  // Actions
+  const register = async (payload: RegisterDto) => {
+    try {
+      const { data } = await sessionApi.register(payload)
 
-    clearSession() {
-      this.user_id = null
-      this.isAuthenticated = false
-      localStorage.removeItem('token')
-    },
-  },
+      user_id.value = data.user_id
+      localStorage.setItem('token', data.token)
+      isAuthenticated.value = true
+    } catch (err) {
+      console.error('Error logging in:', err)
+      throw err
+    }
+  }
 
-  getters: {
-    userId: (state) => state.user_id ?? null,
-  },
+  const login = async (payload: LoginDto) => {
+    try {
+      const { data } = await sessionApi.login(payload)
+
+      localStorage.setItem('token', data.token)
+      user_id.value = data.user_id
+      isAuthenticated.value = true
+    } catch (err) {
+      console.error('Error logging in:', err)
+      throw err
+    }
+  }
+
+  const logout = async () => {
+    try {
+      await sessionApi.logout()
+      $reset()
+    } catch (err) {
+      console.error('Error logging out:', err)
+      throw err
+    }
+  }
+
+  /**
+   * Сбросить состояние
+   */
+  const $reset = () => {
+    user_id.value = null
+    isAuthenticated.value = false
+  }
+
+  return {
+    // State
+    user_id,
+    token,
+    isAuthenticated,
+
+    // Actions
+    register,
+    login,
+    logout,
+    $reset,
+  }
 })

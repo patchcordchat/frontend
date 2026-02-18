@@ -14,25 +14,14 @@
     <form :id="formId" class="p-modal__body p-modal__section" @submit.prevent="onSubmit">
       <p-upload-icon @upload="onIconUpload" />
 
-      <p-text-field
-        v-model="name"
-        v-bind="nameAttrs"
-        :error="errors.name"
-        label="Название сервера"
-        maxlength="100"
-        type="text"
-        size="md"
-        required
-      />
+      <p-text-field v-model="name" v-bind="nameAttrs" :error="errors.name" label="Название сервера" maxlength="100"
+        type="text" size="md" required />
     </form>
 
-    <div
-      class="p-modal__footer p-modal__section"
-      style="flex-direction: row; justify-content: space-between"
-    >
+    <div class="p-modal__footer p-modal__section" style="flex-direction: row; justify-content: space-between">
       <p-button view="secondary" @click="prevStep">Назад</p-button>
 
-      <p-button type="submit" :form="formId" :loading="isSubmitting">Создать</p-button>
+      <p-button type="submit" :form="formId" :loading="isSubmitting" :disabled="!isValid">Создать</p-button>
     </div>
   </div>
 </template>
@@ -44,10 +33,10 @@ import { CREATE_SERVER_FORM_KEY } from '../model'
 
 // TODO Переписать (дублирование кода)
 const emit = defineEmits<{
-  close: []
+  (e: 'close'): void
 }>()
 
-const { name, nameAttrs, icon, errors, prevStep, onSubmit, isSubmitting } =
+const { name, nameAttrs, icon, errors, prevStep, onSubmit, isSubmitting, isValid } =
   inject(CREATE_SERVER_FORM_KEY)!
 
 const formId = `form-${useId()}`

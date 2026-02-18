@@ -1,20 +1,10 @@
 <template>
-  <div
-    ref="selectEl"
-    class="p-select"
-    :class="{
-      'p-select--focused': isFocused,
-      'p-select--disabled': disabled,
-      [`p-select--size-${size}`]: size,
-    }"
-    tabindex="0"
-    @click="toggle"
-    @focus="handleFocus"
-    @blur="handleBlur"
-    @keydown.space.prevent="toggle"
-    @keydown.enter.prevent="toggle"
-    @keydown.esc="isOpen = false"
-  >
+  <div ref="selectEl" class="p-select" :class="{
+    'p-select--focused': isFocused,
+    'p-select--disabled': disabled,
+    [`p-select--size-${size}`]: size,
+  }" tabindex="0" @click="toggle" @focus="handleFocus" @blur="handleBlur" @keydown.space.prevent="toggle"
+    @keydown.enter.prevent="toggle" @keydown.esc="isOpen = false">
     <span v-if="!hasValue" class="p-select__placeholder">{{ label }}</span>
     <span v-else class="p-select__value">{{ displayValue }}</span>
 
@@ -24,18 +14,9 @@
   </div>
 
   <teleport to="body">
-    <p-select-list
-      v-if="isOpen"
-      ref="listComponentRef"
-      :items="items"
-      :size="size"
-      :model-value="modelValue"
-      :item-title="itemTitle"
-      :item-value="itemValue"
-      :item-props="itemProps"
-      :style="floatingStyles"
-      @select="onSelect"
-    >
+    <p-select-list v-if="isOpen" ref="listComponentRef" :items="items" :size="size" :model-value="modelValue"
+      :item-title="itemTitle" :item-value="itemValue" :item-props="itemProps" :style="floatingStyles"
+      @select="onSelect">
       <template #item="slotProps">
         <slot name="item" v-bind="slotProps"></slot>
       </template>
@@ -75,7 +56,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
 const modelValue = defineModel<unknown>()
 
 const emit = defineEmits<{
-  'update:focused': [focused: boolean]
+  (e: 'update:focused', focused: boolean): void
 }>()
 
 const isOpen = ref(false)
