@@ -1,11 +1,10 @@
 <template>
   <div class="message">
     <div class="message__contents">
-      <p-avatar class="message__user-avatar" size="md"
-        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13" />
+      <p-avatar class="message__user-avatar" size="md" :src="userAvatar()" />
 
       <h3 class="message__header">
-        <span class="message__username">{{ props.message.author.username }}</span>
+        <span class="message__username">{{ props.message.author.global_name }}</span>
 
         <time class="message__timestamp">{{ formatTimestamp(props.message.timestamp) }}</time>
       </h3>
@@ -24,6 +23,17 @@
 <script setup lang="ts">
 import type { Message } from '../model';
 import { PAvatar } from '@/shared/ui'
+import { StoragePaths } from '@/shared/utils'
+import DefaultAvatar from '@/shared/assets/images/user/default-avatar.png'
+
+const userAvatar = () => {
+  if (props.message.author?.avatar) {
+    return StoragePaths.userAvatar(props.message.author.id, props.message.author.avatar)
+  }
+
+  return DefaultAvatar
+}
+
 
 interface Props {
   message: Message

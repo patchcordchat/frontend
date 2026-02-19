@@ -2,14 +2,10 @@
   <section class="user-area">
     <div class="user-area__content">
       <div class="user-area__avatar-wrapper">
-        <p-avatar
-          size="sm"
-          src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-          status="online"
-        />
+        <p-avatar size="sm" :src="userAvatar()" status="online" />
 
         <div class="user-area__name-block">
-          <div class="user-area__name">FIZIS</div>
+          <div class="user-area__name">{{ currentUser?.global_name }}</div>
           <div class="user-area__status">В сети</div>
         </div>
       </div>
@@ -26,7 +22,29 @@
 </template>
 
 <script setup lang="ts">
+import { onBeforeMount } from 'vue'
+import { storeToRefs } from 'pinia'
 import { PToggle, PIcon, PAvatar } from '@/shared/ui'
+import { useCurrentUserStore } from '@/entities/user'
+import { StoragePaths } from '@/shared/utils'
+import DefaultAvatar from '@/shared/assets/images/user/default-avatar.png'
+
+const currentUserStore = useCurrentUserStore()
+const { currentUser } = storeToRefs(currentUserStore)
+
+const userAvatar = () => {
+  if (currentUser.value?.avatar) {
+    return StoragePaths.userAvatar(currentUser.value.id, currentUser.value.avatar)
+  }
+
+  return DefaultAvatar
+}
+
+onBeforeMount(async () => {
+  if (!currentUser.value) {
+    await currentUserStore.fetchCurrentUser()
+  }
+})
 </script>
 
 <style scoped lang="scss">

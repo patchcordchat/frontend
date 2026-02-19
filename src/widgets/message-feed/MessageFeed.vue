@@ -34,15 +34,15 @@ const channelId = computed(() => route.params.channelId as string)
 
 const messages = computed(() => getMessages(channelId.value))
 
-onMounted(async () => {
-  await fetchMessages(channelId.value)
+watch(channelId, async (newChannelId) => {
+  isLoading.value = true
+  await fetchMessages(newChannelId)
 
   isLoading.value = false
 })
 
-watch(channelId, async (newChannelId) => {
-  isLoading.value = true
-  await fetchMessages(newChannelId)
+onMounted(async () => {
+  await fetchMessages(channelId.value)
 
   isLoading.value = false
 })

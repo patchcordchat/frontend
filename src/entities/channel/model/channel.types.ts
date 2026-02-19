@@ -1,6 +1,6 @@
 export interface Channel {
-  _id: string
-  type: number
+  id: string
+  type: ChannelTypes
   server_id: string
   position: number
   name: string
@@ -19,4 +19,11 @@ export interface CreateChannelDto {
   type: number
   position?: number
   user_limit?: number
+}
+
+export enum ChannelTypes {
+  TEXT = 0,
+  VOICE = 1,
+  DM = 2,
+  GROUP_DM = 3,
 }

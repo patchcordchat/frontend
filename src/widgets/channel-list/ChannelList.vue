@@ -2,12 +2,12 @@
   <ul class="channel-list">
     <list-group name="Текстовые каналы" @create:channel="createModalRef?.open()" />
 
-    <list-item v-for="channel in textChannels" :key="channel._id" :name="channel.name" :id="channel._id"
+    <list-item v-for="channel in textChannels" :key="channel.id" :name="channel.name" :id="channel.id"
       :type="channel.type" />
 
     <list-group name="Голосовые каналы" @create:channel="createModalRef?.open()" />
 
-    <list-item v-for="channel in voiceChannels" :key="channel._id" :name="channel.name" :id="channel._id"
+    <list-item v-for="channel in voiceChannels" :key="channel.id" :name="channel.name" :id="channel.id"
       :type="channel.type" />
   </ul>
 

@@ -2,14 +2,26 @@ import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { messageApi } from '../api/message.api'
 import type { CreateMessageDto, Message } from './message.types'
+import { useSocketWorker } from '@/shared/api/socket'
 
 export const useMessageStore = defineStore('message', () => {
+  const socket = useSocketWorker()
+
   // State
   const messages = reactive<Record<string, Record<string, Message>>>({})
 
   // Getters
   const getMessages = (channelId: string): Message[] => {
     return Object.values(messages[channelId] || {})
+  }
+
+  // Mutations
+  const addMessage = (message: Message) => {
+    const channelId = message.channel_id
+    if (!messages[channelId]) {
+      messages[channelId] = {}
+    }
+    messages[channelId][message.id] = message
   }
 
   // Actions
@@ -122,12 +134,18 @@ export const useMessageStore = defineStore('message', () => {
     })
   }
 
+  // Socket events
+  socket.on('message:create', (message) => addMessage(message as Message))
+
   return {
     // State
     messages,
 
     // Getters
     getMessages,
+
+    // Mutations
+    addMessage,
 
     // Actions
     fetchMessages,

@@ -9,6 +9,10 @@ export const useChannelStore = defineStore('channel', () => {
 
   // Getters
   const getChannelsByServerId = (serverId: string) => channels[serverId] ?? []
+  const getChannelById = (channelId: string) =>
+    Object.values(channels)
+      .flat()
+      .find((ch) => ch.id === channelId)
 
   // Actions
   /**
@@ -50,7 +54,7 @@ export const useChannelStore = defineStore('channel', () => {
       // Обновить в списке
       const serverChannel = channels[serverId]
       if (serverChannel) {
-        const index = serverChannel.findIndex((ch) => ch._id === channelId)
+        const index = serverChannel.findIndex((ch) => ch.id === channelId)
         if (index !== -1) {
           serverChannel[index] = updatedChannel
         }
@@ -93,7 +97,7 @@ export const useChannelStore = defineStore('channel', () => {
    */
   function removeChannel(serverId: string, channelId: string) {
     if (channels[serverId]) {
-      channels[serverId] = channels[serverId].filter((ch) => ch._id !== channelId)
+      channels[serverId] = channels[serverId].filter((ch) => ch.id !== channelId)
     }
   }
 
@@ -112,6 +116,7 @@ export const useChannelStore = defineStore('channel', () => {
 
     // Getters
     getChannelsByServerId,
+    getChannelById,
 
     // Actions
     fetchChannels,

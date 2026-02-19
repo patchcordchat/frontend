@@ -5,7 +5,7 @@ import type { LoginDto, RegisterDto } from './session.types'
 
 export const useSessionStore = defineStore('session', () => {
   // State
-  const user_id = ref<string | null>(null)
+  const userId = ref<string | null>(null)
   const isAuthenticated = ref(false)
   const token = computed(() => localStorage.getItem('token') ?? null)
 
@@ -14,7 +14,7 @@ export const useSessionStore = defineStore('session', () => {
     try {
       const { data } = await sessionApi.register(payload)
 
-      user_id.value = data.user_id
+      userId.value = data.user_id
       localStorage.setItem('token', data.token)
       isAuthenticated.value = true
     } catch (err) {
@@ -28,7 +28,7 @@ export const useSessionStore = defineStore('session', () => {
       const { data } = await sessionApi.login(payload)
 
       localStorage.setItem('token', data.token)
-      user_id.value = data.user_id
+      userId.value = data.user_id
       isAuthenticated.value = true
     } catch (err) {
       console.error('Error logging in:', err)
@@ -50,13 +50,13 @@ export const useSessionStore = defineStore('session', () => {
    * Сбросить состояние
    */
   const $reset = () => {
-    user_id.value = null
+    userId.value = null
     isAuthenticated.value = false
   }
 
   return {
     // State
-    user_id,
+    userId,
     token,
     isAuthenticated,
 
