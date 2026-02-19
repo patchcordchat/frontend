@@ -22,8 +22,6 @@ function initSocket(token: string) {
     },
   })
 
-  console.log(socket)
-
   socket.on('connect', () => {
     console.log('[SocketWorker] Connected successfully. Socket ID:', socket?.id)
     broadcast({ type: 'CONNECTION_STATUS', status: 'connected' })

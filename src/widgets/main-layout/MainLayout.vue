@@ -1,5 +1,7 @@
 <template>
   <div class="main-layout">
+    <splash-screen v-if="!isConnected" />
+
     <app-topbar />
 
     <div class="main-layout__content">
@@ -16,6 +18,11 @@
 
 <script setup lang="ts">
 import { AppTopbar, AppSidebar } from '@/widgets'
+
+import { SplashScreen } from '@/app/ui'
+import { useSocketWorker } from '@/shared/api/socket';
+
+const { isConnected } = useSocketWorker();
 </script>
 
 <style scoped lang="scss">

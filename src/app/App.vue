@@ -2,17 +2,12 @@
   <svg-defs />
 
   <transition name="fade" mode="out-in">
-    <splash-screen v-if="!isConnected" />
-
-    <router-view v-else />
+    <router-view />
   </transition>
 </template>
 
 <script setup lang="ts">
-import { SplashScreen, SvgDefs } from './ui'
-import { useSocketWorker } from '@/shared/api/socket';
-
-const { isConnected } = useSocketWorker();
+import { SvgDefs } from './ui'
 </script>
 
 <style lang="scss">

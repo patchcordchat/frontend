@@ -19,3 +19,9 @@ export type ClientMessage =
       type: 'SET_TOKEN'
       token: string
     }
+
+export type ChannelSocketEvents =
+  | 'channel:join'
+  | 'channel:leave'
+  | 'channel:typing'
+  | 'channel:typing_update'
