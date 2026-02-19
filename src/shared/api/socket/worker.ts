@@ -18,7 +18,7 @@ function initSocket(token: string) {
     transports: ['polling', 'websocket'],
     reconnection: true,
     extraHeaders: {
-      Authorization: token,
+      authorization: token,
     },
   })
 
@@ -64,11 +64,24 @@ self.onconnect = (e: MessageEvent) => {
   if (!port) return
   ports.push(port)
 
+  if (socket) {
+    port.postMessage({
+      type: 'CONNECTION_STATUS',
+      status: socket.connected ? 'connected' : 'disconnected',
+    })
+  }
+
   port.onmessage = (event: MessageEvent<ClientMessage>) => {
     const data = event.data
-    console.log(data)
 
     if (data.type === 'SET_TOKEN') {
+      if (socket) {
+        port.postMessage({
+          type: 'CONNECTION_STATUS',
+          status: socket.connected ? 'connected' : 'disconnected',
+        })
+        return
+      }
       initSocket(data.token)
     }
 
