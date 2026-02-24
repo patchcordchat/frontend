@@ -5,9 +5,9 @@
     </div>
 
     <div class="channel-page__content">
-      <channel-chat-view v-if="channel?.type == ChannelTypes.TEXT" />
+      <channel-chat v-if="channel?.type == ChannelTypes.TEXT" />
 
-      <channel-call-view v-else-if="channel?.type == ChannelTypes.VOICE" />
+      <channel-call v-else-if="channel?.type == ChannelTypes.VOICE" />
     </div>
   </div>
 </template>
@@ -16,8 +16,8 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router'
 import ChannelHeader from '@/widgets/channel-header'
-import ChannelChatView from './ChannelChatView.vue';
-import ChannelCallView from './ChannelCallView.vue';
+import ChannelChat from '@/widgets/channel-chat';
+import ChannelCall from '@/widgets/channel-call';
 import { useChannelStore, ChannelTypes } from '@/entities/channel';
 
 const { getChannelById } = useChannelStore()
