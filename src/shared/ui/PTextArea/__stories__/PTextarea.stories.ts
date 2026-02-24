@@ -1,19 +1,19 @@
 import { ref } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
-import PTextArea from '../PTextArea.vue'
+import PTextarea from '../PTextarea.vue'
 
 export default {
-  title: 'Components/Inputs/PTextArea',
-  component: PTextArea,
+  title: 'Components/Inputs/PTextarea',
+  component: PTextarea,
   parameters: {},
 } as Meta
 
-type Story = StoryObj<typeof PTextArea>
+type Story = StoryObj<typeof PTextarea>
 
 export const Default: Story = {
   render: (args) => ({
-    components: { PTextArea },
+    components: { PTextarea },
     setup() {
       const model = ref<string>('')
       return { args, model }

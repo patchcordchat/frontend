@@ -1,3 +1,3 @@
-import PTextArea from './PTextArea.vue'
+import PTextArea from './PTextarea.vue'
 
 export default PTextArea

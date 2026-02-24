@@ -6,10 +6,10 @@ COPY . .
 RUN npm run build
 
 FROM nginx:1.29-alpine AS runner
-USER nginx
-RUN rm -rf /usr/share/nginx/html/*
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx/conf.d
+RUN touch /var/run/nginx.pid && chown -R nginx:nginx /var/run/nginx.pid
+COPY --chown=nginx:nginx nginx.conf /etc/nginx/nginx.conf
 COPY --chown=nginx:nginx --from=builder /app/dist /usr/share/nginx/html
+USER nginx
 EXPOSE 8080
-ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
-CMD ["-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -76,7 +76,7 @@ const joined = ref(false)
 const localVideoStream = ref<MediaStream | null>(null)
 const isVideoEnabled = ref(false)
 const isAudioMuted = ref(false)
-let localAudioTrack: MediaStreamTrack | null = null
+let localAudioTrack: MediaStreamTrack | null | undefined = null
 
 // Удаленные участники
 // Используем Map для удобного поиска по userId, но для шаблона конвертируем в array
@@ -168,7 +168,7 @@ const join = async () => {
       channelId: channelId.value,
       userId: userId.value,
     },
-    async (response: any) => {
+    async (response: { error?: string; rtpCapabilities: MediasoupClient.types.RtpCapabilities; peers?: any }) => {
       if (response.error) return console.error(response.error)
 
       // Init Device
@@ -211,7 +211,7 @@ const initTransports = async () => {
 
   producerTransport = device.createSendTransport(sendParams)
 
-  producerTransport.on('connect', ({ dtlsParameters }, cb, err) => {
+  producerTransport.on('connect', ({ dtlsParameters }, cb) => {
     socket.emit(
       'webrtc:connect_transport',
       { transportId: producerTransport.id, dtlsParameters },
@@ -219,7 +219,7 @@ const initTransports = async () => {
     )
   })
 
-  producerTransport.on('produce', ({ kind, rtpParameters, appData }, cb, err) => {
+  producerTransport.on('produce', ({ kind, rtpParameters, appData }, cb) => {
     socket.emit(
       'webrtc:produce',
       {
@@ -239,7 +239,7 @@ const initTransports = async () => {
 
   consumerTransport = device.createRecvTransport(recvParams)
 
-  consumerTransport.on('connect', ({ dtlsParameters }, cb, err) => {
+  consumerTransport.on('connect', ({ dtlsParameters }, cb) => {
     socket.emit(
       'webrtc:connect_transport',
       { transportId: consumerTransport.id, dtlsParameters },
@@ -301,7 +301,7 @@ const startVoiceActivityMonitoring = () => {
     // Вычисляем средний уровень звука
     let sum = 0
     for (let i = 0; i < dataArray.length; i++) {
-      sum += dataArray[i]
+      sum += dataArray[i] || 0
     }
     const average = sum / dataArray.length
 
