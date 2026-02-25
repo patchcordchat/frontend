@@ -1,6 +1,6 @@
 <template>
   <div class="channel-call">
-    <div class="channel-call__content">
+    <div class=" channel-call__content">
 
       <div v-if="joined" class="channel-call__video-grid">
         <peer-card :is-speaking="speaking" :videoStream="localVideoStream" />
@@ -16,7 +16,7 @@
       <div class="channel-call__controls-top">
       </div>
 
-      <div class="channel-call__controls-bottom">
+      <div v-if="joined" class="channel-call__controls-bottom">
         <p-button @click="toggleVideo" :class="{ active: isVideoEnabled }">
           {{ isVideoEnabled ? 'Stop Cam' : 'Start Cam' }}
         </p-button>
@@ -499,10 +499,21 @@ const leave = () => {
 </script>
 
 <style scoped lang="scss">
-.channel-call {
+$block: '.channel-call';
+
+#{$block} {
   flex: 1 1 auto;
   overflow: hidden;
   background: var(--black);
+
+  &:hover {
+
+    #{$block}__controls-bottom,
+    #{$block}__controls-top {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+  }
 
   &__content {
     position: relative;
@@ -551,14 +562,10 @@ const leave = () => {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    opacity: 0;
     pointer-events: all;
-    transform: translateZ(0);
+    transform: translate3d(0, -8px, 0);
     transition: transform .2s ease-in-out, opacity .2s ease-in-out;
-
-    &--hidden {
-      opacity: 0;
-      transform: translate3d(0, -8px, 0);
-    }
   }
 
   &__controls-bottom {
@@ -568,14 +575,10 @@ const leave = () => {
     justify-content: space-between;
     width: 100%;
     line-height: 0;
+    opacity: 0;
     pointer-events: all;
-    transform: translateZ(0);
+    transform: translate3d(0, 8px, 0);
     transition: transform .2s ease-in-out, opacity .2s ease-in-out;
-
-    &--hidden {
-      opacity: 0;
-      transform: translate3d(0, 8px, 0);
-    }
   }
 }
 

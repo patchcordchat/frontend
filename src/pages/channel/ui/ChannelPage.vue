@@ -1,9 +1,5 @@
 <template>
   <div class="channel-page">
-    <div class="channel-page__subtitle-container">
-      <channel-header />
-    </div>
-
     <div class="channel-page__content">
       <channel-chat v-if="channel?.type == ChannelTypes.TEXT" />
 
@@ -15,7 +11,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router'
-import ChannelHeader from '@/widgets/channel-header'
 import ChannelChat from '@/widgets/channel-chat';
 import ChannelCall from '@/widgets/channel-call';
 import { useChannelStore, ChannelTypes } from '@/entities/channel';

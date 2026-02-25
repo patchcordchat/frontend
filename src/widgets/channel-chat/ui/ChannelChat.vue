@@ -1,5 +1,7 @@
 <template>
   <main class="channel-chat">
+    <chat-header />
+
     <message-feed />
 
     <create-message-form />
@@ -10,6 +12,7 @@
 import { onMounted, onBeforeUnmount, computed, watch } from 'vue';
 import { useRoute } from 'vue-router'
 import MessageFeed from '@/widgets/message-feed'
+import ChatHeader from '@/widgets/chat-header'
 import CreateMessageForm from '@/features/create-message'
 import { useSocketWorker } from '@/shared/api/socket';
 
