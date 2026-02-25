@@ -1,15 +1,22 @@
 <template>
-  <div class="sfu-room">
-    <div class="controls">
-      <div v-if="!joined" class="join-form">
-        <p-input v-model="userId" placeholder="My User ID" />
-        <p-input v-model="channelId" placeholder="Channel ID" />
-        <p-button @click="join" :disabled="!userId || !channelId"> Connect Voice </p-button>
+  <div class="channel-call">
+    <div class="channel-call__content">
+
+      <div v-if="joined" class="channel-call__video-grid">
+        <peer-card :is-speaking="speaking" :videoStream="localVideoStream" />
+
+        <peer-card v-for="peer in remotePeers" :key="peer.userId" :audioStream="peer.audioStream"
+          :videoStream="peer.videoStream" :is-speaking="peer.isSpeaking" />
       </div>
 
-      <div v-else class="actions">
-        <div class="status">Connected as: {{ userId }}</div>
+      <call-connect v-else @join="join" />
+    </div>
 
+    <div class="channel-call__video-controls">
+      <div class="channel-call__controls-top">
+      </div>
+
+      <div class="channel-call__controls-bottom">
         <p-button @click="toggleVideo" :class="{ active: isVideoEnabled }">
           {{ isVideoEnabled ? 'Stop Cam' : 'Start Cam' }}
         </p-button>
@@ -21,33 +28,6 @@
         <p-button @click="leave" class="leave-btn">Leave</p-button>
       </div>
     </div>
-
-    <div class="video-grid">
-      <div v-if="joined" class="video-card" :class="{ speak: speaking }">
-        <video v-if="localVideoStream" :srcObject.prop="localVideoStream" autoplay playsinline muted
-          class="video-feed"></video>
-
-        <div v-else class="avatar-placeholder">
-          <span>{{ userId }} (Me)</span>
-          <span v-if="isAudioMuted">🎤 Muted</span>
-        </div>
-
-        <div class="user-label">Me</div>
-      </div>
-
-      <div v-for="peer in remotePeers" :key="peer.userId" class="video-card" :class="{ speak: peer.isSpeaking }">
-        <video v-if="peer.videoStream" :srcObject.prop="peer.videoStream" autoplay playsinline
-          class="video-feed"></video>
-
-        <div v-else class="avatar-placeholder">
-          <span>{{ peer.userId }}</span>
-        </div>
-
-        <audio v-if="peer.audioStream" :srcObject.prop="peer.audioStream" autoplay playsinline></audio>
-
-        <div class="user-label">{{ peer.userId }}</div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -56,7 +36,9 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { io, Socket } from 'socket.io-client'
 import { apiConfig } from '@/shared/config'
 import * as MediasoupClient from 'mediasoup-client'
-import { PButton, PInput } from '@/shared/ui' // Ваши компоненты
+import { PeerCard } from '@/entities/peer'
+import { PButton, PInput } from '@/shared/ui'
+import CallConnect from '@/widgets/call-connect'
 
 // --- Types ---
 interface RemotePeer {
@@ -73,7 +55,7 @@ const channelId = ref('general')
 const joined = ref(false)
 
 // Локальные стримы
-const localVideoStream = ref<MediaStream | null>(null)
+const localVideoStream = ref<MediaStream>()
 const isVideoEnabled = ref(false)
 const isAudioMuted = ref(false)
 let localAudioTrack: MediaStreamTrack | null | undefined = null
@@ -380,7 +362,7 @@ const toggleVideo = async () => {
     // Выключить
     videoProducer?.close() // Закрываем в mediasoup
     localVideoStream.value?.getTracks().forEach((t) => t.stop()) // Останавливаем камеру
-    localVideoStream.value = null
+    localVideoStream.value = undefined
     isVideoEnabled.value = false
     videoProducer = null
   } else {
@@ -516,30 +498,85 @@ const leave = () => {
 }
 </script>
 
-<style scoped>
-.sfu-room {
-  min-height: 100vh;
-  padding: 20px;
-  color: white;
-  background: #1a1a1a;
-}
+<style scoped lang="scss">
+.channel-call {
+  flex: 1 1 auto;
+  overflow: hidden;
+  background: var(--black);
 
-.controls {
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background: #2a2a2a;
-}
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--white);
+    background: var(--black);
+  }
 
-.join-form {
-  display: flex;
-  gap: 10px;
-}
+  &__video-grid {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    gap: var(--space-xs);
+    align-items: center;
+    align-self: stretch;
+    justify-content: center;
+    overflow: hidden scroll;
+    width: 100%;
+    min-width: 100px;
+    height: 100%;
+    padding: var(--space-sm);
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+  }
 
-.actions {
-  display: flex;
-  gap: 15px;
-  align-items: center;
+  &__video-controls {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 var(--space-md) var(--space-md);
+    inset-inline: 0;
+    pointer-events: none;
+  }
+
+  &__controls-top {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    pointer-events: all;
+    transform: translateZ(0);
+    transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+
+    &--hidden {
+      opacity: 0;
+      transform: translate3d(0, -8px, 0);
+    }
+  }
+
+  &__controls-bottom {
+    display: flex;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    line-height: 0;
+    pointer-events: all;
+    transform: translateZ(0);
+    transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+
+    &--hidden {
+      opacity: 0;
+      transform: translate3d(0, 8px, 0);
+    }
+  }
 }
 
 .status {
@@ -550,53 +587,5 @@ const leave = () => {
 .active {
   border-color: #c0392b !important;
   background-color: #e74c3c !important;
-
-  /* Красный для Stop/Mute */
-}
-
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 15px;
-}
-
-.video-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #000;
-  aspect-ratio: 16/9;
-}
-
-.video-card.speak {
-  border: 2px solid #3498db;
-}
-
-.video-feed {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.avatar-placeholder {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  color: #888;
-  font-size: 1.2rem;
-}
-
-.user-label {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  padding: 4px 8px;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  background: rgb(0 0 0 / 60%);
 }
 </style>
