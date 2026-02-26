@@ -18,14 +18,20 @@
 
       <div v-if="joined" class="channel-call__controls-bottom">
         <p-button @click="toggleVideo" :class="{ active: isVideoEnabled }">
-          {{ isVideoEnabled ? 'Stop Cam' : 'Start Cam' }}
+          <p-icon v-if="isVideoEnabled" icon="misc.video-off" size="sm" />
+
+          <p-icon v-else icon="misc.video" size="sm" />
         </p-button>
 
         <p-button @click="toggleAudio" :class="{ active: !isAudioMuted }">
-          {{ isAudioMuted ? 'Unmute Mic' : 'Mute Mic' }}
+          <p-icon v-if="isAudioMuted" icon="misc.mic-off" size="sm" />
+
+          <p-icon v-else icon="misc.mic" size="sm" />
         </p-button>
 
-        <p-button @click="leave" class="leave-btn">Leave</p-button>
+        <p-button @click="leave" class="leave-btn">
+          <p-icon icon="misc.end-call" size="sm" />
+        </p-button>
       </div>
     </div>
   </div>
@@ -33,12 +39,15 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { io, Socket } from 'socket.io-client'
 import { apiConfig } from '@/shared/config'
 import * as MediasoupClient from 'mediasoup-client'
 import { PeerCard } from '@/entities/peer'
-import { PButton, PInput } from '@/shared/ui'
+import { PButton, PIcon } from '@/shared/ui'
 import CallConnect from '@/widgets/call-connect'
+import { useServerStore } from '@/entities/server'
+import { useChannelStore } from '@/entities/channel'
 
 // --- Types ---
 interface RemotePeer {
@@ -48,10 +57,11 @@ interface RemotePeer {
   isSpeaking?: boolean
 }
 
+const { activeId: serverId } = storeToRefs(useServerStore())
+const { activeId: channelId } = storeToRefs(useChannelStore())
+
 // --- State ---
-const serverId = 'server-1' // Хардкод или пропс
 const userId = ref(`user-${Math.floor(Math.random() * 1000)}`)
-const channelId = ref('general')
 const joined = ref(false)
 
 // Локальные стримы
@@ -146,7 +156,7 @@ const join = async () => {
   socket.emit(
     'webrtc:join',
     {
-      serverId,
+      serverId: serverId.value,
       channelId: channelId.value,
       userId: userId.value,
     },
