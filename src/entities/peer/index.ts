@@ -1,1 +1,2 @@
-export { default as PeerCard } from './ui'
+export * from './model'
+export * from './ui'

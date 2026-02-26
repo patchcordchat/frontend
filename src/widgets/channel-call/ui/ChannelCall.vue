@@ -43,19 +43,11 @@ import { storeToRefs } from 'pinia'
 import { io, Socket } from 'socket.io-client'
 import { apiConfig } from '@/shared/config'
 import * as MediasoupClient from 'mediasoup-client'
-import { PeerCard } from '@/entities/peer'
+import { PeerCard, type RemotePeer } from '@/entities/peer'
 import { PButton, PIcon } from '@/shared/ui'
 import CallConnect from '@/widgets/call-connect'
 import { useServerStore } from '@/entities/server'
 import { useChannelStore } from '@/entities/channel'
-
-// --- Types ---
-interface RemotePeer {
-  userId: string
-  audioStream?: MediaStream
-  videoStream?: MediaStream
-  isSpeaking?: boolean
-}
 
 const { activeId: serverId } = storeToRefs(useServerStore())
 const { activeId: channelId } = storeToRefs(useChannelStore())
