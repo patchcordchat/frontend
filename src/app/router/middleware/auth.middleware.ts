@@ -15,7 +15,7 @@ export default async (to: RouteLocation): Promise<boolean | { name: string }> =>
 
   // 2. Если есть токен и пытается зайти на страницу логина -> в приватные каналы
   if (isAuthenticated && isAuthPage) {
-    return { name: 'private-channels' }
+    return { name: 'dm-channels' }
   }
 
   return true

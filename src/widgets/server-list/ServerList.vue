@@ -1,5 +1,5 @@
 <template>
-  <nav class="servers-nav">
+  <nav class="servers-nav" aria-label="Боковая панель серверов">
     <ul class="servers-nav__list">
       <list-item type="link" icon="logos.patchcord.symbol" label="Личные Сообщения" to="/channels/@me" />
 

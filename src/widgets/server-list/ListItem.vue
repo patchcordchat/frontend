@@ -1,5 +1,6 @@
 <template>
-  <component :is="tagType" class="nav-item" :class="{ 'nav-item--active': isActive }" :to="to" @click="onClick">
+  <component :is="tagType" class="nav-item" :class="{ 'nav-item--active': isActive }" :to="to" :aria-label="props.label"
+    @click="onClick">
     <div v-if="type === 'link'" class="nav-item__marker">
       <span></span>
     </div>

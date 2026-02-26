@@ -65,7 +65,7 @@ export const useRegisterForm = () => {
 
       await register({ ...values, date_of_birth: dateOfBirthValue })
 
-      await router.push({ name: 'private-channels' })
+      await router.push({ name: 'dm-channels' })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 400) {

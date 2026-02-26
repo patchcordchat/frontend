@@ -24,7 +24,7 @@ export const useLoginForm = () => {
     try {
       await login(values)
 
-      await router.push({ name: 'private-channels' })
+      await router.push({ name: 'dm-channels' })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
