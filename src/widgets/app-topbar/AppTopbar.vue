@@ -2,9 +2,12 @@
   <div class="app-topbar">
     <div class="app-topbar__title-wrapper">
       <div class="app-topbar__title">
-        <p-icon :icon="(route.meta.icon as string) || 'logos.patchcord.symbol'" size="xs" />
+        <p-server-icon v-if="activeServer" :server-id="activeServer.id" :icon-hash="activeServer.icon"
+          :name="activeServer.name" size="xs" />
 
-        <div>{{ route.meta.title }}</div>
+        <p-icon v-else :icon="(route.meta.icon as string) || 'logos.patchcord.symbol'" size="xs" />
+
+        <div>{{ activeServer?.name || route.meta.title }}</div>
       </div>
     </div>
 
@@ -22,7 +25,12 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { PIcon } from '@/shared/ui'
+import { storeToRefs } from 'pinia'
+import { PIcon, PServerIcon } from '@/shared/ui'
+import { useServerStore } from '@/entities/server'
+
+const { activeServer } = storeToRefs(useServerStore())
+
 const route = useRoute()
 </script>
 

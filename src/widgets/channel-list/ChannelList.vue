@@ -16,15 +16,14 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount, watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import ListItem from './ListItem.vue'
 import ListGroup from './ListGroup.vue'
 import CreateChannelModal from '@/widgets/create-channel-modal'
 import { useChannelStore } from '@/entities/channel'
+import { useServerStore } from '@/entities/server'
 
-const route = useRoute()
-
-const serverId = computed(() => route.params.serverId as string)
+const { activeId: serverId } = storeToRefs(useServerStore())
 
 const { getChannelsByServerId, fetchChannels } = useChannelStore()
 const channels = computed(() => getChannelsByServerId(serverId.value))

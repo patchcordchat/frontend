@@ -10,17 +10,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useRoute } from 'vue-router'
 import ChannelChat from '@/widgets/channel-chat';
 import ChannelCall from '@/widgets/channel-call';
 import { useChannelStore, ChannelTypes } from '@/entities/channel';
 
-const { getChannelById } = useChannelStore()
+const { getActiveChannel } = useChannelStore()
 
-const route = useRoute()
-const channelId = computed(() => route.params.channelId as string)
-
-const channel = computed(() => getChannelById(channelId.value))
+const channel = computed(() => getActiveChannel())
 </script>
 
 <style scoped lang="scss">

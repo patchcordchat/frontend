@@ -22,15 +22,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed, watch } from 'vue';
-import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia';
 import { MessageCard, MessageCardSkeleton, useMessageStore } from '@/entities/message'
+import { useChannelStore } from '@/entities/channel'
 
+const { activeId: channelId } = storeToRefs(useChannelStore())
 const { fetchMessages, getMessages } = useMessageStore()
 
 const isLoading = ref(true);
-
-const route = useRoute()
-const channelId = computed(() => route.params.channelId as string)
 
 const messages = computed(() => getMessages(channelId.value))
 

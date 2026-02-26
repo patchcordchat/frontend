@@ -9,17 +9,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, computed, watch } from 'vue';
-import { useRoute } from 'vue-router'
+import { onMounted, onBeforeUnmount, watch } from 'vue';
+import { storeToRefs } from 'pinia';
 import MessageFeed from '@/widgets/message-feed'
 import ChatHeader from '@/widgets/chat-header'
 import CreateMessageForm from '@/features/create-message'
 import { useSocketWorker } from '@/shared/api/socket';
+import { useChannelStore } from '@/entities/channel';
 
 const { emit } = useSocketWorker()
 
-const route = useRoute()
-const channelId = computed(() => route.params.channelId as string)
+const { activeId: channelId } = storeToRefs(useChannelStore())
 
 watch(channelId, async (newChannelId, oldChannelId) => {
   emit('channel:leave', oldChannelId)

@@ -1,14 +1,18 @@
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
+import { storeToRefs } from 'pinia'
 import { toTypedSchema } from '@vee-validate/zod'
 import { AxiosError } from 'axios'
 import { createMessageSchema, type createMessageFormData } from './schema'
 import { useMessageStore } from '@/entities/message'
+import { useChannelStore } from '@/entities/channel'
 
 export const useCreateMessageForm = () => {
+  const channelStore = useChannelStore()
+  const { activeId: channelId } = storeToRefs(channelStore)
+
   const { createMessage } = useMessageStore()
   const serverError = ref<string | undefined>(undefined)
-  const channelId = ref<string>('')
   const isSubmitting = ref(false)
 
   const { errors, defineField, values } = useForm<createMessageFormData>({

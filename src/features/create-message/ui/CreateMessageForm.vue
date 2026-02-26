@@ -11,27 +11,13 @@
 </template>
 
 <script setup lang="ts">
-import { watch, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
 import { PTextarea } from '@/shared/ui'
 import ActionToolbar from './ActionToolbar.vue'
 import AttachAction from './AttachAction.vue'
 import { useCreateMessageForm } from '../model'
 
-const route = useRoute()
-
 const formApi = useCreateMessageForm()
 const { content, onSubmit, isSubmitting } = formApi
-
-const channelId = computed<string>(() => route.params.channelId as string)
-
-onMounted(async () => {
-  formApi.channelId.value = channelId.value
-})
-
-watch(channelId, (newChannelId) => {
-  formApi.channelId.value = newChannelId
-})
 
 const handelSubmit = async (text: string) => {
   if (isSubmitting.value) return
