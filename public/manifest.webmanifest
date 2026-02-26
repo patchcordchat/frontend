@@ -4,13 +4,13 @@
   "start_url": "/",
   "display_override": ["window-controls-overlay"],
   "display": "standalone",
-  "background_color": "#121214f",
+  "background_color": "#121214",
   "lang": "ru",
   "scope": "/",
   "description": "Patchcord отлично подходит для игр и общения с друзьями или даже создание всемирного сообщества. Настройте свое собственное пространство для общения, игр и времяпрепровождения.",
   "categories": ["communication", "chat", "messaging"],
   "orientation": "portrait",
-  "theme_color": "#121214f",
+  "theme_color": "#121214",
   "icons": [
     {
       "src": "/favicon.png",
