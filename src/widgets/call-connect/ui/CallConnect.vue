@@ -3,7 +3,7 @@
     <div class="call-connect__pulse-gradient"></div>
 
     <h2 class="call-connect__channel-name">
-      Основной
+      {{ channel?.name }}
     </h2>
 
     <div class="call-connect__participants-row">
@@ -20,6 +20,10 @@
 
 <script setup lang="ts">
 import { PButton } from '@/shared/ui';
+import { storeToRefs } from 'pinia';
+import { useChannelStore } from '@/entities/channel';
+
+const { activeChannel: channel } = storeToRefs(useChannelStore())
 
 const emit = defineEmits<{
   (e: 'join'): void

@@ -5,7 +5,7 @@
         <p-icon icon="misc.hashtag" />
       </div>
 
-      <h1 class="chat-header__channel-name">general</h1>
+      <h1 class="chat-header__channel-name">{{ channel?.name }}</h1>
     </div>
 
     <div class="chat-header__toolbar">
@@ -21,7 +21,11 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useChannelStore } from '@/entities/channel';
 import { PIcon } from '@/shared/ui'
+
+const { activeChannel: channel } = storeToRefs(useChannelStore())
 </script>
 
 <style scoped lang="scss">
