@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { SPRITE_CONFIGS, type SpriteType } from './sprites.config';
+import { SpriteConfig, type SpriteType } from '@/shared/config';
 
 interface Props {
     type: SpriteType;
@@ -16,7 +16,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const spriteStyle = computed(() => {
-    const config = SPRITE_CONFIGS[props.type];
+    const config = SpriteConfig[props.type];
     const coords = config?.items[props.name];
 
     if (!config || !coords) {
@@ -28,11 +28,7 @@ const spriteStyle = computed(() => {
         backgroundImage: `url("${config.url}")`,
         backgroundPosition: `${coords[0]}px ${coords[1]}px`,
         backgroundSize: `${config.sheetSize.width}px ${config.sheetSize.height}px`,
-        width: `${config.itemSize.width}px`,
-        height: `${config.itemSize.height}px`,
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        transformOrigin: 'top left'
+        ['--sprite-size']: `${config.spriteSize}px`,
     };
 });
 </script>
@@ -40,6 +36,8 @@ const spriteStyle = computed(() => {
 <style scoped>
 .p-sprite-image {
     flex-shrink: 0;
+    width: var(--sprite-size);
+    height: var(--sprite-size);
     background-repeat: no-repeat;
 }
 </style>

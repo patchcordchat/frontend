@@ -15,6 +15,10 @@ export const Default: Story = {
   render: () => ({
     components: { PSpriteImage },
     template: `
-      <p-sprite-image type="emoji" name="flag_ru" />`,
+      <p-sprite-image type="emoji" name="anguished" />
+
+      <p-sprite-image type="custom-emoji" name="anguished" />
+
+      <p-sprite-image type="custom-emoji-grayscale" name="anguished" />`,
   }),
 }

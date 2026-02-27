@@ -1,17 +1,19 @@
 import emojiUrl from '@/shared/assets/sprites/emojis.png?url'
+import customEmojiUrl from '@/shared/assets/sprites/custom-emojis.png?url'
+import customEmojiGrayScaleUrl from '@/shared/assets/sprites/custom-emojis-grayscale.png?url'
 
 interface SpriteSheet {
   url: string
   sheetSize: { width: number; height: number }
-  itemSize: { width: number; height: number }
+  spriteSize: number
   items: Record<string, [number, number]>
 }
 
-export const SPRITE_CONFIGS: Record<string, SpriteSheet> = {
+export const SpriteConfig: Record<string, SpriteSheet> = {
   emoji: {
     url: emojiUrl,
     sheetSize: { width: 1680, height: 1560 },
-    itemSize: { width: 40, height: 40 },
+    spriteSize: 40,
     items: {
       '100': [-320, -1040],
       '1234': [-80, -1120],
@@ -1876,6 +1878,72 @@ export const SPRITE_CONFIGS: Record<string, SpriteSheet> = {
       flag_um: [-680, -1520],
     },
   },
+  'custom-emoji': {
+    url: customEmojiUrl,
+    sheetSize: { width: 360, height: 72 },
+    spriteSize: 18,
+    items: {
+      smiling_imp: [0, 0],
+      cold_face: [-18, 0],
+      cry: [-36, 0],
+      kissing_heart: [-54, 0],
+      face_vomiting: [-72, 0],
+      face_with_diagonal_mouth: [-90, 0],
+      mask: [-108, 0],
+      face_with_monocle: [-126, 0],
+      open_mouth: [-144, 0],
+      stuck_out_tongue: [-162, 0],
+      smiley: [-180, 0],
+      kissing: [-198, 0],
+      kissing_smiling_eyes: [-216, 0],
+      money_mouth_face: [-234, 0],
+      face_exhaling: [-252, 0],
+      sleeping: [-270, 0],
+      disappointed: [-288, 0],
+      wink: [-306, 0],
+      crazy_face: [-324, 0],
+      anguished: [-342, 0],
+
+      astonished: [0, -18],
+      confounded: [-18, -18],
+      unamused: [-36, -18],
+      cowboy: [-54, -18],
+      // TODO Дописать остальные эмодзи
+    },
+  },
+  'custom-emoji-grayscale': {
+    url: customEmojiGrayScaleUrl,
+    sheetSize: { width: 360, height: 72 },
+    spriteSize: 18,
+    items: {
+      smiling_imp: [0, 0],
+      cold_face: [-18, 0],
+      cry: [-36, 0],
+      kissing_heart: [-54, 0],
+      face_vomiting: [-72, 0],
+      face_with_diagonal_mouth: [-90, 0],
+      mask: [-108, 0],
+      face_with_monocle: [-126, 0],
+      open_mouth: [-144, 0],
+      stuck_out_tongue: [-162, 0],
+      smiley: [-180, 0],
+      kissing: [-198, 0],
+      kissing_smiling_eyes: [-216, 0],
+      money_mouth_face: [-234, 0],
+      face_exhaling: [-252, 0],
+      sleeping: [-270, 0],
+      disappointed: [-288, 0],
+      wink: [-306, 0],
+      crazy_face: [-324, 0],
+      anguished: [-342, 0],
+
+      astonished: [0, -18],
+      confounded: [-18, -18],
+      unamused: [-36, -18],
+      cowboy: [-54, -18],
+      // TODO Дописать остальные эмодзи
+    },
+  },
 }
 
-export type SpriteType = keyof typeof SPRITE_CONFIGS
+export type SpriteType = keyof typeof SpriteConfig
