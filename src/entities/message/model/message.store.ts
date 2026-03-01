@@ -24,6 +24,12 @@ export const useMessageStore = defineStore('message', () => {
     messages[channelId][message.id] = message
   }
 
+  const deleteMessageFromState = (channelId: string, messageId: string) => {
+    if (!messages[channelId]) return
+
+    delete messages[channelId][messageId]
+  }
+
   // Actions
   /**
    * Загрузить список сообщений для канала
@@ -113,12 +119,7 @@ export const useMessageStore = defineStore('message', () => {
     try {
       await messageApi.deleteMessage(channelId, messageId)
 
-      if (!messages[channelId]) {
-        return Promise.resolve()
-      }
-      const channelMessages = messages[channelId]
-
-      delete channelMessages[messageId]
+      deleteMessageFromState(channelId, messageId)
     } catch (err) {
       console.error('Error deleting server:', err)
       throw err

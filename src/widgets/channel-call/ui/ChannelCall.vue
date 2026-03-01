@@ -48,9 +48,11 @@ import { PButton, PIcon } from '@/shared/ui'
 import CallConnect from '@/widgets/call-connect'
 import { useServerStore } from '@/entities/server'
 import { useChannelStore } from '@/entities/channel'
-
+import { useSound } from '@/shared/composables';
 const { activeId: serverId } = storeToRefs(useServerStore())
 const { activeId: channelId } = storeToRefs(useChannelStore())
+
+const { play } = useSound();
 
 // --- State ---
 const userId = ref(`user-${Math.floor(Math.random() * 1000)}`)
@@ -105,14 +107,14 @@ const initSocket = () => {
   })
 
   // Новый продюсер (кто-то включил камеру или микрофон)
-  socket.on('webrtc:new_producer', async ({ producerId, userId, kind }) => {
+  socket.on('voice:media:producer_added', async ({ producerId, userId, kind }) => {
     // Если это мы сами (на всякий случай) — игнорируем
     if (userId === userId.value) return
     await consumeSource(producerId, userId, kind)
   })
 
   // Кто-то зашел (просто создаем слот, пока без стримов)
-  socket.on('webrtc:peer_joined', ({ userId: newUserId }) => {
+  socket.on('voice:user_joined', ({ userId: newUserId }) => {
     if (!remotePeersMap.has(newUserId)) {
       remotePeersMap.set(newUserId, { userId: newUserId })
       updatePeersArray()
@@ -120,12 +122,12 @@ const initSocket = () => {
   })
 
   // Кто-то ушел
-  socket.on('webrtc:peer_left', ({ userId: leftUserId }) => {
+  socket.on('voice:user_left', ({ userId: leftUserId }) => {
     remotePeersMap.delete(leftUserId)
     updatePeersArray()
   })
 
-  socket.on('webrtc:peer_speaking', ({ userId: peerId, speaking }) => {
+  socket.on('voice:user_speaking', ({ userId: peerId, speaking }) => {
     const peer = remotePeersMap.get(peerId)
     if (peer) {
       peer.isSpeaking = speaking
@@ -146,11 +148,11 @@ const join = async () => {
   if (!userId.value || !channelId.value) return
 
   socket.emit(
-    'webrtc:join',
+    'voice:join',
     {
-      serverId: serverId.value,
-      channelId: channelId.value,
-      userId: userId.value,
+      server_id: serverId.value,
+      channel_id: channelId.value,
+      user_id: userId.value,
     },
     async (response: { error?: string; rtpCapabilities: MediasoupClient.types.RtpCapabilities; peers?: any }) => {
       if (response.error) return console.error(response.error)
@@ -166,6 +168,8 @@ const join = async () => {
 
       // 1.1 Сразу подключаем микрофон
       await publishMic()
+
+      play('user_join')
 
       // 1.2 Подписываемся на всех, кто уже в комнате
       // Backend теперь возвращает массив peers: [{ userId, producers: [...] }]
@@ -190,27 +194,27 @@ const join = async () => {
 const initTransports = async () => {
   // Send Transport
   const sendParams = await new Promise<any>((resolve) =>
-    socket.emit('webrtc:create_transport', { forceTcp: false }, resolve),
+    socket.emit('voice:media:create_transport', { forceTcp: false }, resolve),
   )
 
   producerTransport = device.createSendTransport(sendParams)
 
   producerTransport.on('connect', ({ dtlsParameters }, cb) => {
     socket.emit(
-      'webrtc:connect_transport',
-      { transportId: producerTransport.id, dtlsParameters },
+      'voice:media:connect_transport',
+      { transport_id: producerTransport.id, dtls_parameters: dtlsParameters },
       cb,
     )
   })
 
   producerTransport.on('produce', ({ kind, rtpParameters, appData }, cb) => {
     socket.emit(
-      'webrtc:produce',
+      'voice:media:produce',
       {
-        transportId: producerTransport.id,
+        transport_id: producerTransport.id,
         kind,
-        rtpParameters,
-        appData: { ...appData, userId: userId.value }, // Передаем наш ID
+        rtp_parameters: rtpParameters,
+        app_data: { ...appData, user_id: userId.value }, // Передаем наш ID
       },
       ({ id }: any) => cb({ id }),
     )
@@ -218,15 +222,15 @@ const initTransports = async () => {
 
   // Recv Transport
   const recvParams = await new Promise<any>((resolve) =>
-    socket.emit('webrtc:create_transport', { forceTcp: false }, resolve),
+    socket.emit('voice:media:create_transport', { force_tcp: false }, resolve),
   )
 
   consumerTransport = device.createRecvTransport(recvParams)
 
   consumerTransport.on('connect', ({ dtlsParameters }, cb) => {
     socket.emit(
-      'webrtc:connect_transport',
-      { transportId: consumerTransport.id, dtlsParameters },
+      'voice:media:connect_transport',
+      { transport_id: consumerTransport.id, dtls_parameters: dtlsParameters },
       cb,
     )
   })
@@ -301,9 +305,9 @@ const startVoiceActivityMonitoring = () => {
       if (!speaking.value) {
         // Начали говорить
         speaking.value = true
-        socket.emit('webrtc:speaking', {
-          userId: userId.value,
-          channelId: channelId.value,
+        socket.emit('voice:speaking', {
+          user_id: userId.value,
+          channel_id: channelId.value,
           speaking: true,
         })
       }
@@ -316,9 +320,9 @@ const startVoiceActivityMonitoring = () => {
       speakingTimeout = setTimeout(() => {
         if (speaking.value && Date.now() - lastSpeakingTime > SILENCE_DURATION) {
           speaking.value = false
-          socket.emit('webrtc:speaking', {
-            userId: userId.value,
-            channelId: channelId.value,
+          socket.emit('voice:speaking', {
+            user_id: userId.value,
+            channel_id: channelId.value,
             speaking: false,
           })
         }
@@ -367,6 +371,8 @@ const toggleVideo = async () => {
     localVideoStream.value = undefined
     isVideoEnabled.value = false
     videoProducer = null
+
+    play('camera_off')
   } else {
     // Включить
     try {
@@ -383,6 +389,8 @@ const toggleVideo = async () => {
       })
 
       isVideoEnabled.value = true
+
+      play('camera_on')
     } catch (e) {
       console.error('Camera error', e)
     }
@@ -407,12 +415,14 @@ const toggleAudio = () => {
     // Останавливаем статус "говорит" при включении
     if (speaking.value) {
       speaking.value = false
-      socket.emit('webrtc:speaking', {
-        userId: userId.value,
-        channelId: channelId.value,
+      socket.emit('voice:speaking', {
+        user_id: userId.value,
+        channel_id: channelId.value,
         speaking: false,
       })
     }
+
+    play('unmute')
   } else {
     // Выключаем звук
     audioProducer.pause()
@@ -425,12 +435,14 @@ const toggleAudio = () => {
     // Если был статус "говорит" - сбрасываем
     if (speaking.value) {
       speaking.value = false
-      socket.emit('webrtc:speaking', {
-        userId: userId.value,
-        channelId: channelId.value,
+      socket.emit('voice:speaking', {
+        user_id: userId.value,
+        channel_id: channelId.value,
         speaking: false,
       })
     }
+
+    play('mute')
   }
 }
 
@@ -440,11 +452,11 @@ const consumeSource = async (producerId: string, remoteUserId: string, kind: 'au
 
   // Запрос на сервер
   socket.emit(
-    'webrtc:consume',
+    'voice:media:consume',
     {
-      transportId: consumerTransport.id,
-      producerId,
-      rtpCapabilities,
+      transport_id: consumerTransport.id,
+      producer_id: producerId,
+      rtp_capabilities: rtpCapabilities,
     },
     async (params: any) => {
       if (params.error) return console.error(params.error)
@@ -472,7 +484,7 @@ const consumeSource = async (producerId: string, remoteUserId: string, kind: 'au
 
       updatePeersArray()
 
-      socket.emit('webrtc:resume', { consumerId: consumer.id })
+      socket.emit('voice:media:resume', { consumer_id: consumer.id })
     },
   )
 }
@@ -486,17 +498,19 @@ const leave = () => {
   // Сбрасываем статус говорящего
   if (speaking.value) {
     speaking.value = false
-    socket.emit('webrtc:speaking', {
-      userId: userId.value,
-      channelId: channelId.value,
+    socket.emit('voice:speaking', {
+      user_id: userId.value,
+      channel_id: channelId.value,
       speaking: false,
     })
   }
 
   localVideoStream.value?.getTracks().forEach((t) => t.stop())
   localAudioTrack?.stop()
-  socket.emit('webrtc:leave')
+  socket.emit('voice:leave')
   socket.disconnect()
+
+  play('user_leave')
 }
 </script>
 

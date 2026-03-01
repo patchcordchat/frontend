@@ -21,14 +21,24 @@ export type ClientMessage =
     }
 
 export enum SocketEvents {
-  // Text Channels
-  CHANNEL_JOIN = 'channel:join',
-  CHANNEL_LEAVE = 'channel:leave',
-  CHANNEL_TYPING = 'channel:typing',
-  CHANNEL_TYPING_UPDATE = 'channel:typing_update',
-  MESSAGE_NEW = 'message:new',
+  // Chat
+  CHAT_JOIN = 'chat:join',
+  CHAT_LEAVE = 'chat:leave',
+  CHAT_TYPING = 'chat:typing',
+  CHAT_TYPING_UPDATE = 'chat:user_typing',
 
-  // Voice Channels
+  // Messages
+  MESSAGE_NEW = 'chat:message:new',
+  MESSAGE_UPDATED = 'chat:message:updated',
+  MESSAGE_DELETED = 'chat:message:deleted',
+  MESSAGE_PINNED = 'chat:message:pinned',
+  MESSAGE_UNPINNED = 'chat:message:unpinned',
+
+  // Message Reactions
+  REACTION_ADD = 'chat:reaction:add',
+  REACTION_REMOVE = 'chat:reaction:remove',
+
+  // Voice
   VOICE_JOIN = 'voice:join',
   VOICE_CREATE_TRANSPORT = 'voice:createTransport',
   VOICE_NEW_PRODUCER = 'voice:newProducer',

@@ -22,16 +22,16 @@ const { emit } = useSocketWorker()
 const { activeId: channelId } = storeToRefs(useChannelStore())
 
 watch(channelId, async (newChannelId, oldChannelId) => {
-  emit('channel:leave', oldChannelId)
-  emit('channel:join', newChannelId)
+  emit('chat:leave', oldChannelId)
+  emit('chat:join', newChannelId)
 })
 
 onMounted(() => {
-  emit('channel:join', channelId.value)
+  emit('chat:join', channelId.value)
 })
 
 onBeforeUnmount(() => {
-  emit('channel:leave', channelId.value)
+  emit('chat:leave', channelId.value)
 })
 </script>
 
