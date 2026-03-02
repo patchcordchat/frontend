@@ -40,15 +40,14 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import * as MediasoupClient from 'mediasoup-client'
+import { Device } from 'mediasoup-client'
+import type { Transport, Producer, RtpCapabilities } from 'mediasoup-client/types'
 import { PeerCard, type RemotePeer } from '@/entities/peer'
 import { PButton, PIcon } from '@/shared/ui'
 import CallConnect from '@/widgets/call-connect'
-import { useServerStore } from '@/entities/server'
 import { useChannelStore } from '@/entities/channel'
 import { useSound } from '@/shared/composables';
 import { useSocket } from '@/shared/api'
-const { activeId: serverId } = storeToRefs(useServerStore())
 const { activeId: channelId } = storeToRefs(useChannelStore())
 
 const { play } = useSound();
@@ -70,11 +69,11 @@ const remotePeers = ref<RemotePeer[]>([])
 
 // Mediasoup internals
 const { socket } = useSocket()
-let device: MediasoupClient.Device
-let producerTransport: MediasoupClient.types.Transport
-let consumerTransport: MediasoupClient.types.Transport
-let audioProducer: MediasoupClient.types.Producer | null = null
-let videoProducer: MediasoupClient.types.Producer | null = null
+let device: Device
+let producerTransport: Transport
+let consumerTransport: Transport
+let audioProducer: Producer | null = null
+let videoProducer: Producer | null = null
 
 const speaking = ref(false)
 let audioContext: AudioContext | null = null
@@ -142,15 +141,14 @@ const join = async () => {
   socket.emit(
     'call:join',
     {
-      server_id: serverId.value,
       channel_id: channelId.value,
       user_id: userId.value,
     },
-    async (response: { error?: string; rtpCapabilities: MediasoupClient.types.RtpCapabilities; peers?: any }) => {
+    async (response: { error?: string; rtpCapabilities: RtpCapabilities; peers?: any }) => {
       if (response.error) return console.error(response.error)
 
       // Init Device
-      device = new MediasoupClient.Device()
+      device = new Device()
       await device.load({ routerRtpCapabilities: response.rtpCapabilities })
 
       // Init Transports
