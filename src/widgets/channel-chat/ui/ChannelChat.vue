@@ -14,10 +14,10 @@ import { storeToRefs } from 'pinia';
 import MessageFeed from '@/widgets/message-feed'
 import ChatHeader from '@/widgets/chat-header'
 import CreateMessageForm from '@/features/create-message'
-import { useSocketWorker } from '@/shared/api/socket';
+import { useSocket } from '@/shared/api/socket';
 import { useChannelStore } from '@/entities/channel';
 
-const { emit } = useSocketWorker()
+const { emit } = useSocket()
 
 const { activeId: channelId } = storeToRefs(useChannelStore())
 

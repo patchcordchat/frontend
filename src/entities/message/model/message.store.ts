@@ -2,10 +2,10 @@ import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { messageApi } from '../api/message.api'
 import type { CreateMessageDto, Message } from './message.types'
-import { useSocketWorker } from '@/shared/api/socket'
+import { useSocket } from '@/shared/api/socket'
 
 export const useMessageStore = defineStore('message', () => {
-  const socket = useSocketWorker()
+  const socket = useSocket()
 
   // State
   const messages = reactive<Record<string, Record<string, Message>>>({})

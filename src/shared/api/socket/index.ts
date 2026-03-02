@@ -1,92 +1,81 @@
-import SocketWorker from './worker?sharedworker'
-import type { WorkerMessage } from './types'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ref } from 'vue'
+import { io, Socket } from 'socket.io-client'
+import { apiConfig } from '@/shared/config'
 
-let workerInstance: SharedWorker | null = null
+let socketInstance: Socket | null = null
 
 const isConnected = ref(false)
-const lastEvent = ref<unknown>(null)
 
-const listeners = new Map<string, Array<(data: unknown) => void>>()
+export function useSocket() {
+  /**
+   * Инициализация сокета
+   */
+  const initSocket = () => {
+    if (socketInstance) return
 
-export function useSocketWorker() {
-  if (!workerInstance) {
-    workerInstance = new SocketWorker()
+    socketInstance = io(apiConfig.baseUrl, {
+      transports: ['polling', 'websocket'],
+      reconnection: true,
+      extraHeaders: {
+        authorization: localStorage.getItem('token') || '',
+      },
+    })
 
-    workerInstance.port.onmessage = (event: MessageEvent<WorkerMessage>) => {
-      const { data } = event
+    socketInstance.on('connect', () => {
+      console.log('[Socket] Connected. ID:', socketInstance?.id)
+      isConnected.value = true
+    })
 
-      if (data.type === 'CONNECTION_STATUS') {
-        isConnected.value = data.status === 'connected'
+    socketInstance.on('disconnect', (reason) => {
+      console.log('[Socket] Disconnected. Reason:', reason)
+      isConnected.value = false
+    })
+
+    socketInstance.on('connect_error', (error) => {
+      console.error('[Socket] Connection error:', error.message)
+      isConnected.value = false
+    })
+  }
+
+  /**
+   * Отправить событие и ждать подтверждения (ACK)
+   */
+  const emit = <TResponse = any, TPayload = any>(
+    event: string,
+    payload?: TPayload,
+  ): Promise<TResponse> => {
+    return new Promise((resolve, reject) => {
+      if (!socketInstance) {
+        return reject(new Error('Socket not initialized'))
       }
 
-      if (data.type === 'SOCKET_EVENT') {
-        lastEvent.value = data
-
-        const eventListeners = listeners.get(data.event)
-        if (eventListeners) {
-          eventListeners.forEach((cb) => cb(data.payload))
-        }
-      }
-    }
-
-    workerInstance.port.start()
-
-    const token = localStorage.getItem('token')
-    if (token) {
-      workerInstance.port.postMessage({
-        type: 'SET_TOKEN',
-        token: token,
+      socketInstance.emit(event, payload, (response: TResponse) => {
+        resolve(response)
       })
-    }
-  }
-
-  /**
-   * Отправить событие на сервер (через воркер)
-   */
-  const emit = (event: string, payload: unknown) => {
-    workerInstance?.port.postMessage({
-      type: 'EMIT',
-      event,
-      payload,
     })
   }
 
   /**
-   * Подписаться на событие (как socket.on)
+   * Подписаться на событие
    */
-  const on = (event: string, callback: (data: unknown) => void) => {
-    if (!listeners.has(event)) {
-      listeners.set(event, [])
-    }
-    listeners.get(event)?.push(callback)
+  const on = <T = any>(event: string, callback: (data: T) => void) => {
+    socketInstance?.on(event, callback)
   }
 
   /**
-   * Отписаться (как socket.off)
+   * Отписаться от события
    */
-  const off = (event: string, callback: (data: unknown) => void) => {
-    const eventListeners = listeners.get(event)
-    if (eventListeners) {
-      listeners.set(
-        event,
-        eventListeners.filter((cb) => cb !== callback),
-      )
-    }
+  const off = <T = any>(event: string, callback: (data: T) => void) => {
+    socketInstance?.off(event, callback)
   }
 
-  const setToken = (token: string) => {
-    workerInstance?.port.postMessage({
-      type: 'SET_TOKEN',
-      token,
-    })
-  }
+  initSocket()
 
   return {
     isConnected,
     emit,
     on,
     off,
-    setToken,
   }
 }

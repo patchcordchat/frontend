@@ -1,4 +1,4 @@
 import apiClient from './client'
-import { useSocketWorker } from './socket'
+import { useSocket } from './socket'
 
-export { apiClient, useSocketWorker }
+export { apiClient, useSocket }

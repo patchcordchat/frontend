@@ -20,9 +20,9 @@
 import { AppTopbar, AppSidebar } from '@/widgets'
 
 import { SplashScreen } from '@/app/ui'
-import { useSocketWorker } from '@/shared/api/socket';
+import { useSocket } from '@/shared/api/socket';
 
-const { isConnected } = useSocketWorker();
+const { isConnected } = useSocket();
 </script>
 
 <style scoped lang="scss">
