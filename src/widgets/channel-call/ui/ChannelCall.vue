@@ -86,46 +86,47 @@ const SILENCE_DURATION = 1000 // ms, после которого считаем 
 let lastSpeakingTime = 0
 let speakingTimeout: NodeJS.Timeout | null = null
 
+const onProducerAdded = async (data: { producer_id: string, user_id: string, kind: 'audio' | 'video' }) => {
+  if (data.user_id === userId.value) return
+  await consumeSource(data.producer_id, data.user_id, data.kind)
+}
+
+const onUserJoined = (data: { user_id: string }) => {
+  if (remotePeersMap.has(data.user_id)) return;
+
+  remotePeersMap.set(data.user_id, { userId: data.user_id })
+  updatePeersArray()
+}
+
+const onUserLeft = (data: { user_id: string }) => {
+  remotePeersMap.delete(data.user_id)
+  updatePeersArray()
+}
+
+const onUserSpeaking = (data: { user_id: string, speaking: boolean }) => {
+  const peer = remotePeersMap.get(data.user_id)
+  if (!peer) return;
+
+  peer.isSpeaking = data.speaking
+  updatePeersArray()
+}
+
 // --- Lifecycle ---
 onMounted(() => {
-  initSocket()
+  socket.on('call:media:producer_added', onProducerAdded)
+  socket.on('call:user_joined', onUserJoined)
+  socket.on('call:user_left', onUserLeft)
+  socket.on('call:user_speaking', onUserSpeaking)
 })
 
 onUnmounted(() => {
+  socket.off('call:media:producer_added')
+  socket.off('call:user_joined')
+  socket.off('call:user_left')
+  socket.off('call:user_speaking')
+
   leave()
 })
-
-// --- Socket Logic ---
-const initSocket = () => {
-  // Новый продюсер (кто-то включил камеру или микрофон)
-  socket.on('call:media:producer_added', async ({ producerId, userId, kind }) => {
-    // Если это мы сами (на всякий случай) — игнорируем
-    if (userId === userId.value) return
-    await consumeSource(producerId, userId, kind)
-  })
-
-  // Кто-то зашел (просто создаем слот, пока без стримов)
-  socket.on('call:user_joined', ({ userId: newUserId }) => {
-    if (!remotePeersMap.has(newUserId)) {
-      remotePeersMap.set(newUserId, { userId: newUserId })
-      updatePeersArray()
-    }
-  })
-
-  // Кто-то ушел
-  socket.on('call:user_left', ({ userId: leftUserId }) => {
-    remotePeersMap.delete(leftUserId)
-    updatePeersArray()
-  })
-
-  socket.on('call:user_speaking', ({ userId: peerId, speaking }) => {
-    const peer = remotePeersMap.get(peerId)
-    if (peer) {
-      peer.isSpeaking = speaking
-      updatePeersArray()
-    }
-  })
-}
 
 // Хелпер для реактивности Vue (Map -> Array)
 const updatePeersArray = () => {
@@ -499,7 +500,6 @@ const leave = () => {
   localVideoStream.value?.getTracks().forEach((t) => t.stop())
   localAudioTrack?.stop()
   socket.emit('call:leave')
-  socket.disconnect()
 
   play('user_leave')
 }
