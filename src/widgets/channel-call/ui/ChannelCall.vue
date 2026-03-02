@@ -40,8 +40,6 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import { io, Socket } from 'socket.io-client'
-import { apiConfig } from '@/shared/config'
 import * as MediasoupClient from 'mediasoup-client'
 import { PeerCard, type RemotePeer } from '@/entities/peer'
 import { PButton, PIcon } from '@/shared/ui'
@@ -49,6 +47,7 @@ import CallConnect from '@/widgets/call-connect'
 import { useServerStore } from '@/entities/server'
 import { useChannelStore } from '@/entities/channel'
 import { useSound } from '@/shared/composables';
+import { useSocket } from '@/shared/api'
 const { activeId: serverId } = storeToRefs(useServerStore())
 const { activeId: channelId } = storeToRefs(useChannelStore())
 
@@ -70,7 +69,7 @@ const remotePeersMap = reactive(new Map<string, RemotePeer>())
 const remotePeers = ref<RemotePeer[]>([])
 
 // Mediasoup internals
-let socket: Socket
+const { socket } = useSocket()
 let device: MediasoupClient.Device
 let producerTransport: MediasoupClient.types.Transport
 let consumerTransport: MediasoupClient.types.Transport
@@ -98,14 +97,6 @@ onUnmounted(() => {
 
 // --- Socket Logic ---
 const initSocket = () => {
-  socket = io(apiConfig.baseUrl, {
-    transports: ['polling', 'websocket'],
-    reconnection: true,
-    extraHeaders: {
-      authorization: localStorage.getItem('token') || '',
-    },
-  })
-
   // Новый продюсер (кто-то включил камеру или микрофон)
   socket.on('call:media:producer_added', async ({ producerId, userId, kind }) => {
     // Если это мы сами (на всякий случай) — игнорируем

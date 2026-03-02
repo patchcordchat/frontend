@@ -17,21 +17,21 @@ import CreateMessageForm from '@/features/create-message'
 import { useSocket } from '@/shared/api/socket';
 import { useChannelStore } from '@/entities/channel';
 
-const { emit } = useSocket()
+const { socket } = useSocket()
 
 const { activeId: channelId } = storeToRefs(useChannelStore())
 
 watch(channelId, async (newChannelId, oldChannelId) => {
-  emit('chat:leave', oldChannelId)
-  emit('chat:join', newChannelId)
+  socket.emit('chat:leave', oldChannelId)
+  socket.emit('chat:join', newChannelId)
 })
 
 onMounted(() => {
-  emit('chat:join', channelId.value)
+  socket.emit('chat:join', channelId.value)
 })
 
 onBeforeUnmount(() => {
-  emit('chat:leave', channelId.value)
+  socket.emit('chat:leave', channelId.value)
 })
 </script>
 

@@ -5,7 +5,7 @@ import type { CreateMessageDto, Message } from './message.types'
 import { useSocket } from '@/shared/api/socket'
 
 export const useMessageStore = defineStore('message', () => {
-  const socket = useSocket()
+  const { socket } = useSocket()
 
   // State
   const messages = reactive<Record<string, Record<string, Message>>>({})
