@@ -5,7 +5,10 @@
         <server-dropdown />
 
         <span>
-          <div class="server-sidebar__invite-button">
+          <div class="server-sidebar__invite-button" v-tooltip="{
+            content: 'Пригласить на сервер',
+            placement: 'bottom',
+          }">
             <p-icon icon="misc.users-add" />
           </div>
         </span>
@@ -21,6 +24,7 @@
 <script setup lang="ts">
 import { PIcon } from '@/shared/ui'
 import ChannelList from '@/widgets/channel-list'
+import { vTooltip } from '@/shared/directives/v-tooltip'
 import ServerDropdown from './ServerDropdown.vue'
 </script>
 

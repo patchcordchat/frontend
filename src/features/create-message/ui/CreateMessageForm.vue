@@ -3,7 +3,7 @@
     <div class="message-form__inner">
       <attach-action />
 
-      <p-textarea v-model="content" @submit="handelSubmit" placeholder="Написать #test" />
+      <p-textarea v-model="content" @submit="handelSubmit" :placeholder="`Написать #${activeChannel?.name}`" />
 
       <action-toolbar />
     </div>
@@ -15,6 +15,10 @@ import { PTextarea } from '@/shared/ui'
 import ActionToolbar from './ActionToolbar.vue'
 import AttachAction from './AttachAction.vue'
 import { useCreateMessageForm } from '../model'
+import { useChannelStore } from '@/entities/channel'
+import { storeToRefs } from 'pinia'
+
+const { activeChannel } = storeToRefs(useChannelStore())
 
 const formApi = useCreateMessageForm()
 const { content, onSubmit, isSubmitting } = formApi

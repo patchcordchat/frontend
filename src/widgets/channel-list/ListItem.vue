@@ -9,9 +9,15 @@
     </div>
 
     <div class="channel__controls">
-      <p-icon class="channel__control" icon="misc.user-add" size="xs" />
+      <p-icon class="channel__control" icon="misc.user-add" size="xs" v-tooltip="{
+        content: 'Пригласить на канал',
+        placement: 'top',
+      }" />
 
-      <p-icon class="channel__control" icon="misc.gear" size="xs" />
+      <p-icon class="channel__control" icon="misc.gear" size="xs" v-tooltip="{
+        content: 'Настроить канал',
+        placement: 'top',
+      }" />
     </div>
   </component>
 </template>
@@ -19,6 +25,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { PIcon } from '@/shared/ui'
+import { vTooltip } from '@/shared/directives/v-tooltip'
 
 interface Props {
   type: number
