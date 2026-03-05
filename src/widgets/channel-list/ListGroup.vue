@@ -1,5 +1,5 @@
 <template>
-  <li class="channel-group">
+  <div class="channel-group">
     <div class="channel-group__content" @click.stop="emit('toggle')">
       <h3 class="channel-group__name">{{ props.name }}</h3>
 
@@ -12,7 +12,7 @@
     }">
       <p-icon icon="misc.plus" size="xs" />
     </div>
-  </li>
+  </div>
 </template>
 
 <script setup lang="ts">

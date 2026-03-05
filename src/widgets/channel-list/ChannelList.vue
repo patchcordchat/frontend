@@ -1,14 +1,20 @@
 <template>
   <ul class="channel-list">
-    <list-group name="Текстовые каналы" @create:channel="createModalRef?.open()" />
+    <li class="channel-list__container">
+      <list-group name="Текстовые каналы" @create:channel="createModalRef?.open()" />
+    </li>
 
-    <list-item v-for="channel in textChannels" :key="channel.id" :name="channel.name" :id="channel.id"
-      :type="channel.type" />
+    <li class="channel-list__container" v-for="channel in textChannels" :key="channel.id">
+      <server-channel :name="channel.name" :id="channel.id" :type="channel.type" />
+    </li>
 
-    <list-group name="Голосовые каналы" @create:channel="createModalRef?.open()" />
+    <li class="channel-list__container">
+      <list-group name="Голосовые каналы" @create:channel="createModalRef?.open()" />
+    </li>
 
-    <list-item v-for="channel in voiceChannels" :key="channel.id" :name="channel.name" :id="channel.id"
-      :type="channel.type" />
+    <li class="channel-list__container" v-for="channel in voiceChannels" :key="channel.id">
+      <list-item :name="channel.name" :id="channel.id" :type="channel.type" />
+    </li>
   </ul>
 
   <create-channel-modal ref="createModalRef" :server-id="serverId" />
@@ -17,7 +23,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, watch, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import ListItem from './ListItem.vue'
+import { ServerChannel } from '@/entities/channel'
 import ListGroup from './ListGroup.vue'
 import CreateChannelModal from '@/widgets/create-channel-modal'
 import { useChannelStore } from '@/entities/channel'
@@ -46,5 +52,10 @@ watch(serverId, async (newId) => {
 .channel-list {
   position: relative;
   padding-top: var(--space-sm);
+
+  &__container {
+    position: relative;
+    transition: opacity .2s ease-in-out;
+  }
 }
 </style>

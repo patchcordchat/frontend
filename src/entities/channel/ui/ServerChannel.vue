@@ -77,6 +77,7 @@ $block: '.server-channel';
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
   padding-inline: var(--space-xs);
+  margin-inline-start: var(--space-xs);
 
   &:hover {
     background: var(--background-modifier-hover);
