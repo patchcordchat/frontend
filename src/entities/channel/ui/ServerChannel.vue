@@ -1,11 +1,12 @@
 <template>
-  <component :is="tag" class="server-channel" v-bind="linkAttributes">
+  <router-link class="server-channel"
+    :to="{ name: 'channel', params: { serverId: props.channel.server_id, channelId: props.channel.id } }">
     <div class="server-channel__icon">
       <p-icon :icon="icon" />
     </div>
 
     <div class="server-channel__name">
-      {{ props.name }}
+      {{ props.channel.name }}
     </div>
 
     <div class="server-channel__controls">
@@ -19,22 +20,17 @@
         placement: 'top',
       }" />
     </div>
-  </component>
+  </router-link>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
 import { PIcon } from '@/shared/ui'
-import { useServerStore } from '@/entities/server'
+import type { Channel } from '../model'
 import { vTooltip } from '@/shared/directives/v-tooltip'
 
-const { activeId: serverId } = storeToRefs(useServerStore())
-
 interface Props {
-  type: number
-  name: string
-  id?: string
+  channel: Channel
 }
 
 const props = defineProps<Props>()
@@ -44,18 +40,7 @@ const iconMap: Record<number, string> = {
   1: 'misc.speaker',
 }
 
-const tag = computed(() => {
-  return props.id && serverId.value ? 'router-link' : 'li'
-})
-
-const linkAttributes = computed(() => {
-  if (props.id && serverId.value) {
-    return { to: { name: 'channel', params: { serverId: serverId.value, channelId: props.id } } }
-  }
-  return {}
-})
-
-const icon = computed(() => iconMap[props.type] ?? 'misc.hashtag')
+const icon = computed(() => iconMap[props.channel.type] ?? 'misc.hashtag')
 </script>
 
 <style scoped lang="scss">

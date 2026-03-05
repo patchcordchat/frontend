@@ -5,7 +5,7 @@
     </li>
 
     <li class="channel-list__container" v-for="channel in textChannels" :key="channel.id">
-      <server-channel :name="channel.name" :id="channel.id" :type="channel.type" />
+      <server-channel :channel="channel" />
     </li>
 
     <li class="channel-list__container">
@@ -13,7 +13,7 @@
     </li>
 
     <li class="channel-list__container" v-for="channel in voiceChannels" :key="channel.id">
-      <list-item :name="channel.name" :id="channel.id" :type="channel.type" />
+      <server-channel :channel="channel" />
     </li>
   </ul>
 
