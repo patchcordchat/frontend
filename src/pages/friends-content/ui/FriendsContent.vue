@@ -11,23 +11,24 @@
 
       <p-icon icon="misc.dot" size="sm" />
 
-      <div class="tab-bar">
-        <div class="item">
-          В сети
-        </div>
-
-        <div class="item">
-          Все
-        </div>
-
-        <div class="item">
-          Ожидание
-        </div>
-
-        <div class="item">
-          Добавить в друзья
-        </div>
-      </div>
+      <p-tab-bar v-model="selectedTab" :items="[
+        {
+          value: 'online',
+          label: 'В сети'
+        },
+        {
+          value: 'all',
+          label: 'Все'
+        },
+        {
+          value: 'pending',
+          label: 'Ожидание'
+        },
+        {
+          value: 'add_friend',
+          label: 'Добавить в друзья'
+        }
+      ]" />
     </section>
 
     <div class="friends-page__tab-body">
@@ -37,7 +38,10 @@
 </template>
 
 <script setup lang="ts">
-import { PIcon } from '@/shared/ui';
+import { ref } from 'vue';
+import { PIcon, PTabBar } from '@/shared/ui';
+
+const selectedTab = ref('online');
 </script>
 
 <style scoped lang="scss">
@@ -79,24 +83,6 @@ import { PIcon } from '@/shared/ui';
         width: 1.25rem;
         height: 1.25rem;
         color: var(--channel-icon);
-      }
-    }
-
-    .tab-bar {
-      display: flex;
-      flex-direction: row;
-
-      .item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 40px;
-        min-height: 32px;
-        margin: 0 8px;
-        padding: 4px 12px;
-        text-align: center;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
       }
     }
   }
