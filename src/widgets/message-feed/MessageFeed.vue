@@ -34,6 +34,8 @@ const isLoading = ref(true);
 const messages = computed(() => getMessages(channelId.value))
 
 watch(channelId, async (newChannelId) => {
+  if (!newChannelId) return
+
   isLoading.value = true
   await fetchMessages(newChannelId)
 

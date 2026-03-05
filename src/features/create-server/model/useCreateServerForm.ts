@@ -46,7 +46,7 @@ export const useCreateServerForm = (onSuccess?: () => void) => {
     try {
       const newServer = await useServerStore().createServer(values)
 
-      await router.push({ name: 'server', params: { id: newServer.id } })
+      await router.push({ name: 'server', params: { serverId: newServer.id } })
 
       if (onSuccess) onSuccess()
     } catch (error: AxiosError | unknown) {

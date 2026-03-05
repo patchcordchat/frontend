@@ -1,20 +1,20 @@
 <template>
-  <component :is="tag" class="channel" v-bind="linkAttributes">
-    <div class="channel__icon">
+  <component :is="tag" class="server-channel" v-bind="linkAttributes">
+    <div class="server-channel__icon">
       <p-icon :icon="icon" />
     </div>
 
-    <div class="channel__name">
+    <div class="server-channel__name">
       {{ props.name }}
     </div>
 
-    <div class="channel__controls">
-      <p-icon class="channel__control" icon="misc.user-add" size="xs" v-tooltip="{
+    <div class="server-channel__controls">
+      <p-icon class="server-channel__control" icon="misc.user-add" size="xs" v-tooltip="{
         content: 'Пригласить на канал',
         placement: 'top',
       }" />
 
-      <p-icon class="channel__control" icon="misc.gear" size="xs" v-tooltip="{
+      <p-icon class="server-channel__control" icon="misc.gear" size="xs" v-tooltip="{
         content: 'Настроить канал',
         placement: 'top',
       }" />
@@ -61,7 +61,7 @@ const icon = computed(() => iconMap[props.type] ?? 'misc.hashtag')
 <style scoped lang="scss">
 @use '@/app/styles/utils/mixins.scss' as mixins;
 
-$block: '.channel';
+$block: '.server-channel';
 
 #{$block} {
   position: relative;

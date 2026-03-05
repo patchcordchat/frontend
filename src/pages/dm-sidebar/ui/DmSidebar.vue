@@ -1,57 +1,31 @@
 <template>
     <nav class="dm-sidebar">
         <div class="dm-sidebar__search-bar">
-            <p-button width="max" view="secondary">Найти или начать беседу</p-button>
+            <p-button width="max" view="secondary" size="sm">Найти или начать беседу</p-button>
         </div>
 
         <div class="dm-sidebar__body">
+
             <ul class="dm-sidebar__channel-list">
                 <a class="dm-sidebar__private-channel" href="#">
-                    <p-avatar class="dm-sidebar__private-channel__avatar" size="sm"
-                        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-                        status="online" />
+                    <p-icon icon="misc.greeting" size="sm" />
 
                     <div class="dm-sidebar__private-channel__content">
-                        dredhorse5
+                        Друзья
                     </div>
                 </a>
 
-                <a class="dm-sidebar__private-channel" href="#">
-                    <p-avatar class="dm-sidebar__private-channel__avatar" size="sm"
-                        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-                        status="online" />
-
-                    <div class="dm-sidebar__private-channel__content">
-                        FIZIS
-                    </div>
-                </a>
-
-                <a class="dm-sidebar__private-channel" href="#">
-                    <p-avatar class="dm-sidebar__private-channel__avatar" size="sm"
-                        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-                        status="online" />
-
-                    <div class="dm-sidebar__private-channel__content">
-                        Patchcord
-                    </div>
-                </a>
-
-                <a class="dm-sidebar__private-channel" href="#">
-                    <p-avatar class="dm-sidebar__private-channel__avatar" size="sm"
-                        src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-                        status="online" />
-
-                    <div class="dm-sidebar__private-channel__content">
-                        Patchcord
-                    </div>
-                </a>
+                <li v-for="i in 10" :key="i">
+                    <private-channel />
+                </li>
             </ul>
         </div>
     </nav>
 </template>
 
 <script setup lang="ts">
-import { PButton, PAvatar } from '@/shared/ui';
+import { PButton, PIcon } from '@/shared/ui';
+import { PrivateChannel } from '@/entities/channel';
 </script>
 
 <style scoped lang="scss">
