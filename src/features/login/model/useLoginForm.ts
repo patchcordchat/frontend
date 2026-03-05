@@ -15,8 +15,15 @@ export const useLoginForm = () => {
     validationSchema: toTypedSchema(loginSchema),
   })
 
-  const [email, emailAttrs] = defineField('email')
-  const [password, passwordAttrs] = defineField('password')
+  const fieldOptions = {
+    validateOnInput: false,
+    validateOnModelUpdate: false,
+    validateOnBlur: false,
+    validateOnChange: false,
+  }
+
+  const [email, emailAttrs] = defineField('email', fieldOptions)
+  const [password, passwordAttrs] = defineField('password', fieldOptions)
 
   const onSubmit = handleSubmit(async (values) => {
     serverError.value = undefined
@@ -24,7 +31,7 @@ export const useLoginForm = () => {
     try {
       await login(values)
 
-      await router.push({ name: 'dm-channels' })
+      await router.push({ name: 'friends' })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {

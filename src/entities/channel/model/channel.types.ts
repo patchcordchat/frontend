@@ -21,6 +21,10 @@ export interface CreateChannelDto {
   user_limit?: number
 }
 
+export interface CreatePrivateChannelDto {
+  recipients: string[]
+}
+
 export enum ChannelTypes {
   TEXT = 0,
   VOICE = 1,

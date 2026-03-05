@@ -36,7 +36,8 @@ onBeforeMount(async () => {
   await fetchChannels(serverId.value)
 })
 
-watch(serverId, async () => {
+watch(serverId, async (newId) => {
+  if (!newId) return
   await fetchChannels(serverId.value)
 })
 </script>

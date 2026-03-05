@@ -42,17 +42,18 @@ const routes: RouteRecordRaw[] = [
         children: [
           {
             path: '@me',
-            name: 'dm-channels',
+            name: 'friends',
             components: {
               sidebar: () => import('@/pages/dm-sidebar'),
-              content: () => import('@/pages/dm-content'),
+              content: () => import('@/pages/friends-content'),
             },
             meta: { title: 'Друзья', icon: 'misc.greeting' },
             children: [
               {
                 path: ':dmId',
                 name: 'dm-chat',
-                component: () => import('@/pages/channel'),
+                component: () => import('@/pages/dm-channel'),
+                meta: { title: 'Личные сообщения', icon: 'logos.patchcord.symbol' },
               },
             ],
           },

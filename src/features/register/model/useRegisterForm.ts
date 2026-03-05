@@ -20,10 +20,17 @@ export const useRegisterForm = () => {
     validationSchema: toTypedSchema(registerSchema),
   })
 
-  const [username, usernameAttrs] = defineField('username')
-  const [globalName, globalNameAttrs] = defineField('global_name')
-  const [email, emailAttrs] = defineField('email')
-  const [password, passwordAttrs] = defineField('password')
+  const fieldOptions = {
+    validateOnInput: false,
+    validateOnModelUpdate: false,
+    validateOnBlur: false,
+    validateOnChange: false,
+  }
+
+  const [username, usernameAttrs] = defineField('username', fieldOptions)
+  const [globalName, globalNameAttrs] = defineField('global_name', fieldOptions)
+  const [email, emailAttrs] = defineField('email', fieldOptions)
+  const [password, passwordAttrs] = defineField('password', fieldOptions)
   const [consent, consentAttrs] = defineField('consent')
   const [promotionalEmailOptIn, promotionalEmailOptInAttrs] = defineField(
     'promotional_email_opt_in',
@@ -65,7 +72,7 @@ export const useRegisterForm = () => {
 
       await register({ ...values, date_of_birth: dateOfBirthValue })
 
-      await router.push({ name: 'dm-channels' })
+      await router.push({ name: 'friends' })
     } catch (error: AxiosError | unknown) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 400) {
