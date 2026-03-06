@@ -1,7 +1,7 @@
 <template>
   <div class="p-tab-bar">
     <div v-for="item in props.items" :key="item.value" class="p-tab-bar__item"
-      :class="{ 'p-tab-bar__item--selected': item.value === model }" @click="selectTab(item.value)">
+      :class="{ [item.class || '']: item.class }" :aria-selected="item.value === model" @click="selectTab(item.value)">
       {{ item.label }}
     </div>
   </div>
@@ -11,7 +11,7 @@
 interface TabItem {
   value: string | number;
   label: string;
-  icon?: string;
+  class?: string;
 }
 
 interface Props {
@@ -50,7 +50,7 @@ const selectTab = (value: TabItem['value']) => {
     cursor: pointer;
     transition: background-color .3s ease;
 
-    &--selected {
+    &[aria-selected="true"] {
       color: var(--text-strong);
       background-color: var(--background-modifier-selected);
       cursor: default;
@@ -60,7 +60,7 @@ const selectTab = (value: TabItem['value']) => {
       background-color: var(--background-modifier-hover);
     }
 
-    &--selected,
+    &[aria-selected="true"],
     &:hover {
       color: var(--text-strong);
     }

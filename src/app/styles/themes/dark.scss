@@ -126,6 +126,12 @@
     --switch-border-default: var(--opacity-24);
     --switch-border-hover: var(--opacity-80);
 
+    /* Control Colors */
+    --control-primary-border-default: var(--opacity-white-8);
+    --control-primary-background-default: var(--blurple-50);
+    --control-primary-background-hover: var(--blurple-60);
+    --control-primary-background-active: var(--blurple-65);
+
     /* Background Colors */
     --background-scrim: var(--opacity-black-72);
     --background-base-low: var(--neutral-82);
@@ -135,6 +141,7 @@
     --background-surface-higher: var(--neutral-62);
     --background-modifier-hover: var(--opacity-8);
     --background-modifier-selected: var(--opacity-20);
+    --background-modifier-strong: var(--opacity-20);
     --background-modifier-normal: var(--opacity-16);
     --background-modifier-muted: var(--opacity-4);
 
