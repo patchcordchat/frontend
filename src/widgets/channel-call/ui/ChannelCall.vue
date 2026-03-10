@@ -17,7 +17,9 @@
       </div>
 
       <div v-if="joined" class="channel-call__controls-bottom">
-        <p-button view="filled-brand" @click="toggleVideo" :class="{ active: isVideoEnabled }">
+        <call-controls />
+
+        <!-- <p-button view="filled-brand" @click="toggleVideo" :class="{ active: isVideoEnabled }">
           <p-icon v-if="isVideoEnabled" icon="misc.video-off" size="sm" />
 
           <p-icon v-else icon="misc.video" size="sm" />
@@ -31,7 +33,7 @@
 
         <p-button view="filled-brand" @click="leave" class="leave-btn">
           <p-icon icon="misc.end-call" size="sm" />
-        </p-button>
+        </p-button> -->
       </div>
     </div>
   </div>
@@ -41,6 +43,7 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { Device } from 'mediasoup-client'
+import CallControls from '@/widgets/call-controls'
 import type { Transport, Producer, RtpCapabilities } from 'mediasoup-client/types'
 import { PeerCard, type RemotePeer } from '@/entities/peer'
 import { PButton, PIcon } from '@/shared/ui'

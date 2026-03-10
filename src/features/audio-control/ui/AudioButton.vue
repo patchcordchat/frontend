@@ -1,16 +1,17 @@
 <template>
   <div class="audio-button" :class="{ 'audio-button--disabled': !props.enabled }">
-    <p-button size="sm" :has-text="false" class="audio-button__toggle" @click="emit('toggle')" v-tooltip="{
+    <p-button :size="props.size" :has-text="false" class="audio-button__toggle" @click="emit('toggle')" v-tooltip="{
       content: props.tooltip?.toggle,
       placement: 'top',
     }">
       <p-icon :icon="props.icon" class="audio-button__icon" />
     </p-button>
 
-    <p-button size="sm" :has-text="false" class="audio-button__chevron" @click="emit('context-menu')" v-tooltip="{
-      content: props.tooltip?.contextMenu,
-      placement: 'top',
-    }">
+    <p-button :size="props.size" :has-text="false" class="audio-button__chevron" @click="emit('context-menu')"
+      v-tooltip="{
+        content: props.tooltip?.contextMenu,
+        placement: 'top',
+      }">
       <p-icon icon="misc.chevron-down" class="audio-button__icon" />
     </p-button>
   </div>
@@ -19,6 +20,8 @@
 <script setup lang="ts">
 import { PIcon, PButton } from '@/shared/ui';
 import { vTooltip } from '@/shared/directives/v-tooltip'
+
+type ButtonSize = 'sm' | 'md'
 
 interface TooltipContent {
   toggle: string;
@@ -29,10 +32,12 @@ interface Props {
   icon: string;
   enabled?: boolean;
   tooltip: TooltipContent;
+  size?: ButtonSize;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   enabled: true,
+  size: 'sm',
 });
 
 const emit = defineEmits<{

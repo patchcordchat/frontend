@@ -1,5 +1,5 @@
 <template>
-  <audio-button :icon="iconName" :tooltip="tooltip" :enabled="!isMicMuted" @toggle="toggleMic"
+  <audio-button :size="props.size" :icon="iconName" :tooltip="tooltip" :enabled="!isMicMuted" @toggle="toggleMic"
     @context-menu="handleMicSettings" />
 </template>
 
@@ -13,6 +13,9 @@ const store = useAudioStore()
 const { isMicMuted } = storeToRefs(store)
 const { toggleMic } = store
 
+const props = defineProps<{
+  size?: 'sm' | 'md';
+}>()
 
 const tooltip = computed(() => ({
   toggle: isMicMuted.value ? 'Вкл. микрофон' : 'Заглушить',
