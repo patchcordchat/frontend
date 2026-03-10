@@ -16,8 +16,8 @@
             <div class="create-channel-modal__footer">
                 <p-button view="secondary" width="max" @click="modalRef?.close()">Отмена</p-button>
 
-                <p-button width="max" type="submit" :form="formRef?.formId" :loading="formRef?.isSubmitting"
-                    :disabled="!formRef?.isValid">
+                <p-button view="filled-brand" width="max" type="submit" :form="formRef?.formId"
+                    :loading="formRef?.isSubmitting" :disabled="!formRef?.isValid">
                     Создать канал
                 </p-button>
             </div>

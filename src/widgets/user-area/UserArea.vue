@@ -5,30 +5,41 @@
         <p-avatar size="sm" :src="userAvatar()" status="online" />
 
         <div class="user-area__name-block">
-          <div class="user-area__name">{{ currentUser?.global_name }}</div>
-          <div class="user-area__status">В сети</div>
+          <div class="user-area__global-name">{{ currentUser?.global_name }}</div>
+
+          <div class="user-area__hover-roll">
+            <div class="user-area__status">В сети</div>
+
+            <div class="user-area__username">{{ currentUser?.username }}</div>
+          </div>
         </div>
       </div>
 
       <div class="user-area__buttons">
-        <p-toggle><p-icon icon="misc.mic" /></p-toggle>
+        <audio-controls />
 
-        <p-toggle><p-icon icon="misc.headset" /></p-toggle>
-
-        <p-toggle><p-icon icon="misc.gear" /></p-toggle>
+        <p-button size="sm" :has-text="false" v-tooltip="{
+          content: 'Настройки пользователя',
+          placement: 'top',
+        }">
+          <p-icon icon="misc.gear" size="sm" />
+        </p-button>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import { PToggle, PIcon, PAvatar } from '@/shared/ui'
+import { PAvatar, PIcon, PButton } from '@/shared/ui'
 import { useCurrentUserStore } from '@/entities/user'
 import { StoragePaths } from '@/shared/utils'
 import DefaultAvatar from '@/shared/assets/images/user/default-avatar.png'
+import { AudioControls, useAudioStore } from '@/features/audio-control'
+import { vTooltip } from '@/shared/directives/v-tooltip'
 
+const audioStore = useAudioStore()
 const currentUserStore = useCurrentUserStore()
 const { currentUser } = storeToRefs(currentUserStore)
 
@@ -40,6 +51,10 @@ const userAvatar = () => {
   return DefaultAvatar
 }
 
+onMounted(() => {
+  audioStore.init()
+})
+
 onBeforeMount(async () => {
   if (!currentUser.value) {
     await currentUserStore.fetchCurrentUser()
@@ -50,7 +65,9 @@ onBeforeMount(async () => {
 <style scoped lang="scss">
 @use '@/app/styles/utils/mixins.scss' as mixins;
 
-.user-area {
+$block: '.user-area';
+
+#{$block} {
   position: absolute;
   bottom: var(--space-xs);
   z-index: 10;
@@ -107,14 +124,51 @@ onBeforeMount(async () => {
     flex-direction: column;
   }
 
-  &__name {
+  &__global-name {
     @include mixins.text-md-medium;
   }
 
-  &__status {
+  &__hover-roll {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    vertical-align: top;
+    text-align: start;
+    cursor: revert;
+    contain: paint;
+  }
+
+  &__status,
+  &__username {
     @include mixins.text-xs-normal;
 
     color: var(--text-secondary);
+    transition: all .22s ease;
+  }
+
+  &__status {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  &__username {
+    position: absolute;
+    opacity: 0;
+    transform: translate3d(0, 107%, 0);
+    inset: 0;
+  }
+
+  &:hover {
+    #{$block}__status {
+      opacity: 0;
+      transform: translate3d(0, -107%, 0);
+    }
+
+    #{$block}__username {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
   }
 
   &__buttons {

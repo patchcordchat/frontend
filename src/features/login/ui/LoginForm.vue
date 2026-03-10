@@ -1,32 +1,15 @@
 <template>
   <auth-box title="С возвращением!" subtitle="Мы так рады видеть вас снова!">
     <form class="login-form" @submit.prevent="onSubmit">
-      <p-text-field
-        v-model="email"
-        v-bind="emailAttrs"
-        label="Адрес электронной почты"
-        maxlength="999"
-        autocomplete="username webauthn"
-        type="email"
-        name="email"
-        :error="serverError ?? errors.email"
-        required
-      />
+      <p-text-field v-model="email" v-bind="emailAttrs" label="Адрес электронной почты" maxlength="999"
+        autocomplete="username webauthn" type="email" name="email" :error="serverError ?? errors.email" required />
 
-      <p-text-field
-        v-model="password"
-        v-bind="passwordAttrs"
-        label="Пароль"
-        autocomplete="current-password"
-        type="password"
-        name="password"
-        :error="serverError ?? errors.password"
-        required
-      />
+      <p-text-field v-model="password" v-bind="passwordAttrs" label="Пароль" autocomplete="current-password"
+        type="password" name="password" :error="serverError ?? errors.password" required />
 
       <p-anchor size="sm" to="reset">Забыли пароль?</p-anchor>
 
-      <p-button width="max" size="md" type="submit" :loading="isSubmitting"> Вход </p-button>
+      <p-button view="filled-brand" width="max" size="md" type="submit" :loading="isSubmitting"> Вход </p-button>
 
       <div class="login-form__need-account">
         <span>Нужна учётная запись?</span>

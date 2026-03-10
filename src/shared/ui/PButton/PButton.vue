@@ -11,7 +11,9 @@
         <div v-if="props.loading" class="p-button__spinner-wrapper">
           <span class="p-button__spinner">
             <span class="p-button__spinner-ellipse"></span>
+
             <span class="p-button__spinner-ellipse"></span>
+
             <span class="p-button__spinner-ellipse"></span>
           </span>
         </div>
@@ -21,9 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 
 type ButtonView =
+  | 'flat'
   | 'danger'
   | 'positive'
   | 'secondary'
@@ -48,10 +51,11 @@ interface Props {
   target?: '_blank' | '_self' | '_parent' | '_top'
   disabled?: boolean
   loading?: boolean
+  hasText?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  view: 'filled-brand',
+  view: 'flat',
   size: 'md',
   width: 'auto',
   isLink: false,
@@ -60,20 +64,19 @@ const props = withDefaults(defineProps<Props>(), {
   target: '_self',
   disabled: false,
   loading: false,
+  hasText: true,
 })
 
 const emit = defineEmits<{
   (e: 'click', event: MouseEvent): void
 }>()
 
-const slots = useSlots()
-
 const classes = {
   'p-button': true,
   [`p-button--view-${props.view}`]: true,
   [`p-button--size-${props.size}`]: true,
   [`p-button--width-${props.width}`]: true,
-  'p-button--has-text': slots.default,
+  'p-button--has-text': props.hasText,
   'p-button--loading': props.loading,
 }
 
@@ -89,7 +92,9 @@ const handleClick = (event: MouseEvent) => {
 </script>
 
 <style scoped lang="scss">
-.p-button {
+$block: '.p-button';
+
+#{$block} {
   --text-color: var(--white);
   --text-color-active: var(--text-color);
   --text-color-hover: var(--text-color);
@@ -133,6 +138,13 @@ const handleClick = (event: MouseEvent) => {
   }
 
   &--view {
+    &-flat {
+      --background-color: var(--transparent);
+      --background-color-hover: var(--interactive-background-selected);
+      --text-color-hover: var(--interactive-text-hover);
+      --text-color: var(--interactive-text-default);
+    }
+
     &-danger {
       --background-color: var(--button-danger-background);
       --background-color-active: var(--button-danger-background-active);
@@ -248,10 +260,6 @@ const handleClick = (event: MouseEvent) => {
     }
   }
 
-  &--has-text {
-    min-width: var(--button-min-width, 100px);
-  }
-
   &__content-wrapper {
     position: relative;
     display: flex;
@@ -261,9 +269,16 @@ const handleClick = (event: MouseEvent) => {
     width: 100%;
     min-width: calc(var(--size) - 2px);
     min-height: calc(var(--size) - 2px);
-    padding: calc(var(--space-horizontal) - 1px) calc(var(--space-vertical) - 1px);
     box-sizing: border-box;
     border-radius: var(--radius-sm);
+  }
+
+  &--has-text {
+    min-width: var(--button-min-width, 100px);
+
+    #{$block}__content-wrapper {
+      padding: calc(var(--space-horizontal) - 1px) calc(var(--space-vertical) - 1px);
+    }
   }
 
   &__content {

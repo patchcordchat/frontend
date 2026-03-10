@@ -17,19 +17,19 @@
       </div>
 
       <div v-if="joined" class="channel-call__controls-bottom">
-        <p-button @click="toggleVideo" :class="{ active: isVideoEnabled }">
+        <p-button view="filled-brand" @click="toggleVideo" :class="{ active: isVideoEnabled }">
           <p-icon v-if="isVideoEnabled" icon="misc.video-off" size="sm" />
 
           <p-icon v-else icon="misc.video" size="sm" />
         </p-button>
 
-        <p-button @click="toggleAudio" :class="{ active: !isAudioMuted }">
+        <p-button view="filled-brand" @click="toggleAudio" :class="{ active: !isAudioMuted }">
           <p-icon v-if="isAudioMuted" icon="misc.mic-off" size="sm" />
 
           <p-icon v-else icon="misc.mic" size="sm" />
         </p-button>
 
-        <p-button @click="leave" class="leave-btn">
+        <p-button view="filled-brand" @click="leave" class="leave-btn">
           <p-icon icon="misc.end-call" size="sm" />
         </p-button>
       </div>
