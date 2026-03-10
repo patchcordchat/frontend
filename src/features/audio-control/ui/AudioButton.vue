@@ -1,14 +1,14 @@
 <template>
   <div class="audio-button" :class="{ 'audio-button--disabled': !props.enabled }">
     <p-button size="sm" :has-text="false" class="audio-button__toggle" @click="emit('toggle')" v-tooltip="{
-      content: props.enabled ? 'Заглушить' : 'Включить',
+      content: props.tooltip?.toggle,
       placement: 'top',
     }">
-      <p-icon :icon="iconName" class="audio-button__icon" />
+      <p-icon :icon="props.icon" class="audio-button__icon" />
     </p-button>
 
     <p-button size="sm" :has-text="false" class="audio-button__chevron" @click="emit('context-menu')" v-tooltip="{
-      content: 'Настройки',
+      content: props.tooltip?.contextMenu,
       placement: 'top',
     }">
       <p-icon icon="misc.chevron-down" class="audio-button__icon" />
@@ -17,13 +17,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { PIcon, PButton } from '@/shared/ui';
 import { vTooltip } from '@/shared/directives/v-tooltip'
 
+interface TooltipContent {
+  toggle: string;
+  contextMenu: string;
+}
+
 interface Props {
-  type: 'mic' | 'headset';
+  icon: string;
   enabled?: boolean;
+  tooltip: TooltipContent;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,10 +39,6 @@ const emit = defineEmits<{
   (e: 'toggle'): void;
   (e: 'context-menu'): void;
 }>();
-
-const iconName = computed(() =>
-  props.enabled ? `misc.${props.type}` : `misc.${props.type}-off`
-);
 </script>
 
 <style scoped lang="scss">

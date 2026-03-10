@@ -16,7 +16,9 @@
       </div>
 
       <div class="user-area__buttons">
-        <audio-controls />
+        <mic-control />
+
+        <speaker-control />
 
         <p-button size="sm" :has-text="false" v-tooltip="{
           content: 'Настройки пользователя',
@@ -36,7 +38,7 @@ import { PAvatar, PIcon, PButton } from '@/shared/ui'
 import { useCurrentUserStore } from '@/entities/user'
 import { StoragePaths } from '@/shared/utils'
 import DefaultAvatar from '@/shared/assets/images/user/default-avatar.png'
-import { AudioControls, useAudioStore } from '@/features/audio-control'
+import { MicControl, SpeakerControl, useAudioStore } from '@/features/audio-control'
 import { vTooltip } from '@/shared/directives/v-tooltip'
 
 const audioStore = useAudioStore()
