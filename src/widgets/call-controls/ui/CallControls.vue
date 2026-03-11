@@ -4,12 +4,21 @@
       <mic-control size="md" />
 
       <speaker-control size="md" />
+
+      <p-button @click="emit('call-end')" view="danger" size="md" :has-text="false">
+        <p-icon icon="misc.call-end" size="md" />
+      </p-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { MicControl, SpeakerControl } from '@/features/audio-control'
+import { PButton, PIcon } from '@/shared/ui';
+
+const emit = defineEmits<{
+  (e: 'call-end'): void
+}>()
 
 </script>
 
@@ -19,6 +28,7 @@ import { MicControl, SpeakerControl } from '@/features/audio-control'
     display: flex;
     flex: 1 1 auto;
     flex-flow: row nowrap;
+    gap: var(--space-sm);
     align-items: center;
     justify-content: center;
   }

@@ -3,6 +3,7 @@ import { ref, shallowRef, watch } from 'vue'
 import { useMediaDevices } from '@/shared/composables/useMediaDevices'
 
 export const useAudioStore = defineStore('audio-control', () => {
+  // State
   const { audioInputs, audioOutputs, requestAudioPermissions, getAudioStream } = useMediaDevices()
 
   const selectedMicId = ref(localStorage.getItem('mic-id') || 'default')
@@ -13,6 +14,7 @@ export const useAudioStore = defineStore('audio-control', () => {
 
   const currentStream = shallowRef<MediaStream | null>(null)
 
+  // Actions
   const init = async () => {
     await requestAudioPermissions()
     await updateStream()
@@ -57,12 +59,16 @@ export const useAudioStore = defineStore('audio-control', () => {
   })
 
   return {
+    // State
     audioInputs,
     audioOutputs,
     isMicMuted,
     isDeafened,
     selectedMicId,
     selectedSpeakerId,
+    currentStream,
+
+    // Actions
     init,
     toggleMic,
     toggleDeafen,
