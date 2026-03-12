@@ -16,9 +16,9 @@
     </p-button>
 
     <p-popover ref="popoverRef" placement="top-start" :offset="{ mainAxis: 5, crossAxis: -30 }">
-      <template>
+      <div style="pointer-events: all;">
         test modal
-      </template>
+      </div>
     </p-popover>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <teleport to="#floating">
-    <div v-if="isOpen" ref="popoverRef" class="p-popover" :style="floatingStyles">
+    <div v-if="isOpen" ref="popoverRef" class="p-popover" :style="floatingStyles"
+      v-on-click-outside="handleOutsideClick">
       <div class="p-popover__content">
         <slot></slot>
       </div>
@@ -12,6 +13,7 @@
 import { ref } from 'vue'
 import type { Placement, OffsetOptions } from '@floating-ui/core'
 import { useFloating, flip as flipMiddleware, offset as offsetMiddleware, autoUpdate } from '@floating-ui/vue'
+import { vOnClickOutside } from '@/shared/directives/v-on-click-outside'
 
 interface Props {
   placement?: Placement
@@ -53,6 +55,15 @@ const toggle = async (event: Event, target?: HTMLElement) => {
   }
 }
 
+const handleOutsideClick = (event: MouseEvent) => {
+  const isReference = referenceEl.value?.contains(event.target as Node)
+
+  if (props.closeOnOutsideClick && !isReference) {
+    isOpen.value = false
+    emit('close')
+  }
+}
+
 defineExpose({
   isOpen,
   toggle,
@@ -63,7 +74,6 @@ defineExpose({
 @use '@/app/styles/utils/mixins.scss' as mixins;
 
 .p-popover {
-  z-index: 1;
   display: flex;
   width: 13.75rem;
   height: auto;
