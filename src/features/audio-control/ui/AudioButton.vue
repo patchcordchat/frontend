@@ -7,18 +7,25 @@
       <p-icon :icon="props.icon" class="audio-button__icon" />
     </p-button>
 
-    <p-button :size="props.size" :has-text="false" class="audio-button__chevron" @click="emit('context-menu')"
-      v-tooltip="{
-        content: props.tooltip?.contextMenu,
-        placement: 'top',
-      }">
-      <p-icon icon="misc.chevron-down" class="audio-button__icon" />
+
+    <p-button :size="props.size" :has-text="false" class="audio-button__chevron" v-tooltip="{
+      content: props.tooltip?.contextMenu,
+      placement: 'top',
+    }" @click="popoverRef?.toggle($event)">
+      <p-icon :icon="`misc.${popoverRef?.isOpen ? 'chevron-up' : 'chevron-down'}`" class="audio-button__icon" />
     </p-button>
+
+    <p-popover ref="popoverRef" placement="top-start" :offset="{ mainAxis: 5, crossAxis: -30 }">
+      <template>
+        test modal
+      </template>
+    </p-popover>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PIcon, PButton } from '@/shared/ui';
+import { ref } from 'vue'
+import { PIcon, PButton, PPopover } from '@/shared/ui';
 import { vTooltip } from '@/shared/directives/v-tooltip'
 
 type ButtonSize = 'sm' | 'md'
@@ -44,6 +51,8 @@ const emit = defineEmits<{
   (e: 'toggle'): void;
   (e: 'context-menu'): void;
 }>();
+
+const popoverRef = ref<InstanceType<typeof PPopover> | null>(null)
 </script>
 
 <style scoped lang="scss">

@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <teleport to="body">
+  <teleport to="#floating">
     <p-select-list v-if="isOpen" ref="listComponentRef" :items="items" :size="size" :model-value="modelValue"
       :item-title="itemTitle" :item-value="itemValue" :item-props="itemProps" :style="floatingStyles"
       @select="onSelect">
@@ -87,6 +87,7 @@ const { floatingStyles } = useFloating(
       }),
     ],
     whileElementsMounted: autoUpdate,
+    open: isOpen,
   },
 )
 

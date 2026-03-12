@@ -1,8 +1,8 @@
 <template>
   <teleport to="#floating">
-    <p-scrim v-if="isOpen" @click="handleScrimClick" />
+    <transition-group name="fade">
+      <p-scrim v-if="isOpen" @click="handleScrimClick" />
 
-    <transition name="fade">
       <div v-if="isOpen" class="p-modal-wrapper">
         <div class="p-modal" :class="classes">
           <template v-if="slots.default">
@@ -26,7 +26,7 @@
           </template>
         </div>
       </div>
-    </transition>
+    </transition-group>
   </teleport>
 </template>
 
@@ -99,6 +99,7 @@ onUnmounted(() => {
 })
 
 defineExpose({
+  isOpen,
   close,
   open,
 })
