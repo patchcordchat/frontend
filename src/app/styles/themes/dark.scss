@@ -133,6 +133,7 @@
     --control-primary-background-active: var(--blurple-65);
 
     /* Background Colors */
+    --background-brand: var(--brand-500);
     --background-scrim: var(--opacity-black-72);
     --background-base-low: var(--neutral-82);
     --background-base-lower: var(--neutral-86);
@@ -175,8 +176,10 @@
     --interactive-text-default: var(--neutral-23);
     --interactive-background-hover: var(--opacity-8);
     --interactive-background-selected: var(--opacity-20);
+    --slider-track-background: var(--neutral-55);
     
     /* Border Colors */
+    --border-normal: var(--opacity-20);
     --border-subtle: var(--opacity-12);
     --border-muted: var(--opacity-4);
     --app-border-frame: var(--opacity-12);
@@ -204,4 +207,5 @@
 
     /* Shadow */
     --shadow-high: 0 12px 24px 0 var(--opacity-black-24);
+    --shadow-low: 0 1px 4px 0 var(--opacity-black-24);
 }
