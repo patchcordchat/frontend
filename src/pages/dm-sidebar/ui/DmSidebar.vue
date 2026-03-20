@@ -7,16 +7,12 @@
     <div class="dm-sidebar__body">
 
       <ul class="dm-sidebar__channel-list">
-        <a class="dm-sidebar__private-channel" href="#">
-          <p-icon icon="misc.greeting" size="sm" />
+        <friends-button />
 
-          <div class="dm-sidebar__private-channel__content">
-            Друзья
-          </div>
-        </a>
+        <p-section-divider />
 
         <li v-for="i in 10" :key="i">
-          <private-channel />
+          <private-channel :channel="{ id: String(i), name: 'dredhorse5' }" />
         </li>
       </ul>
     </div>
@@ -25,8 +21,9 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import FriendsButton from './FriendsButton.vue';
 import { PrivateChannel, channelApi } from '@/entities/channel';
-import { PButton, PIcon } from '@/shared/ui';
+import { PButton, PSectionDivider } from '@/shared/ui';
 
 onMounted(() => {
   channelApi.fetchPrivateChannels()
@@ -35,27 +32,8 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .dm-sidebar {
-  &__private-channel {
-    position: relative;
-    display: flex;
-    flex: 1 1 auto;
-    gap: 8px;
-    align-items: center;
-    overflow: hidden;
-    max-width: 23.438rem;
-    height: 2.625rem;
-    box-sizing: border-box;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    border-radius: var(--radius-sm);
-    margin-inline-start: var(--space-xs);
-    padding-block: 0;
-    padding-inline: var(--space-xs) 0;
-
-    &:hover {
-      color: var(--interactive-text-hover);
-      background-color: var(--interactive-background-hover);
-    }
+  &__body {
+    padding-top: var(--space-xs);
   }
 
   &__search-bar {

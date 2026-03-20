@@ -1,37 +1,28 @@
 <template>
-  <router-link class="private-channel" :to="{ name: 'dm-chat', params: { dmId: props.channel.id } }">
-    <p-avatar class="private-channel__avatar" size="sm"
-      src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
-      status="online" />
+  <router-link :to="{ name: 'friends' }" class="friends-button">
+    <div class="friends-button__icon">
+      <p-icon icon="misc.greeting" />
+    </div>
 
-    <div class="private-channel__content">
-      dredhorse5
+    <div class="friends-button__content">
+      Друзья
     </div>
   </router-link>
 </template>
 
 <script setup lang="ts">
-import { PAvatar } from '@/shared/ui'
-import type { Channel } from '../model';
-
-interface Props {
-  channel: Channel
-}
-
-const props = defineProps<Props>()
-
+import { PIcon } from '@/shared/ui';
 </script>
 
 <style scoped lang="scss">
 @use '@/app/styles/utils/mixins.scss' as mixins;
 
-.private-channel {
+.friends-button {
   @include mixins.text-md-medium;
 
   position: relative;
   display: flex;
   flex: 1 1 auto;
-  gap: 8px;
   align-items: center;
   overflow: hidden;
   max-width: 23.438rem;
@@ -42,8 +33,8 @@ const props = defineProps<Props>()
   white-space: nowrap;
   border-radius: var(--radius-sm);
   margin-inline-start: var(--space-xs);
-  padding-block: 0;
-  padding-inline: var(--space-xs) 0;
+  padding-block: var(--space-xs) var(--space-xs);
+  padding-inline: var(--space-xs) var(--space-md);
 
   &:hover {
     color: var(--interactive-text-hover);
@@ -58,6 +49,12 @@ const props = defineProps<Props>()
   &.router-link-active {
     color: var(--text-default);
     background: var(--background-modifier-selected);
+  }
+
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-inline-end: var(--space-sm);
   }
 }
 </style>

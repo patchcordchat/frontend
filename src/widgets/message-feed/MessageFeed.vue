@@ -75,7 +75,7 @@ onMounted(async () => {
   &__scroller-content {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: stretch;
     justify-content: flex-end;
     min-height: 100%;

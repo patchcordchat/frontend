@@ -1,70 +1,96 @@
 <template>
   <main class="friends-page">
-    <section class="friends-page__header">
-      <div class="friends-page__icon-wrapper">
-        <p-icon icon="misc.greeting" />
-      </div>
+    <div class="friends-page__header-wrapper">
+      <section class="friends-page__header">
+        <div class="friends-page__icon-wrapper">
+          <p-icon icon="misc.greeting" />
+        </div>
 
-      <div class="friends-page__title-wrapper">
-        <h1 class="friends-page__title">Друзья</h1>
-      </div>
+        <div class="friends-page__title-wrapper">
+          <h1 class="friends-page__title">Друзья</h1>
+        </div>
 
-      <p-icon class="friends-page__dot" icon="misc.dot" size="sm" />
+        <p-icon class="friends-page__dot" icon="misc.dot" size="sm" />
 
-      <p-tab-bar v-model="selectedTab" :items="[
-        {
-          value: 'online',
-          label: 'В сети'
-        },
-        {
-          value: 'all',
-          label: 'Все'
-        },
-        {
-          value: 'pending',
-          label: 'Ожидание'
-        },
-        {
-          value: 'add_friend',
-          label: 'Добавить в друзья',
-          class: 'add-friend-tab',
-        }
-      ]" />
-    </section>
+        <p-tab-bar v-model="selectedTab" :items="[
+          {
+            value: Tabs.ONLINE,
+            label: 'В сети'
+          },
+          {
+            value: Tabs.ALL,
+            label: 'Все'
+          },
+          {
+            value: Tabs.PENDING,
+            label: 'Ожидание'
+          },
+          {
+            value: Tabs.ADD_FRIEND,
+            label: 'Добавить в друзья',
+            class: 'add-friend-button',
+          }
+        ]" />
+      </section>
+    </div>
 
     <div class="friends-page__tab-body">
-
+      <component :is="TabComponent" />
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { PIcon, PTabBar } from '@/shared/ui';
+import { AddFriend, AllFriends, OnlineFriends, PendingFriends } from './Tabs';
+
+const Tabs = {
+  ONLINE: 'online',
+  ALL: 'all',
+  PENDING: 'pending',
+  ADD_FRIEND: 'add_friend',
+};
+
+const TabComponents = {
+  [Tabs.ONLINE]: OnlineFriends,
+  [Tabs.ALL]: AllFriends,
+  [Tabs.PENDING]: PendingFriends,
+  [Tabs.ADD_FRIEND]: AddFriend,
+};
 
 const selectedTab = ref('online');
+
+const TabComponent = computed(() => TabComponents[selectedTab.value])
 </script>
 
 <style scoped lang="scss">
 @use '@/app/styles/utils/mixins.scss' as mixins;
 
 .friends-page {
-  position: relative;
-  z-index: 2;
   display: flex;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   flex-direction: column;
-  justify-content: center;
   overflow: hidden;
-  width: 100%;
-  height: 3rem;
-  min-height: 3rem;
-  padding: var(--space-xs);
-  color: var(--text-default);
-  border-bottom: 1px solid var(--border-subtle);
-  background: var(--background-base-low);
-  cursor: default;
-  padding-inline-start: var(--space-md);
+
+  &__header-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 3rem;
+    min-height: 3rem;
+    padding: var(--space-xs);
+    color: var(--text-default);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--background-base-low);
+    cursor: default;
+    padding-inline-start: var(--space-md);
+  }
 
   &__header {
     position: relative;
@@ -123,7 +149,7 @@ const selectedTab = ref('online');
     color: var(--background-modifier-strong);
   }
 
-  :deep(.add-friend-tab) {
+  :deep(.add-friend-button) {
     color: var(--white);
     border-color: var(--control-primary-border-default);
     background-color: var(--control-primary-background-default);
@@ -141,6 +167,16 @@ const selectedTab = ref('online');
         background-color: var(--control-primary-background-active);
       }
     }
+  }
+
+  &__tab-body {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    height: 100%;
+    background-color: var(--background-gradient-chat, var(--background-base-lower));
+    transform: translateZ(0);
   }
 }
 </style>
