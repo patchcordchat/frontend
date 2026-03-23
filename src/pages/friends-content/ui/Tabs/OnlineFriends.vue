@@ -1,9 +1,7 @@
 <template>
-    <div class="online-tab">
-
-    </div>
+    <people-column />
 </template>
 
 <script setup lang="ts">
-
+import PeopleColumn from './PeopleColumn.vue';
 </script>

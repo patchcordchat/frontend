@@ -14,7 +14,7 @@
 
       <create-server-modal ref="CreateServerModalRef" />
 
-      <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" />
+      <!-- <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" /> -->
     </ul>
   </nav>
 </template>
