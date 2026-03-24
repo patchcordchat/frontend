@@ -4,20 +4,16 @@
             <user-info />
 
             <div class="people-list-item__actions">
-                <div class="people-list__action-button">
-                    <p-icon icon="misc.message" size="sm" />
-                </div>
+                <action-button icon="misc.message" tooltip="Сообщение" />
 
-                <div class="people-list__action-button">
-                    <p-icon icon="misc.dots-vertical" size="sm" />
-                </div>
+                <action-button icon="misc.dots-vertical" tooltip="Ещё" />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { PIcon } from '@/shared/ui';
+import ActionButton from './ActionButton.vue';
 import UserInfo from '@/widgets/user-info';
 </script>
 
@@ -34,8 +30,18 @@ import UserInfo from '@/widgets/user-info';
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid transparent;
     cursor: pointer;
-    transition: background-color .2s ease;
     margin-inline: var(--space-xl) var(--space-lg);
+    transition: background-color .2s ease;
+
+    &:hover {
+        padding: var(--space-md) 0.625rem;
+        border-color: transparent;
+        border-radius: var(--radius-sm);
+        background-color: var(--background-modifier-hover);
+        padding-inline-start: var(--space-xs);
+        margin-inline: var(--space-lg) 0.625rem;
+        margin-inline-start: var(--space-md);
+    }
 
     &__content {
         display: flex;

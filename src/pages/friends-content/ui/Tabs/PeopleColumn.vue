@@ -2,7 +2,7 @@
     <div class="people-column">
         <template v-if="true">
             <div class="people-column__searchbar">
-                <p-input placeholder="Поиск" />
+                <p-text-field placeholder="Поиск" icon="misc.magnifier" />
             </div>
 
             <people-list />
@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { PInput } from '@/shared/ui';
+import { PTextField } from '@/shared/ui';
 import PeopleList from '@/widgets/people-list';
 </script>
 

@@ -1,29 +1,18 @@
 /* stylelint-disable no-descending-specificity */ /* stylelint-disable selector-class-pattern */
 <template>
   <div :class="classes">
-    <p-label
-      v-if="props.label"
-      :text="props.label"
-      :required="props.required"
-      :size="props.size"
-      :for="id"
-    />
+    <p-label v-if="props.label" :text="props.label" :required="props.required" :size="props.size" :for="id" />
 
     <div class="p-text-field__control">
       <div class="p-text-field__input-wrapper" :error="props.error ? true : null">
-        <p-input
-          class="p-text-field__input"
-          v-model="model"
-          :placeholder="props.placeholder"
-          :required="props.required"
-          :autocomplete="props.autocomplete"
-          :maxlength="props.maxlength"
-          :type="props.type"
-          :name="props.name"
-          :id="id"
-          @blur="emit('blur')"
-          @focus="emit('focus')"
-        />
+        <div v-if="props.icon" class="p-text-field__icon">
+          <p-icon class="p-text-field__icon" :icon="props.icon" size="sm" />
+        </div>
+
+        <p-input :class="{ 'p-text-field__input': true, 'p-text-field__input--has-icon': props.icon }" v-model="model"
+          :placeholder="props.placeholder" :required="props.required" :autocomplete="props.autocomplete"
+          :maxlength="props.maxlength" :type="props.type" :name="props.name" :id="id" @blur="emit('blur')"
+          @focus="emit('focus')" />
       </div>
 
       <transition name="expand-fade-down">
@@ -37,6 +26,7 @@
 
 <script setup lang="ts">
 import { useId } from 'vue'
+import PIcon from '../PIcon/PIcon.vue'
 import PInput from '../PInput/PInput.vue'
 import PLabel from '../PLabel/PLabel.vue'
 import PStatusMessage from '../PStatusMessage/PStatusMessage.vue'
@@ -53,6 +43,7 @@ interface Props {
   size?: InputSize
   type?: string
   name?: string
+  icon?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -102,6 +93,7 @@ const id = useId()
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xxs);
+    align-items: center;
     height: var(--input-height);
     margin-bottom: 0;
     color: var(--input-text);
@@ -121,8 +113,7 @@ const id = useId()
     }
 
     &:has(input:focus) {
-      border-width: 2px;
-      border-color: var(--input-border-active);
+      outline: 2px solid var(--input-border-active);
     }
 
     &[error] {
@@ -141,7 +132,11 @@ const id = useId()
   }
 
   &__input {
-    padding-inline: 10px;
+    padding-inline: 0.625rem;
+
+    &--has-icon {
+      padding-inline-start: 0;
+    }
 
     &::placeholder {
       color: var(--input-placeholder-text);
@@ -152,6 +147,18 @@ const id = useId()
     display: flex;
     flex-direction: column;
     min-width: 0;
+  }
+
+  &__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--input-height) - 4px * 2 - 2px);
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: var(--radius-xs);
+    aspect-ratio: 1/1;
   }
 }
 </style>

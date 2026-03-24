@@ -42,13 +42,18 @@ const routes: RouteRecordRaw[] = [
         children: [
           {
             path: '@me',
-            name: 'friends',
+            name: 'private',
             components: {
               sidebar: () => import('@/pages/dm-sidebar'),
-              content: () => import('@/pages/friends-content'),
+              content: () => import('@/pages/dm-content'),
             },
-            meta: { title: 'Друзья', icon: 'misc.greeting' },
             children: [
+              {
+                path: '',
+                name: 'friends',
+                component: () => import('@/pages/friends-content'),
+                meta: { title: 'Друзья', icon: 'misc.greeting' },
+              },
               {
                 path: ':dmId',
                 name: 'dm-chat',

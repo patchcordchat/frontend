@@ -1,5 +1,5 @@
 <template>
-  <router-link class="private-channel" :to="{ name: 'dm-chat', params: { dmId: props.channel.id } }">
+  <router-link class="private-channel" :to="{ name: 'dm-chat', params: { dmId: props.id } }">
     <p-avatar class="private-channel__avatar" size="sm"
       src="https://avatars.mds.yandex.net/i?id=ecfa145f911323995a8802601f8f3b07_l-4809781-images-thumbs&n=13"
       status="online" />
@@ -12,10 +12,9 @@
 
 <script setup lang="ts">
 import { PAvatar } from '@/shared/ui'
-import type { Channel } from '../model';
 
 interface Props {
-  channel: Channel
+  id: string
 }
 
 const props = defineProps<Props>()

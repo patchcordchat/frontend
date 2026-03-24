@@ -11,8 +11,10 @@
 
         <p-section-divider />
 
+        <friends-header />
+
         <li v-for="i in 10" :key="i">
-          <private-channel :channel="{ id: String(i), name: 'dredhorse5' }" />
+          <private-channel :id="String(i)" />
         </li>
       </ul>
     </div>
@@ -22,6 +24,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import FriendsButton from './FriendsButton.vue';
+import FriendsHeader from './FriendsHeader.vue';
 import { PrivateChannel, channelApi } from '@/entities/channel';
 import { PButton, PSectionDivider } from '@/shared/ui';
 
