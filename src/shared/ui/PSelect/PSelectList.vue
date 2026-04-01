@@ -98,6 +98,7 @@ defineExpose({ listRef })
   border-color: var(--border-subtle);
   border-radius: var(--radius-sm);
   background: var(--background-surface-higher);
+  pointer-events: auto;
 
   &__item {
     display: grid;

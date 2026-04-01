@@ -14,7 +14,7 @@
   </div>
 
   <teleport to="#floating">
-    <p-select-list v-if="isOpen" ref="listComponentRef" :items="items" :size="size" :model-value="modelValue"
+    <p-select-list v-if="isOpen" v-on-click-outside="handleOutsideClick" ref="listComponentRef" :items="items" :size="size" :model-value="modelValue"
       :item-title="itemTitle" :item-value="itemValue" :item-props="itemProps" :style="floatingStyles"
       @select="onSelect">
       <template #item="slotProps">
@@ -27,6 +27,7 @@
 <script setup lang="ts" generic="T">
 import { ref, computed, useTemplateRef } from 'vue'
 import { useFloating, size as floatingSize, flip, autoUpdate, offset } from '@floating-ui/vue'
+import { vOnClickOutside } from '@/shared/directives/v-on-click-outside'
 import PSelectList from './PSelectList.vue'
 import PIcon from '../PIcon/PIcon.vue'
 
@@ -135,6 +136,14 @@ const handleFocus = () => {
 const handleBlur = () => {
   isFocused.value = false
   emit('update:focused', false)
+}
+
+const handleOutsideClick = (event: Event) => {
+  const isSelect = selectEl.value?.contains(event.target as Node)
+
+  if (!isSelect) {
+    isOpen.value = false
+  }
 }
 </script>
 
