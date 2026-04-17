@@ -4,6 +4,9 @@ import type { Relationship } from '../model/relationship.types'
 export const relationshipApi = {
   fetchRelationships: () => apiClient.get<Relationship[]>(`/users/@me/relationships`),
 
+  sendFriendRequest: (payload: { username: string }) =>
+    apiClient.post<void>(`/users/@me/relationships`, payload),
+
   createRelationship: (userId: string, payload: { type: number }) =>
     apiClient.put(`/users/@me/relationships/${userId}`, payload),
 
@@ -16,9 +19,6 @@ export const relationshipApi = {
 
   bulkAddRelationships: (payload: { userIds: string[] }) =>
     apiClient.post(`/users/@me/relationships/bulk`, payload),
-
-  createFriendRequest: (payload: { username: string }) =>
-    apiClient.post<void>(`/users/@me/relationships`, payload),
 
   ignoreUser: (userId: string) => apiClient.put(`/users/@me/relationships/${userId}/ignore`),
 

@@ -65,9 +65,9 @@ export const useRelationshipStore = defineStore('relationship', () => {
     }
   }
 
-  const createFriendRequest = async (payload: { username: string }) => {
+  const sendFriendRequest = async (payload: { username: string }) => {
     try {
-      await relationshipApi.createFriendRequest(payload)
+      await relationshipApi.sendFriendRequest(payload)
     } catch (err) {
       console.error('Error creating friend request:', err)
       throw err
@@ -98,12 +98,12 @@ export const useRelationshipStore = defineStore('relationship', () => {
 
     // Actions
     fetchRelationships,
+    sendFriendRequest,
     createRelationship,
     updateRelationship,
     deleteRelationship,
     bulkDeleteRelationships,
     bulkAddRelationships,
-    createFriendRequest,
     ignoreUser,
     unignoreUser,
   }

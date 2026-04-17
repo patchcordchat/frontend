@@ -1,5 +1,5 @@
 <template>
-    <form class="add-friend-form" autocomplete="off">
+    <form class="add-friend-form" autocomplete="off" @submit.prevent="onSubmit">
         <div class="add-friend-form__patchy-wrapper">
             <div class="add-friend-form__patchy-text">
                 Вы можете добавить друзей по имени пользователя в Patchcord.
@@ -9,17 +9,20 @@
         </div>
 
         <div class="add-friend-form__input-wrapper">
-            <p-input class="add-friend-form__input"
+            <p-input v-model="username" v-bind="usernameAttrs" class="add-friend-form__input"
                 placeholder="Вы можете добавить друзей по имени пользователя в Patchcord." />
 
-            <p-button view="filled-brand" size="sm">Отправить запрос дружбы</p-button>
+            <p-button view="filled-brand" type="submit" size="sm" :disabled="!isValid" :loading="isSubmitting">Отправить запрос дружбы</p-button>
         </div>
     </form>
 </template>
 
 <script setup lang="ts">
 import { PButton, PInput } from '@/shared/ui';
+import { useAddFriendForm } from '../model/useAddFriendForm';
 import PatchyWavingUrl from '@/shared/assets/images/patchy_waving.svg';
+
+const { username, usernameAttrs, onSubmit, isValid, isSubmitting } = useAddFriendForm();
 </script>
 
 <style scoped lang="scss">
