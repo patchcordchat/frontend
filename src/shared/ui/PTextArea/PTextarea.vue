@@ -163,6 +163,7 @@ watch(model, (newVal) => {
     editorRef.value.innerHTML = '';
     ensureStructure();
     isEmpty.value = true;
+    updateHeight();
   }
 });
 
