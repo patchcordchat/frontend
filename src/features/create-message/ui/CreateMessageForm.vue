@@ -1,5 +1,8 @@
 <template>
   <form class="message-form">
+
+    <attachment-area />
+
     <div class="message-form__inner">
       <upload-input ref="uploadRef" @select="handleFileSelection" />
 
@@ -18,6 +21,7 @@ import { PTextarea } from '@/shared/ui'
 import ActionToolbar from './ActionToolbar.vue'
 import AttachAction from './AttachAction.vue'
 import UploadInput from './UploadInput.vue'
+import AttachmentArea from './AttachmentArea.vue'
 import { useCreateMessageForm } from '../model'
 import { useChannelStore } from '@/entities/channel'
 import { storeToRefs } from 'pinia'
