@@ -1,0 +1,37 @@
+// Base
+@use 'base/animations';
+@use 'base/colors';
+@use 'base/effects';
+@use 'base/reset';
+@use 'base/typography';
+
+// Themes
+@use 'themes/dark';
+@use 'themes/light';
+
+html {
+    background-color: var(--background-base-lowest) !important;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--background-base-lowest);
+}
+
+#app-mount {
+    width: 100%;
+    height: 100%;
+}
+
+#floating {
+  position: absolute;
+  z-index: 1002;
+  background: none !important;
+  pointer-events: none;
+  inset: 0;
+}

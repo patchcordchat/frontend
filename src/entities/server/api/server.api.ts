@@ -1,0 +1,17 @@
+import { apiClient } from '@/shared/api'
+import type { Server, CreateServerDto } from '../model/server.types'
+
+export const serverApi = {
+  fetchServers: () => apiClient.get<Server[]>('/servers'),
+
+  fetchMyServers: () => apiClient.get<Server[]>('/users/@me/servers'),
+
+  fetchServerById: (id: string) => apiClient.get<Server>(`/servers/${id}`),
+
+  createServer: (data: CreateServerDto) => apiClient.post<Server>('/servers', data),
+
+  updateServer: (id: string, data: Partial<CreateServerDto>) =>
+    apiClient.patch<Server>(`/servers/${id}`, data),
+
+  deleteServer: (id: string) => apiClient.delete(`/servers/${id}`),
+}

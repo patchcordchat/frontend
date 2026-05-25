@@ -1,0 +1,62 @@
+:root {
+  /* Radius */
+  --radius-none: 0rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-xxl: 2rem;
+  --radius-round: 50%;
+  
+  /* Sizes */
+  --size-xxs: 0.25rem;
+  --size-xs: 0.5rem;
+  --size-sm: 0.75rem;
+  --size-md: 1rem;
+  --size-lg: 1.25rem;
+  --size-xl: 1.5rem;
+  --size-xxl: 2rem;
+
+  /* Control Item Sizes */
+  --control-item-height-md: 2.5rem;
+  --control-item-height-sm: 2rem;
+
+  /* Icon Sizes */
+  --icon-size-xxs: 0.75rem;
+  --icon-size-xs: 1rem;
+  --icon-size-sm: 1.125rem;
+  --icon-size-md: 1.5rem;
+  --icon-size-lg: 2rem;
+
+  /* Avatar Sizes */
+  --avatar-size-xxxs: 1rem;
+  --avatar-size-xxs: 1.25rem;
+  --avatar-size-xs: 1.5rem;
+  --avatar-size-sm: 2rem;
+  --avatar-size-md: 2.5rem;
+  --avatar-size-lg: 2.75rem;
+  --avatar-size-xl: 3rem;
+  --avatar-size-xxl: 3.5rem;
+  --avatar-size-xxxl: 4.5rem;
+  --avatar-size-4xl: 5rem;
+  --avatar-size-5xl: 6rem;
+  --avatar-size-6xl: 7.5rem;
+
+  /* Input Heights */
+  --input-height-sm: 2rem;
+  --input-height-md: 2.75rem;
+
+  /* Spaces */
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.25rem;
+  --space-xl: 1.5rem;
+  --space-xxl: 2rem;
+
+  /* Box Shadows */
+  --box-shadow-low: 0 0.063rem 0.313rem 0 var(--opacity-black-28);
+  --box-shadow-high: 0 0.125rem 0.625rem 0 var(--opacity-black-20);  
+}

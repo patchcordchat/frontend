@@ -1,0 +1,213 @@
+:root.theme-dark {
+    /* Button Colors */
+
+    /* Button Danger */
+    --button-danger-background: var(--red-430);
+    --button-danger-background-active: var(--red-500);
+    --button-danger-background-disabled: var(--red-430);
+    --button-danger-background-hover: var(--red-460);
+    --button-danger-border: var(--transparent);
+
+    /* Button Positive */
+    --button-positive-background: var(--green-400);
+    --button-positive-background-active: var(--green-400);
+    --button-positive-background-disabled: var(--green-430);
+    --button-positive-background-hover: var(--green-430);
+    --button-positive-border: var(--opacity-8);
+
+    /* Button Secondary */
+    --button-secondary-background: var(--opacity-12);
+    --button-secondary-background-active: var(--primary-500);
+    --button-secondary-background-disabled: var(--opacity-12);
+    --button-secondary-background-hover: var(--opacity-20);
+    --button-secondary-text: var(--neutral-6);
+
+    /* Button Filled Brand */
+    --button-filled-brand-background: var(--brand-500);
+    --button-filled-brand-background-active: var(--brand-600);
+    --button-filled-brand-background-hover: var(--brand-560);
+    --button-filled-brand-border: var(--opacity-white-8);
+    --button-filled-brand-text: var(--white);
+
+    /* Button Filled White */
+    --button-filled-white-background: var(--white);
+    --button-filled-white-background-active: var(--neutral-17);
+    --button-filled-white-background-hover: var(--neutral-9);
+    --button-filled-white-text: var(--black);
+
+    /* Button Outline Brand */
+    --button-outline-brand-background: var(--white-hsl);
+    --button-outline-brand-background-active: var(--brand-560);
+    --button-outline-brand-background-hover: var(--brand-500);
+    --button-outline-brand-border: var(--brand-500);
+    --button-outline-brand-border-active: var(--brand-560);
+    --button-outline-brand-border-hover: var(--brand-500);
+    --button-outline-brand-text: var(--white);
+    --button-outline-brand-text-active: var(--white);
+    --button-outline-brand-text-hover: var(--white);
+
+    /* Button Outline Danger */
+    --button-outline-danger-background: var(--opacity-12);
+    --button-outline-danger-background-active: var(--primary-500);
+    --button-outline-danger-background-hover: var(--opacity-20);
+    --button-outline-danger-border: var(--opacity-4);
+    --button-outline-danger-border-active: var(--opacity-4);
+    --button-outline-danger-border-hover: var(--opacity-4);
+    --button-outline-danger-text: var(--red-345);
+    --button-outline-danger-text-active: var(--red-345);
+    --button-outline-danger-text-hover: var(--red-345);
+
+    /* Button Outline Positive */
+    --button-outline-positive-background: var(--white-hsl);
+    --button-outline-positive-background-active: var(--green-530);
+    --button-outline-positive-background-hover: var(--green-430);
+    --button-outline-positive-border: var(--green-360);
+    --button-outline-positive-border-active: var(--green-530);
+    --button-outline-positive-border-hover: var(--green-430);
+    --button-outline-positive-text: var(--white);
+    --button-outline-positive-text-active: var(--white);
+    --button-outline-positive-text-hover: var(--white);
+
+    /* Button Outline Primary */
+    --button-outline-primary-background: var(--opacity-1);
+    --button-outline-primary-background-active: var(--opacity-40);
+    --button-outline-primary-background-hover: var(--opacity-49);
+    --button-outline-primary-border: var(--primary-500);
+    --button-outline-primary-border-active: var(--opacity-40);
+    --button-outline-primary-border-hover: var(--opacity-49);
+    --button-outline-primary-text: var(--white);
+    --button-outline-primary-text-active: var(--white);
+    --button-outline-primary-text-hover: var(--white);
+
+    /* Input Colors */
+    --input-background: var(--opacity-12);
+    --input-background-critical: var(--red-430);
+    --input-background-default: var(--opacity-12);
+    --input-border: var(--opacity-8);
+    --input-border-active: var(--blue-300);
+    --input-border-critical: var(--red-430);
+    --input-border-critical-hover: var(--red-500);
+    --input-border-default: var(--opacity-8);
+    --input-border-default-hover: var(--primary-500);
+    --input-border-read-only: var(--opacity-8);
+    --input-background-error: var(--opacity-red-4);
+    --input-border-error: var(--red-345);
+    --input-text-error: var(--red-345);
+    --input-border-focused: var(--brand-500);
+    --input-placeholder-text: var(--neutral-32);
+
+    /* Modal Colors */
+    --modal-background: var(--neutral-64)
+
+    /* Checkbox Colors */;
+    --checkbox-border-checked: var(--brand-500);
+    --checkbox-background-checked: var(--brand-500);
+    --checkbox-border-default: var(--neutral-34);
+    --checkbox-background-default: var(--opacity-4);
+
+    /** Radio Colors */
+    --radio-background-default: var(--opacity-black-8);
+    --radio-background-hover: var(--opacity-black-8);
+    --radio-border-default: var(--opacity-64);
+    --radio-border-hover: var(--opacity-80);
+    --radio-thumb-background-active: var(--neutral-1);
+    --radio-background-selected-default: var(--brand-500);
+    --radio-background-selected-hover: var(--brand-530);
+    --radio-border-selected-default: var(--opacity-12);
+    --radio-border-selected-hover: var(--opacity-12);
+
+    /** Switch Colors */
+    --switch-background-default: var(--opacity-black-8);
+    --switch-background-hover: var(--opacity-black-8);
+    --switch-background-selected-default: var(--brand-500);
+    --switch-background-selected-hover: var(--brand-530);
+    --switch-border-selected-default: var(--opacity-12);
+    --switch-border-selected-hover: var(--opacity-12);
+    --switch-border-default: var(--opacity-24);
+    --switch-border-hover: var(--opacity-80);
+
+    /* Control Colors */
+    --control-primary-border-default: var(--opacity-white-8);
+    --control-primary-background-default: var(--blurple-50);
+    --control-primary-background-hover: var(--blurple-60);
+    --control-primary-background-active: var(--blurple-65);
+
+    /* Background Colors */
+    --background-brand: var(--brand-500);
+    --background-scrim: var(--opacity-black-72);
+    --background-base-low: var(--neutral-82);
+    --background-base-lower: var(--neutral-86);
+    --background-base-lowest: var(--neutral-92);
+    --background-surface-high: var(--neutral-79);
+    --background-surface-higher: var(--neutral-76);
+    --background-modifier-hover: var(--opacity-8);
+    --background-modifier-selected: var(--opacity-20);
+    --background-modifier-strong: var(--opacity-20);
+    --background-modifier-normal: var(--opacity-16);
+    --background-modifier-muted: var(--opacity-4);
+
+    /* Text Colors */
+    --text-link: var(--blue-300);
+    --text-brand: var(--brand-500);
+    --text-muted: var(--neutral-22);
+    --text-danger: var(--red-345);
+    --text-primary: var(--neutral-1);
+    --text-default: var(--neutral-5);
+    --text-strong: var(--neutral-2);
+    --text-secondary: var(--neutral-16);
+    --text-subtle: var(--neutral-23);
+
+    /* Text Feedback Colors */
+    --text-feedback-info: var(--blue-300);
+    --text-feedback-positive: var(--green-360);
+    --text-feedback-warning: var(--yellow-345);
+    --text-feedback-critical: var(--red-345);
+
+    /* Header Colors */
+    --header-primary: var(--neutral-1);
+    --header-secondary: var(--neutral-9);
+
+    /* Icons Colors */
+    --icon-strong: var(--neutral-2);
+    --icon-tertiary: var(--neutral-29);
+    --icon-voice-muted: var(--red-460);
+    --icon-subtle: var(--neutral-23);
+    --interactive-text-hover: var(--neutral-2);
+    --interactive-text-default: var(--neutral-23);
+    --interactive-text-active: var(--neutral-2);
+    --interactive-background-hover: var(--opacity-8);
+    --interactive-background-selected: var(--opacity-20);
+    --interactive-background-active: var(--opacity-16);
+    --slider-track-background: var(--neutral-55);
+    
+    /* Border Colors */
+    --border-normal: var(--opacity-20);
+    --border-subtle: var(--opacity-12);
+    --border-muted: var(--opacity-4);
+    --app-border-frame: var(--opacity-12);
+
+    /* Icon Colors */
+    --icon-status-dnd: var(--red-400);
+    --icon-status-idle: var(--yellow-300);
+    --icon-status-online: var(--green-360);
+    --icon-status-offline: var(--neutral-28);
+
+    /* Statuses */
+    --status-speaking: var(--green-360);
+
+    /* Scrollbar Colors */
+    --scrollbar-thin-thumb: var(--neutral-38);
+    --scrollbar-thin-track: var(--transparent);
+
+    /* Channels */
+    --channels-default: var(--neutral-35);
+    --channel-icon: var(--neutral-35);
+    --channel-text-area-placeholder: var(--neutral-40);
+
+    /* Chat */
+    --chat-background-default: var(--neutral-80);
+
+    /* Shadow */
+    --shadow-high: 0 12px 24px 0 var(--opacity-black-24);
+    --shadow-low: 0 1px 4px 0 var(--opacity-black-24);
+}
