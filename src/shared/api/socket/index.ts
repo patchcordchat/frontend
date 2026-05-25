@@ -1,92 +1,41 @@
-import SocketWorker from './worker?sharedworker'
-import type { WorkerMessage } from './types'
 import { ref } from 'vue'
+import { io, Socket } from 'socket.io-client'
+import { apiConfig } from '@/shared/config'
 
-let workerInstance: SharedWorker | null = null
+let socket: Socket | null = null
 
 const isConnected = ref(false)
-const lastEvent = ref<unknown>(null)
 
-const listeners = new Map<string, Array<(data: unknown) => void>>()
-
-export function useSocketWorker() {
-  if (!workerInstance) {
-    workerInstance = new SocketWorker()
-
-    workerInstance.port.onmessage = (event: MessageEvent<WorkerMessage>) => {
-      const { data } = event
-
-      if (data.type === 'CONNECTION_STATUS') {
-        isConnected.value = data.status === 'connected'
-      }
-
-      if (data.type === 'SOCKET_EVENT') {
-        lastEvent.value = data
-
-        const eventListeners = listeners.get(data.event)
-        if (eventListeners) {
-          eventListeners.forEach((cb) => cb(data.payload))
-        }
-      }
-    }
-
-    workerInstance.port.start()
-
-    const token = localStorage.getItem('token')
-    if (token) {
-      workerInstance.port.postMessage({
-        type: 'SET_TOKEN',
-        token: token,
-      })
-    }
-  }
-
+export function useSocket() {
   /**
-   * Отправить событие на сервер (через воркер)
+   * Инициализация сокета
    */
-  const emit = (event: string, payload: unknown) => {
-    workerInstance?.port.postMessage({
-      type: 'EMIT',
-      event,
-      payload,
+  ;(function initSocket() {
+    if (socket) return
+
+    socket = io(apiConfig.baseUrl, {
+      transports: ['polling', 'websocket'],
+      reconnection: true,
+      extraHeaders: {
+        authorization: localStorage.getItem('token') || '',
+      },
     })
-  }
 
-  /**
-   * Подписаться на событие (как socket.on)
-   */
-  const on = (event: string, callback: (data: unknown) => void) => {
-    if (!listeners.has(event)) {
-      listeners.set(event, [])
-    }
-    listeners.get(event)?.push(callback)
-  }
-
-  /**
-   * Отписаться (как socket.off)
-   */
-  const off = (event: string, callback: (data: unknown) => void) => {
-    const eventListeners = listeners.get(event)
-    if (eventListeners) {
-      listeners.set(
-        event,
-        eventListeners.filter((cb) => cb !== callback),
-      )
-    }
-  }
-
-  const setToken = (token: string) => {
-    workerInstance?.port.postMessage({
-      type: 'SET_TOKEN',
-      token,
+    socket.on('connect', () => {
+      console.log('[Socket] Connected. ID:', socket?.id)
+      isConnected.value = true
     })
-  }
 
-  return {
-    isConnected,
-    emit,
-    on,
-    off,
-    setToken,
-  }
+    socket.on('disconnect', (reason) => {
+      console.log('[Socket] Disconnected. Reason:', reason)
+      isConnected.value = false
+    })
+
+    socket.on('connect_error', (error) => {
+      console.error('[Socket] Connection error:', error.message)
+      isConnected.value = false
+    })
+  })()
+
+  return { socket, isConnected }
 }

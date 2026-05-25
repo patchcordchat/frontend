@@ -1,9 +1,5 @@
 <template>
-  <input
-    class="p-input"
-    :value="model"
-    @input="model = ($event.target as HTMLInputElement).value"
-  />
+  <input class="p-input" :value="model" @input="model = ($event.target as HTMLInputElement).value" />
 </template>
 
 <script setup lang="ts">
@@ -20,5 +16,10 @@ const model = defineModel<string>()
   font-size: inherit;
   border: none;
   background-color: var(--transparent);
+
+  &::placeholder {
+    user-select: none;
+    color: var(--input-placeholder-text);
+  }
 }
 </style>

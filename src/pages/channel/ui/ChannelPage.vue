@@ -1,29 +1,22 @@
 <template>
   <div class="channel-page">
-    <div class="channel-page__subtitle-container">
-      <channel-header />
-    </div>
-
     <div class="channel-page__content">
-      <main class="channel-page__chat-wrapper">
-        <message-feed />
+      <channel-chat v-if="channel?.type == ChannelTypes.TEXT" />
 
-        <create-message-form :channel-id="channelId" />
-      </main>
+      <channel-call v-else-if="channel?.type == ChannelTypes.VOICE" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import ChannelHeader from '@/widgets/channel-header'
-import MessageFeed from '@/widgets/message-feed'
-import CreateMessageForm from '@/features/create-message'
+import { computed } from 'vue';
+import ChannelChat from '@/widgets/channel-chat';
+import ChannelCall from '@/widgets/channel-call';
+import { useChannelStore, ChannelTypes } from '@/entities/channel';
 
-const route = useRoute()
+const { getActiveChannel } = useChannelStore()
 
-const channelId = computed(() => route.params.channelId as string)
+const channel = computed(() => getActiveChannel())
 </script>
 
 <style scoped lang="scss">
@@ -47,16 +40,6 @@ const channelId = computed(() => route.params.channelId as string)
     min-width: 0;
     min-height: 0;
     background: var(--background-base-lower);
-  }
-
-  &__chat-wrapper {
-    position: relative;
-    z-index: 0;
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
   }
 }
 </style>

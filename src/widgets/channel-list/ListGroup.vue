@@ -1,19 +1,23 @@
 <template>
-  <li class="channel-group">
+  <div class="channel-group">
     <div class="channel-group__content" @click.stop="emit('toggle')">
       <h3 class="channel-group__name">{{ props.name }}</h3>
 
       <p-icon class="channel-group__expand-indicator" icon="misc.chevron-down" size="xs" />
     </div>
 
-    <div class="channel-group__controls" @click.stop="emit('create:channel')">
+    <div class="channel-group__controls" @click.stop="emit('create:channel')" v-tooltip="{
+      content: 'Создать канал',
+      placement: 'top',
+    }">
       <p-icon icon="misc.plus" size="xs" />
     </div>
-  </li>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { PIcon } from '@/shared/ui'
+import { vTooltip } from '@/shared/directives/v-tooltip'
 
 interface Props {
   name: string

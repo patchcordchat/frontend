@@ -1,11 +1,20 @@
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { defineStore } from 'pinia'
 import { serverApi } from '../api/server.api'
 import type { CreateServerDto, Server } from './server.types'
 
 export const useServerStore = defineStore('server', () => {
+  const route = useRoute()
+
   // State
   const servers = reactive<Record<string, Server>>({})
+  const activeId = computed<string>(() => route.params.serverId as string)
+  const activeServer = computed<Server | undefined>(() => getServerById(activeId.value))
+
+  // Getters
+  const getServerById = (id: string): Server | undefined => servers[id]
+  const getActiveServer = () => getServerById(activeId.value)
 
   // Actions
   /**
@@ -92,6 +101,12 @@ export const useServerStore = defineStore('server', () => {
   return {
     // State
     servers,
+    activeId,
+    activeServer,
+
+    // Getters
+    getServerById,
+    getActiveServer,
 
     // Actions
     fetchMyServers,

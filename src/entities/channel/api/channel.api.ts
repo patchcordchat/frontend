@@ -1,5 +1,5 @@
 import { apiClient } from '@/shared/api'
-import type { Channel, CreateChannelDto } from '../model/channel.types'
+import type { Channel, CreateChannelDto, CreatePrivateChannelDto } from '../model/channel.types'
 
 export const channelApi = {
   fetchChannels: (serverId: string) => apiClient.get<Channel[]>(`/servers/${serverId}/channels`),
@@ -14,4 +14,9 @@ export const channelApi = {
 
   deleteChannel: (serverId: string, channelId: string) =>
     apiClient.delete(`/servers/${serverId}/channels/${channelId}`),
+
+  fetchPrivateChannels: () => apiClient.get<Channel[]>(`/users/@me/channels`),
+
+  createPrivateChannel: (data: CreatePrivateChannelDto) =>
+    apiClient.post<Channel>(`/users/@me/channels`, data),
 }

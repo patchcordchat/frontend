@@ -1,15 +1,13 @@
 <template>
   <Transition name="fade">
-    <div
-      v-show="props.visible"
-      ref="tooltipRef"
-      class="p-tooltip"
+    <div v-show="props.visible" ref="tooltipRef" class="p-tooltip"
       :style="{ maxWidth: props.maxWidth === 'auto' ? 'max-content' : props.maxWidth }"
-      :data-side="props.actualPlacement"
-    >
+      :data-side="props.actualPlacement">
+
       <div class="p-tooltip__content">
         {{ props.text }}
       </div>
+
       <div ref="arrowRef" class="p-tooltip__arrow"></div>
     </div>
   </Transition>
@@ -57,7 +55,7 @@ defineExpose({
   will-change: opacity, transform;
 
   &__content {
-    @include mixins.text-md-semibold;
+    @include mixins.text-sm-medium;
 
     overflow: hidden;
     color: var(--text-default);

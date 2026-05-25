@@ -1,9 +1,14 @@
 <template>
   <form class="message-form">
-    <div class="message-form__inner">
-      <attach-action />
 
-      <p-textarea v-model="content" @submit="handelSubmit" placeholder="Написать #test" />
+    <attachment-area />
+
+    <div class="message-form__inner">
+      <upload-input ref="uploadRef" @select="handleFileSelection" />
+
+      <attach-action @click="uploadRef?.open()" />
+
+      <p-textarea v-model="content" @submit="handelSubmit" :placeholder="`Написать #${activeChannel?.name}`" />
 
       <action-toolbar />
     </div>
@@ -11,24 +16,26 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { ref } from 'vue'
 import { PTextarea } from '@/shared/ui'
 import ActionToolbar from './ActionToolbar.vue'
 import AttachAction from './AttachAction.vue'
+import UploadInput from './UploadInput.vue'
+import AttachmentArea from './AttachmentArea.vue'
 import { useCreateMessageForm } from '../model'
+import { useChannelStore } from '@/entities/channel'
+import { storeToRefs } from 'pinia'
 
-interface Props {
-  channelId: string
-}
+const { activeChannel } = storeToRefs(useChannelStore())
+const uploadRef = ref<InstanceType<typeof UploadInput> | null>(null);
 
-const props = defineProps<Props>()
+const { content, onSubmit, isSubmitting } = useCreateMessageForm()
 
-const formApi = useCreateMessageForm()
-const { content, onSubmit, isSubmitting } = formApi
+const handleFileSelection = (files: FileList) => {
+  console.log(files);
 
-watch(() => props.channelId, (newChannelId) => {
-  formApi.channelId.value = newChannelId
-})
+  // Array.from(files).forEach(file => uploadFile(file));
+};
 
 const handelSubmit = async (text: string) => {
   if (isSubmitting.value) return
@@ -57,28 +64,6 @@ const handelSubmit = async (text: string) => {
     background: var(--chat-background-default);
     transition: border-color 0.2s ease;
     padding-inline-start: calc(var(--space-md) - 1px);
-  }
-
-  &__attach-wrapper {
-    position: sticky;
-    flex: 0 0 auto;
-    align-self: stretch;
-    padding: var(--space-sm) calc(var(--space-md) - 6px);
-  }
-
-  &__attach-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    padding: 0.375rem;
-    box-sizing: border-box;
-    color: var(--interactive-text-default);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition-duration: 0.2s;
-    margin-inline: -0.875rem 0.625rem;
   }
 }
 </style>

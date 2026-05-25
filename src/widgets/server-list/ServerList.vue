@@ -1,5 +1,5 @@
 <template>
-  <nav class="servers-nav">
+  <nav class="servers-nav" aria-label="Боковая панель серверов">
     <ul class="servers-nav__list">
       <list-item type="link" icon="logos.patchcord.symbol" label="Личные Сообщения" to="/channels/@me" />
 
@@ -14,7 +14,7 @@
 
       <create-server-modal ref="CreateServerModalRef" />
 
-      <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" />
+      <!-- <list-item type="link" icon="misc.compass-circle" label="Путешествие" to="/discovery" /> -->
     </ul>
   </nav>
 </template>
@@ -24,7 +24,6 @@ import { onMounted, ref } from 'vue'
 import CreateServerModal from '@/widgets/create-server-modal'
 import { useServerStore } from '@/entities/server'
 import { StoragePaths } from '@/shared/utils'
-import { mediaConfig } from '@/shared/config'
 import ListItem from './ListItem.vue'
 
 const { servers, fetchMyServers } = useServerStore()
@@ -33,7 +32,7 @@ const CreateServerModalRef = ref<InstanceType<typeof CreateServerModal>>()
 
 const serverIcon = (serverId: string, iconHash: string | undefined): string | undefined => {
   if (iconHash) {
-    return `${mediaConfig.mediaUrl}/${StoragePaths.serverIcon(serverId, iconHash)}`
+    return StoragePaths.serverIcon(serverId, iconHash)
   }
 
   return undefined

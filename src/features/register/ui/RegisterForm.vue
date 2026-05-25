@@ -1,77 +1,35 @@
 <template>
   <auth-box title="Создать учётную запись">
     <form class="register-form" @submit.prevent="onSubmit">
-      <p-text-field
-        v-model="email"
-        v-bind="emailAttrs"
-        label="Адрес электронной почты"
-        maxlength="999"
-        autocomplete="username"
-        type="email"
-        name="email"
-        :error="serverError ?? errors.email"
-        required
-      />
+      <p-text-field v-model="email" v-bind="emailAttrs" label="Адрес электронной почты" maxlength="999"
+        autocomplete="username" type="email" name="email" :error="serverError ?? errors.email" required />
 
       <div class="register-form__field-with-hint">
-        <p-text-field
-          v-model="globalName"
-          v-bind="globalNameAttrs"
-          label="Отображаемое имя"
-          maxlength="32"
-          autocomplete="off"
-          type="text"
-          name="global_name"
-          :error="errors.global_name"
-          @focus="activeField = 'globalName'"
-          @blur="activeField = null"
-        />
+        <p-text-field v-model="globalName" v-bind="globalNameAttrs" label="Отображаемое имя" maxlength="32"
+          autocomplete="off" type="text" name="global_name" :error="errors.global_name"
+          @focus="activeField = 'globalName'" @blur="activeField = null" />
 
         <transition name="expand-fade-down">
-          <p-field-hint
-            v-show="activeField === 'globalName' || globalName"
-            class="register-form__field-hint"
-          >
+          <p-field-hint v-show="activeField === 'globalName' || globalName" class="register-form__field-hint">
             Это имя увидят другие пользователи. Можно добавлять специальные символы и эмодзи.
           </p-field-hint>
         </transition>
       </div>
 
       <div class="register-form__field-with-hint">
-        <p-text-field
-          v-model="username"
-          v-bind="usernameAttrs"
-          label="Имя пользователя"
-          maxlength="32"
-          autocomplete="off"
-          type="text"
-          name="username"
-          :error="errors.username"
-          @focus="activeField = 'username'"
-          @blur="activeField = null"
-          required
-        />
+        <p-text-field v-model="username" v-bind="usernameAttrs" label="Имя пользователя" maxlength="32"
+          autocomplete="off" type="text" name="username" :error="errors.username" @focus="activeField = 'username'"
+          @blur="activeField = null" required />
 
         <transition name="expand-fade-down">
-          <p-field-hint
-            v-show="activeField === 'username' || username"
-            class="register-form__field-hint"
-          >
+          <p-field-hint v-show="activeField === 'username' || username" class="register-form__field-hint">
             Используйте только цифры, буквы, нижнее подчёркивание и точки.
           </p-field-hint>
         </transition>
       </div>
 
-      <p-text-field
-        v-model="password"
-        v-bind="passwordAttrs"
-        label="Пароль"
-        autocomplete="new-password"
-        type="password"
-        name="password"
-        :error="errors.password"
-        required
-      />
+      <p-text-field v-model="password" v-bind="passwordAttrs" label="Пароль" autocomplete="new-password" type="password"
+        name="password" :error="errors.password" required />
 
       <div class="register-form__date-of-birth">
         <p-label size="md" text="Дата рождения" required />
@@ -79,36 +37,23 @@
         <div class="register-form__date-of-birth-fields">
           <p-select :items="days" label="День" v-model="selectedDay" />
 
-          <p-select
-            :items="months"
-            item-title="title"
-            item-value="value"
-            label="Месяц"
-            v-model="selectedMonth"
-          />
+          <p-select :items="months" item-title="title" item-value="value" label="Месяц" v-model="selectedMonth" />
 
           <p-select :items="years" label="Год" v-model="selectedYear" />
         </div>
       </div>
 
-      <p-checkbox
-        v-model="promotionalEmailOptIn"
-        v-bind="promotionalEmailOptInAttrs"
-        label="(Необязательно) Я не против получать электронные письма с новостями Patchcord, советами и специальными предложениями. От рассылки можно отписаться в любое время."
-      />
+      <p-checkbox v-model="promotionalEmailOptIn" v-bind="promotionalEmailOptInAttrs"
+        label="(Необязательно) Я не против получать электронные письма с новостями Patchcord, советами и специальными предложениями. От рассылки можно отписаться в любое время." />
 
       <div class="register-form__consent">
         Нажимая кнопку «Создать учётную запись», вы соглашаетесь с
-        <p-anchor href="https://patchcord.org/terms" target="_blank"
-          >Пользовательским соглашением</p-anchor
-        >
+        <p-anchor href="https://patchcord.org/terms" target="_blank">Пользовательским соглашением</p-anchor>
         Patchcord и подтверждаете, что ознакомились с
-        <p-anchor href="https://patchcord.org/privacy" target="_blank"
-          >Политикой конфиденциальности</p-anchor
-        >
+        <p-anchor href="https://patchcord.org/privacy" target="_blank">Политикой конфиденциальности</p-anchor>
       </div>
 
-      <p-button width="max" size="md" type="submit" :loading="isSubmitting">
+      <p-button view="filled-brand" width="max" size="md" type="submit" :loading="isSubmitting">
         Создать учётную запись
       </p-button>
 

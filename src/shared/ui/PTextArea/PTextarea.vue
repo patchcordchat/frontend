@@ -163,6 +163,7 @@ watch(model, (newVal) => {
     editorRef.value.innerHTML = '';
     ensureStructure();
     isEmpty.value = true;
+    updateHeight();
   }
 });
 
@@ -195,7 +196,7 @@ onMounted(() => {
     min-height: 3.5rem;
     padding: calc((3.5rem - 1.375rem) / 2) 0;
     box-sizing: border-box;
-    color: var(--text-secondary);
+    color: var(--channel-text-area-placeholder);
     text-overflow: ellipsis;
     white-space: nowrap;
     inset-inline: 0 10px;

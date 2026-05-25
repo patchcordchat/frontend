@@ -21,7 +21,8 @@
     <div class="p-modal__footer p-modal__section" style="flex-direction: row; justify-content: space-between">
       <p-button view="secondary" @click="prevStep">Назад</p-button>
 
-      <p-button type="submit" :form="formId" :loading="isSubmitting" :disabled="!isValid">Создать</p-button>
+      <p-button view="filled-brand" type="submit" :form="formId" :loading="isSubmitting"
+        :disabled="!isValid">Создать</p-button>
     </div>
   </div>
 </template>

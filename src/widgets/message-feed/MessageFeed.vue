@@ -22,27 +22,28 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed, watch } from 'vue';
-import { useRoute } from 'vue-router'
+import { storeToRefs } from 'pinia';
 import { MessageCard, MessageCardSkeleton, useMessageStore } from '@/entities/message'
+import { useChannelStore } from '@/entities/channel'
 
+const { activeId: channelId } = storeToRefs(useChannelStore())
 const { fetchMessages, getMessages } = useMessageStore()
 
 const isLoading = ref(true);
 
-const route = useRoute()
-const channelId = computed(() => route.params.channelId as string)
-
 const messages = computed(() => getMessages(channelId.value))
 
-onMounted(async () => {
-  await fetchMessages(channelId.value)
+watch(channelId, async (newChannelId) => {
+  if (!newChannelId) return
+
+  isLoading.value = true
+  await fetchMessages(newChannelId)
 
   isLoading.value = false
 })
 
-watch(channelId, async (newChannelId) => {
-  isLoading.value = true
-  await fetchMessages(newChannelId)
+onMounted(async () => {
+  await fetchMessages(channelId.value)
 
   isLoading.value = false
 })
@@ -74,7 +75,7 @@ watch(channelId, async (newChannelId) => {
   &__scroller-content {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: stretch;
     justify-content: flex-end;
     min-height: 100%;

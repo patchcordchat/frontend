@@ -1,7 +1,7 @@
 <template>
   <div class="server-dropdown">
     <div class="server-dropdown__badge-and-name">
-      <h2 class="server-dropdown__name">chocolate nipple</h2>
+      <h2 class="server-dropdown__name">{{ activeServer?.name }}</h2>
     </div>
 
     <div class="server-dropdown__expand-indicator">
@@ -11,7 +11,11 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useServerStore } from '@/entities/server'
 import { PIcon } from '@/shared/ui'
+
+const { activeServer } = storeToRefs(useServerStore())
 </script>
 
 <style scoped lang="scss">

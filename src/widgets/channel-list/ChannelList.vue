@@ -1,14 +1,20 @@
 <template>
   <ul class="channel-list">
-    <list-group name="Текстовые каналы" @create:channel="createModalRef?.open()" />
+    <li class="channel-list__container">
+      <list-group name="Текстовые каналы" @create:channel="createModalRef?.open()" />
+    </li>
 
-    <list-item v-for="channel in textChannels" :key="channel._id" :name="channel.name" :id="channel._id"
-      :type="channel.type" />
+    <li class="channel-list__container" v-for="channel in textChannels" :key="channel.id">
+      <server-channel :channel="channel" />
+    </li>
 
-    <list-group name="Голосовые каналы" @create:channel="createModalRef?.open()" />
+    <li class="channel-list__container">
+      <list-group name="Голосовые каналы" @create:channel="createModalRef?.open()" />
+    </li>
 
-    <list-item v-for="channel in voiceChannels" :key="channel._id" :name="channel.name" :id="channel._id"
-      :type="channel.type" />
+    <li class="channel-list__container" v-for="channel in voiceChannels" :key="channel.id">
+      <server-channel :channel="channel" />
+    </li>
   </ul>
 
   <create-channel-modal ref="createModalRef" :server-id="serverId" />
@@ -16,15 +22,14 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount, watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import ListItem from './ListItem.vue'
+import { storeToRefs } from 'pinia'
+import { ServerChannel } from '@/entities/channel'
 import ListGroup from './ListGroup.vue'
 import CreateChannelModal from '@/widgets/create-channel-modal'
 import { useChannelStore } from '@/entities/channel'
+import { useServerStore } from '@/entities/server'
 
-const route = useRoute()
-
-const serverId = computed(() => route.params.serverId as string)
+const { activeId: serverId } = storeToRefs(useServerStore())
 
 const { getChannelsByServerId, fetchChannels } = useChannelStore()
 const channels = computed(() => getChannelsByServerId(serverId.value))
@@ -37,7 +42,8 @@ onBeforeMount(async () => {
   await fetchChannels(serverId.value)
 })
 
-watch(serverId, async () => {
+watch(serverId, async (newId) => {
+  if (!newId) return
   await fetchChannels(serverId.value)
 })
 </script>
@@ -46,5 +52,10 @@ watch(serverId, async () => {
 .channel-list {
   position: relative;
   padding-top: var(--space-sm);
+
+  &__container {
+    position: relative;
+    transition: opacity .2s ease-in-out;
+  }
 }
 </style>

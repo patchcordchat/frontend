@@ -126,15 +126,23 @@
     --switch-border-default: var(--opacity-24);
     --switch-border-hover: var(--opacity-80);
 
+    /* Control Colors */
+    --control-primary-border-default: var(--opacity-white-8);
+    --control-primary-background-default: var(--blurple-50);
+    --control-primary-background-hover: var(--blurple-60);
+    --control-primary-background-active: var(--blurple-65);
+
     /* Background Colors */
+    --background-brand: var(--brand-500);
     --background-scrim: var(--opacity-black-72);
     --background-base-low: var(--neutral-82);
     --background-base-lower: var(--neutral-86);
     --background-base-lowest: var(--neutral-92);
     --background-surface-high: var(--neutral-79);
-    --background-surface-higher: var(--neutral-62);
+    --background-surface-higher: var(--neutral-76);
     --background-modifier-hover: var(--opacity-8);
     --background-modifier-selected: var(--opacity-20);
+    --background-modifier-strong: var(--opacity-20);
     --background-modifier-normal: var(--opacity-16);
     --background-modifier-muted: var(--opacity-4);
 
@@ -162,11 +170,18 @@
     /* Icons Colors */
     --icon-strong: var(--neutral-2);
     --icon-tertiary: var(--neutral-29);
+    --icon-voice-muted: var(--red-460);
+    --icon-subtle: var(--neutral-23);
     --interactive-text-hover: var(--neutral-2);
     --interactive-text-default: var(--neutral-23);
+    --interactive-text-active: var(--neutral-2);
     --interactive-background-hover: var(--opacity-8);
+    --interactive-background-selected: var(--opacity-20);
+    --interactive-background-active: var(--opacity-16);
+    --slider-track-background: var(--neutral-55);
     
     /* Border Colors */
+    --border-normal: var(--opacity-20);
     --border-subtle: var(--opacity-12);
     --border-muted: var(--opacity-4);
     --app-border-frame: var(--opacity-12);
@@ -177,6 +192,9 @@
     --icon-status-online: var(--green-360);
     --icon-status-offline: var(--neutral-28);
 
+    /* Statuses */
+    --status-speaking: var(--green-360);
+
     /* Scrollbar Colors */
     --scrollbar-thin-thumb: var(--neutral-38);
     --scrollbar-thin-track: var(--transparent);
@@ -184,11 +202,12 @@
     /* Channels */
     --channels-default: var(--neutral-35);
     --channel-icon: var(--neutral-35);
-    --channel-text-area-placeholder: var(--neutral-16);
+    --channel-text-area-placeholder: var(--neutral-40);
 
     /* Chat */
     --chat-background-default: var(--neutral-80);
 
     /* Shadow */
     --shadow-high: 0 12px 24px 0 var(--opacity-black-24);
+    --shadow-low: 0 1px 4px 0 var(--opacity-black-24);
 }

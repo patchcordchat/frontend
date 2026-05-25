@@ -32,6 +32,7 @@ export interface Message {
     username: string
     global_name: string
     bot: boolean
+    avatar?: string
   }
   content: string
   timestamp: number
